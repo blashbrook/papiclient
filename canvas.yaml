@@ -1,0 +1,27 @@
+preset: package
+
+namespace: Blashbrook\PAPIClient
+user-auth-provider: App\User
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: Blashbrook\PAPIClient\Console
+
+model:
+  namespace: Blashbrook\PAPIClient
+
+provider:
+  namespace: Blashbrook\PAPIClient\Providers
+
+testing:
+  namespace: Blashbrook\PAPIClient\Tests
