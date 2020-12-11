@@ -62,14 +62,14 @@ class PAPIClient extends Client
     }
 
     /**
-     * Returns LoginWorkstationID from PAPI_LOGINWORKSTATIONID if it is not supplied.
+     * Returns LogonWorkstationID from PAPI_LOGONWORKSTATIONID if it is not supplied.
      *
-     * @param null $loginWorkstationID - Polaris WorkstationID
+     * @param null $logonWorkstationID - Polaris WorkstationID
      * @return Repository|Application|mixed
      */
-    static protected function setLoginWorkstationID($loginWorkstationID = null)
+    static protected function setLogonWorkstationID($logonWorkstationID = null)
     {
-        return ($loginWorkstationID) ? $loginWorkstationID : config('papiclient.loginWorkstationID');
+        return ($logonWorkstationID) ? $logonWorkstationID : config('papiclient.logonWorkstationID');
     }
 
     /**
@@ -98,7 +98,7 @@ class PAPIClient extends Client
     static protected function getPolarisSettings($params): array
     {
        $params = Arr::prepend($params, self::setPatronBranchID(), 'PatronBranchID');
-       return  Arr::prepend($params, self::setLoginWorkstationID(), 'LoginWorkstationID');
+       return  Arr::prepend($params, self::setLogonWorkstationID(), 'LogonWorkstationID');
     }
 
     /**

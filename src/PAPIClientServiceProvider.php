@@ -13,10 +13,7 @@ class PAPIClientServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'papiclient');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'papiclient');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -62,25 +59,10 @@ class PAPIClientServiceProvider extends ServiceProvider
         ], 'papiclient.config');
 
         // Publishing the views.
-        $this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/blashbrook'),
-         ], 'papiclient.views');
 
         $this->publishes([
             __DIR__ . '/../Tests/feature' => base_path('Tests/Feature'),
         ], 'papiclient.Tests');
 
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/blashbrook'),
-        ], 'papiclient.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/blashbrook'),
-        ], 'papiclient.views');*/
-
-        // Registering package commands.
-        // $this->commands([]);
     }
 }

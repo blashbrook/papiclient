@@ -8,5 +8,5 @@ return [
     'publicURI' => env('PAPI_PUBLIC_URI'),
     'logonBranchID' => env('PAPI_ORGID'),
     'logonUserID' => env('PAPI_LOGONUSERID'),
-    'loginWorkstationID' => env('PAPI_LOGINWORKSTATIONID'),
+    'logonWorkstationID' => env('PAPI_LOGONWORKSTATIONID'),
 ];
