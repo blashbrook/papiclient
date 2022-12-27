@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Blashbrook\\PAPIClient\\Tests\\": "Tests"
+            "Blashbrook\\PAPIClient\\Tests\\": "tests"
         }
     },
     "extra": {
