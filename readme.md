@@ -2,6 +2,8 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![PHP Composer](https://github.com/blashbrook/papiclient/actions/workflows/php.yml/badge.svg)](https://github.com/blashbrook/papiclient/actions/workflows/php.yml)
+[![Semantic-Release](https://github.com/blashbrook/papiclient/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/blashbrook/papiclient/actions/workflows/semantic-release.yml)
 ![StyleCI](https://github.styleci.io/repos/318002634/shield)
 
 This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
