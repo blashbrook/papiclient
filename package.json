@@ -1,17 +1,9 @@
 {
     "name": "papiclient",
+    "version": "1.1.0",
     "description": "HTTP request client for Polaris API.",
     "version": "1.0.8",
     "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
     "repository": {
         "type": "git",
         "url": "https://github.com/blashbrook/papiclient.git"
@@ -33,12 +25,6 @@
         "@semantic-release/release-notes-generator": "^10.0.3",
         "semantic-release": "^19.0.3"
     },
-    "files": [
-        "index.js",
-        "CHANGELOG.md",
-        "package.json",
-        "package-lock.json"
-    ],
     "dependencies": {
         "marked": "^4.0.18",
         "npm": "^9.2.0"
