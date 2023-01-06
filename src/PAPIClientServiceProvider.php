@@ -14,7 +14,6 @@ class PAPIClientServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -61,8 +60,7 @@ class PAPIClientServiceProvider extends ServiceProvider
         // Publishing the views.
 
         $this->publishes([
-            __DIR__ . '/tests/Feature' => base_path('tests/Feature'),
+            __DIR__.'/tests/Feature' => base_path('tests/Feature'),
         ], 'papiclient.Tests');
-
     }
 }
