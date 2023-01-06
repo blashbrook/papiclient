@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PAPIClient;
+namespace Tests\Feature;
 
 use Blashbrook\PAPIClient\PAPIClient;
 use Tests\TestCase;
