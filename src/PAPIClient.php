@@ -11,12 +11,10 @@ use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class PAPIClient
- * @package Blashbrook\PAPIClient
+ * Class PAPIClient.
  */
 class PAPIClient extends Client
 {
-
     /**
      * Creates value and hash signature for PAPI Request Authorization header.
      *
@@ -25,49 +23,50 @@ class PAPIClient extends Client
      * @param $papiDate - Polaris server local date and time
      * @return string
      */
-    static protected function getHash($method, $uri, $papiDate): string
+    protected static function getHash($method, $uri, $papiDate): string
     {
         //
-        return 'PWS ' . config('papiclient.id') . ':'
-            . base64_encode(hash_hmac(
+        return 'PWS '.config('papiclient.id').':'
+            .base64_encode(hash_hmac(
                 'sha1',
-                $method . $uri . $papiDate, config('papiclient.key'),
+                $method.$uri.$papiDate, config('papiclient.key'),
                 true));
     }
 
     /**
-     * Returns date and time formatted for Polaris API
+     * Returns date and time formatted for Polaris API.
      *
      * @return string
      */
-    static protected function getDate(): string
+    protected static function getDate(): string
     {
         return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
     }
 
     /**
-     * Returns request headers required for Polaris API authorization
+     * Returns request headers required for Polaris API authorization.
      *
      * @param $method - HTTP Request method (GET|POST|PUT)
      * @param $uri - HTTP Request URI
      * @return array
      */
-    static protected function getHeaders($method, $uri): array
+    protected static function getHeaders($method, $uri): array
     {
         $papiDate = self::getDate();
         $papiToken = self::getHash($method, $uri, $papiDate);
+
         return ['Accept' => 'application/json',
             'Authorization' => $papiToken,
-            'PolarisDate' => $papiDate];
+            'PolarisDate' => $papiDate, ];
     }
 
     /**
      * Returns LogonWorkstationID from PAPI_LOGONWORKSTATIONID if it is not supplied.
      *
-     * @param null $logonWorkstationID - Polaris WorkstationID
+     * @param  null  $logonWorkstationID  - Polaris WorkstationID
      * @return Repository|Application|mixed
      */
-    static protected function setLogonWorkstationID($logonWorkstationID = null)
+    protected static function setLogonWorkstationID($logonWorkstationID = null)
     {
         return ($logonWorkstationID) ? $logonWorkstationID : config('papiclient.logonWorkstationID');
     }
@@ -75,10 +74,10 @@ class PAPIClient extends Client
     /**
      * Returns LogonBranchID from PAPI_LOGONBRANCHID if it is not supplied.
      *
-     * @param null $patronBranchID
+     * @param  null  $patronBranchID
      * @return Repository|Application|mixed
      */
-    static protected function setPatronBranchID($patronBranchID = null)
+    protected static function setPatronBranchID($patronBranchID = null)
     {
         return ($patronBranchID) ? $patronBranchID : config('papiclient.logonBranchID');
     }
@@ -95,10 +94,11 @@ class PAPIClient extends Client
      * @param $params
      * @return array
      */
-    static protected function getPolarisSettings($params): array
+    protected static function getPolarisSettings($params): array
     {
-       $params = Arr::prepend($params, self::setPatronBranchID(), 'PatronBranchID');
-       return  Arr::prepend($params, self::setLogonWorkstationID(), 'LogonWorkstationID');
+        $params = Arr::prepend($params, self::setPatronBranchID(), 'PatronBranchID');
+
+        return  Arr::prepend($params, self::setLogonWorkstationID(), 'LogonWorkstationID');
     }
 
     /**
@@ -107,19 +107,21 @@ class PAPIClient extends Client
      *
      * @param $method - HTTP Request method (GET|POST|PUT)
      * @param $requestURI
-     * @param null[] $params - Optional request parameters
+     * @param  null[]  $params  - Optional request parameters
      * @return ResponseInterface
+     *
      * @throws GuzzleException
      */
-    static public function publicRequest($method, $requestURI, array $params = [null]): ResponseInterface
+    public static function publicRequest($method, $requestURI, array $params = [null]): ResponseInterface
     {
-        $uri = config('papiclient.publicURI') . $requestURI;
+        $uri = config('papiclient.publicURI').$requestURI;
         $headers = self::getHeaders($method, $uri);
         $client = new Client();
         $json = self::getPolarisSettings($params);
+
         return $client->request($method, $uri,
             ['headers' => $headers,
-                'json' => $json],
+                'json' => $json, ],
         );
     }
 
@@ -131,18 +133,20 @@ class PAPIClient extends Client
      *
      * @param $method - HTTP Request method (GET|POST|PUT)
      * @param $uri - HTTP Request URI, without the base URI
-     * @param null[] $params - Optional request parameters
+     * @param  null[]  $params  - Optional request parameters
      * @return ResponseInterface
+     *
      * @throws GuzzleException
      */
-    static public function protectedRequest($method, $uri, $params = [null])
+    public static function protectedRequest($method, $uri, $params = [null])
     {
-        $uri = config('papiclient.protectedURI') . $uri;
+        $uri = config('papiclient.protectedURI').$uri;
         $headers = self::getHeaders($method, $uri);
         $client = new Client();
+
         return $client->request($method, $uri,
             ['headers' => $headers,
-                'json' => $params],
+                'json' => $params, ],
         );
     }
 }

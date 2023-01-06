@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class PAPIClientTest extends TestCase
 {
-
     /**
      * @Test
      * Verifies that the Polaris API Server is online and accessible.
@@ -23,7 +22,6 @@ class PAPIClientTest extends TestCase
     /**
      * @Test
      * Validates an PAPIClient access key and request headers returning a 401 on failure and a 200 on success.
-     *
      */
     public function test_api_key_is_valid()
     {
@@ -31,7 +29,7 @@ class PAPIClientTest extends TestCase
         $this->assertEquals(json_decode($response->getStatusCode()), '200');
     }
 
-    public function test_fails_at_api_server_if_birthdate_format_is_incorrect ()
+    public function test_fails_at_api_server_if_birthdate_format_is_incorrect()
     {
         $json = [
             'LogonBranchID' => '3',
@@ -58,7 +56,5 @@ class PAPIClientTest extends TestCase
         }
         $this->assertEqualsIgnoringCase($error, 'birthdate is invalid');
         $this->assertEquals(json_decode($response->getStatusCode()), '200');
-
     }
-
 }
