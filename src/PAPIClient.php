@@ -18,9 +18,9 @@ class PAPIClient extends Client
     /**
      * Creates value and hash signature for PAPI Request Authorization header.
      *
-     * @param $method - HTTP Request method (GET|POST|PUT)
-     * @param $uri - HTTP Request URI
-     * @param $papiDate - Polaris server local date and time
+     * @param  $method  - HTTP Request method (GET|POST|PUT)
+     * @param  $uri  - HTTP Request URI
+     * @param  $papiDate  - Polaris server local date and time
      * @return string
      */
     protected static function getHash($method, $uri, $papiDate): string
@@ -46,8 +46,8 @@ class PAPIClient extends Client
     /**
      * Returns request headers required for Polaris API authorization.
      *
-     * @param $method - HTTP Request method (GET|POST|PUT)
-     * @param $uri - HTTP Request URI
+     * @param  $method  - HTTP Request method (GET|POST|PUT)
+     * @param  $uri  - HTTP Request URI
      * @return array
      */
     protected static function getHeaders($method, $uri): array
@@ -91,7 +91,7 @@ class PAPIClient extends Client
      * The function setLoginWorkstationID accepts a specified WorkstationID for Polaris,
      * or defaults to the LoginWorkstationID environment variable.
      *
-     * @param $params
+     * @param  $params
      * @return array
      */
     protected static function getPolarisSettings($params): array
@@ -105,8 +105,8 @@ class PAPIClient extends Client
      * Sends public request to Polaris API.  Public requests do not
      * require staff usernames and passwords.
      *
-     * @param $method - HTTP Request method (GET|POST|PUT)
-     * @param $requestURI
+     * @param  $method  - HTTP Request method (GET|POST|PUT)
+     * @param  $requestURI
      * @param  null[]  $params  - Optional request parameters
      * @return ResponseInterface
      *
@@ -131,8 +131,8 @@ class PAPIClient extends Client
      *
      * TODO: Add method to validate staff Polaris credentials
      *
-     * @param $method - HTTP Request method (GET|POST|PUT)
-     * @param $uri - HTTP Request URI, without the base URI
+     * @param  $method  - HTTP Request method (GET|POST|PUT)
+     * @param  $uri  - HTTP Request URI, without the base URI
      * @param  null[]  $params  - Optional request parameters
      * @return ResponseInterface
      *
