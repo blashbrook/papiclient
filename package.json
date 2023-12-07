@@ -22,7 +22,7 @@
         "@semantic-release/github": "^8.0.5",
         "@semantic-release/npm": "^10.0.2",
         "@semantic-release/release-notes-generator": "^11.0.3",
-        "semantic-release": "^21.0.0"
+        "semantic-release": "^22.0.10"
     },
     "dependencies": {
         "marked": "^5.1.0",
