@@ -1,4 +1,4 @@
-# Run the workflow when a Pull Request is opened or when changes are pushed to master
+# Run the workflow when a Pull Request is opened or when changes are pushed to main
 name: Semantic-Release
 on: push
 jobs:
