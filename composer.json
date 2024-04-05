@@ -34,5 +34,9 @@
                 "PAPIClient": "Blashbrook\\PAPIClient\\Facades\\PAPIClient"
             }
         }
+    },
+    "require": {
+        "nette/schema": "^v1.3.0",
+        "league/commonmark": "^2.4.0"
     }
 }
