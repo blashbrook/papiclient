@@ -56,7 +56,7 @@ class PAPIClientServiceProvider extends ServiceProvider
             __DIR__.'/../config/papiclient.php' => config_path('papiclient.php'),
         ], 'papiclient.config');
 
-        // Publishing the views.
+        // Publishing the tests.
 
         $this->publishes([
             __DIR__.'/Tests/Feature' => base_path('Tests/Feature'),

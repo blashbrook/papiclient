@@ -1,6 +1,7 @@
 {
     "name": "blashbrook/papiclient",
     "description": "Provides Client for Polaris ILS API",
+    "version": "v1",
     "license": "MIT",
     "authors": [
         {
