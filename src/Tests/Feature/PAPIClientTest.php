@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Feature;
 
-use Blashbrook\PAPIClient;
+use Blashbrook\PAPIClient\PAPIClient;
 use Tests\TestCase;
 
 class PAPIClientTest extends TestCase
