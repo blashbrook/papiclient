@@ -36,11 +36,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Blashbrook\\PAPIClient\\App\\Providers\\PAPIClientServiceProvider"
+                "Blashbrook\\PAPIClient\\PAPIClientServiceProvider"
             ],
             "aliases": {
-                "PAPIClient": "Blashbrook\\PAPIClient\\App\\Http\\Clients\\PAPIClient",
-                "PAPICLientServiceProvider": "Blashbrook\\PAPIClient\\App\\Providers\\PAPIClientServiceProvider"
+                "PAPIClient": "Blashbrook\\PAPIClient\\Clients\\PAPIClient",
+                "PAPICLientServiceProvider": "Blashbrook\\PAPIClient\\PAPIClientServiceProvider"
             }
         }
     },
