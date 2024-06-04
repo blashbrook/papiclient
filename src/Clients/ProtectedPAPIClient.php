@@ -1,6 +1,6 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Clients;
+namespace Blashbrook\PAPIClient\Clients;
 
     use Blashbrook\PAPIClient\Concerns\Headers;
     use Carbon\Carbon;
@@ -14,10 +14,11 @@
         use Headers;
 
         /**
-         * @param $method
-         * @param $uri
+         * @param  $method
+         * @param  $uri
          * @param  null[]  $params
          * @return ResponseInterface
+         *
          * @throws GuzzleException
          */
         public static function protectedRequest($method, $uri, $params = [null])
@@ -30,6 +31,7 @@
 
             $headers = self::getProtectedHeaders($method, $uri, $accessToken, $accessSecret);
             $client = new Client();
+
             return $client->request($method, $uri,
                 ['headers' => $headers]
             );
@@ -41,12 +43,11 @@
          * @param  $method  - HTTP Request method (GET|POST|PUT)
          * @param  $uri  - HTTP Request URI
          * @param  $papiDate  - Polaris server local date and time
-         * @param $accessSecret
+         * @param  $accessSecret
          * @return string
          */
         public static function getProtectedHash($method, $uri, $papiDate, $accessSecret): string
         {
-
             return 'PWS '.config('papiclient.id').':'
                 .base64_encode(hash_hmac(
                     'sha1',
@@ -59,8 +60,8 @@
          *
          * @param  $method  - HTTP Request method (GET|POST|PUT)
          * @param  $uri  - HTTP Request URI
-         * @param $accessToken
-         * @param $accessSecret
+         * @param  $accessToken
+         * @param  $accessSecret
          * @return array
          */
         public static function getProtectedHeaders($method, $uri, $accessToken, $accessSecret): array
@@ -72,7 +73,7 @@
                 'Accept' => 'application/json',
                 //'X-PAPI-AccessToken' => $accessToken,
                 'Authorization' => $papiToken,
-                'PolarisDate' => $papiDate
+                'PolarisDate' => $papiDate,
             ];
         }
 
@@ -81,16 +82,16 @@
          * Upon success, Cache the access token and secret for subsequent requests.
          *
          * @return void
+         *
          * @throws GuzzleException
          * @throws \JsonException
          */
         public static function authorizeStaff(): void
         {
-
             $json = [
                 'Domain' => env('PAPI_DOMAIN'),
                 'Username' => env('PAPI_STAFF'),
-                'Password' => env('PAPI_PASSWORD')
+                'Password' => env('PAPI_PASSWORD'),
             ];
             $response = self::getAuthTokens('POST', '/authenticator/staff', $json);
             $body = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);

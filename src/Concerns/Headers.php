@@ -1,13 +1,11 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Concerns;
+namespace Blashbrook\PAPIClient\Concerns;
 
-    use Blashbrook\PAPIClient\Clients\PAPIClient;
     use Carbon\Carbon;
 
     trait Headers
     {
-
         /**
          * Creates value and hash signature for PAPI Request Authorization header.
          *

@@ -1,6 +1,7 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Clients;
+namespace Blashbrook\PAPIClient\Clients;
+
     use Blashbrook\PAPIClient\Concerns\Headers;
     use GuzzleHttp\Client;
     use GuzzleHttp\Exception\GuzzleException;
@@ -23,7 +24,6 @@
          * @param  $uri  - HTTP Request URI
          * @return array
          */
-
 
         /**
          * Returns LogonWorkstationID from PAPI_LOGONWORKSTATIONID if it is not supplied.
@@ -89,5 +89,4 @@
                     'json' => $json, ],
             );
         }
-
     }

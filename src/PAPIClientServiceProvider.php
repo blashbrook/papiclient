@@ -3,7 +3,6 @@
 namespace Blashbrook\PAPIClient;
 
 use Illuminate\Support\ServiceProvider;
-use GuzzleHttp\Client;
 
 class PAPIClientServiceProvider extends ServiceProvider
 {
@@ -33,7 +32,6 @@ class PAPIClientServiceProvider extends ServiceProvider
         $this->app->singleton('papiclient', function ($app) {
             return new PAPIClient;
         });
-
     }
 
     /**
