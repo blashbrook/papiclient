@@ -2,7 +2,7 @@
 
 namespace Feature;
 
-use Blashbrook\PAPIClient\PAPIClient;
+use Blashbrook\PAPIClient\Clients\PAPIClient;
 use Tests\TestCase;
 
 class PAPIClientTest extends TestCase
