@@ -2,6 +2,7 @@
 
 namespace Blashbrook\PAPIClient\Clients;
 
+use Blashbrook\PAPIClient\Concerns\Config;
 use Blashbrook\PAPIClient\Concerns\Headers;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
