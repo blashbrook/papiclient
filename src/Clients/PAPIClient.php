@@ -15,9 +15,6 @@ class PAPIClient extends Client
 {
     use Headers, Config;
 
-
-
-
     /**
      * Sends public request to Polaris API.  Public requests do not
      * require staff usernames and passwords.
