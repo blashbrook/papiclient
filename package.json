@@ -17,9 +17,6 @@
     "homepage": "https://github.com/blashbrook",
     "devDependencies": {
         "@semantic-release/changelog": "^6.0.3",
-        {
-        	"changelogFile": "changelog.md"
-      	}
         "@semantic-release/commit-analyzer": "^13.0.0",
         "@semantic-release/git": "^10.0.1",
         "@semantic-release/github": "^11.0.3",
