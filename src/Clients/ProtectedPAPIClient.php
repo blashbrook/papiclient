@@ -57,28 +57,6 @@ class ProtectedPAPIClient
     }
 
     /**
-     * Returns request headers required for Polaris API authorization.
-     *
-     * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $uri  - HTTP Request URI
-     * @param  $accessToken
-     * @param  $accessSecret
-     * @return array
-     */
-    public static function getProtectedHeaders($method, $uri, $accessToken, $accessSecret): array
-    {
-        $papiDate = self::getDate();
-        $papiToken = self::getProtectedHash($method, $uri, $papiDate, $accessSecret);
-
-        return [
-            'Accept' => 'application/json',
-            //'X-PAPI-AccessToken' => $accessToken,
-            'Authorization' => $papiToken,
-            'PolarisDate' => $papiDate,
-        ];
-    }
-
-    /**
      * Authenticate staff account specified in the environment variables.
      * Upon success, Cache the access token and secret for subsequent requests.
      *

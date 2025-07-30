@@ -42,6 +42,13 @@ trait Headers
             'PolarisDate' => $papiDate,
         ];
     }
+    /**
+     * Returns request headers required for Polaris API patron authentication.
+     *
+     * @param  $method  - HTTP Request method (GET|POST|PUT)
+     * @param  $uri  - HTTP Request URI
+     * @return array
+     */
 
     /**
      * Returns date and time formatted for Polaris API.
@@ -51,5 +58,18 @@ trait Headers
     protected static function getDate(): string
     {
         return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
+    }
+
+    protected static function getAuthenticatedPatronHeaders($method, $uri, $accessSecret): array
+    {
+        $papiDate = self::getDate();
+        $papiToken = self::getHash($method, $uri, $papiDate);
+
+        return [
+            'Accept' => 'application/json',
+            'Authorization' => $papiToken,
+            'PolarisDate' => $papiDate,
+            'X-PAPI-AccessToken' => $accessSecret
+        ];
     }
 }
