@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/blashbrook/papiclient/compare/v1.4.1...v1.4.2) (2025-09-09)
+
+
+### Bug Fixes
+
+* **update:** update dependencies' ([d7a6cbb](https://github.com/blashbrook/papiclient/commit/d7a6cbbad307746215c0724cee8bc1774072d08a))
+
 ## [1.4.1](https://github.com/blashbrook/papiclient/compare/v1.4.0...v1.4.1) (2025-09-09)
 
 
