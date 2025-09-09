@@ -1,7 +1,8 @@
 <?php
 
-namespace Blashbrook\PAPIClient;
+namespace Blashbrook\PAPIClient\Providers;
 
+use Blashbrook\PAPIClient\PAPIClient;
 use Illuminate\Support\ServiceProvider;
 
 class PAPIClientServiceProvider extends ServiceProvider
@@ -30,7 +31,7 @@ class PAPIClientServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('papiclient', function ($app) {
-            return new PAPIClient;
+            return new PAPIClient();
         });
     }
 
@@ -39,7 +40,7 @@ class PAPIClientServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return ['papiclient'];
     }
@@ -59,7 +60,7 @@ class PAPIClientServiceProvider extends ServiceProvider
         // Publishing the tests.
 
         $this->publishes([
-            __DIR__.'/Tests/Feature' => base_path('Tests/Feature'),
+            __DIR__.'/../Tests/Feature' => base_path('Tests/Feature'),
         ], 'papiclient.Tests');
     }
 }
