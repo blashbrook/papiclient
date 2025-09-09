@@ -25,7 +25,7 @@ namespace Blashbrook\PAPIClient\Concerns;
          * @param  null  $patronBranchID
          * @return Repository|Application|mixed
          */
-        protected static function setPatronBranchID($patronBranchID = null)
+        protected static function setPatronBranchID($patronBranchID = null): mixed
         {
             return ($patronBranchID) ? $patronBranchID : config('papiclient.logonBranchID');
         }
