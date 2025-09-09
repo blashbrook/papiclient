@@ -1,6 +1,6 @@
 <?php
 
-    namespace Tests\Feature;
+namespace Tests\Feature;
 
     use PAPIClient;
     use Tests\TestCase;
@@ -9,7 +9,6 @@
     {
         public function test_public_request_returns_successful_response()
         {
-
             // Call the facade method
             $response = PAPIClient::publicRequest('GET', 'patroncodes');
 

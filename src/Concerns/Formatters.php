@@ -1,15 +1,15 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Concerns;
+namespace Blashbrook\PAPIClient\Concerns;
 
     use Carbon\Carbon;
 
     trait Formatters
     {
         /**
-         * Formats timestamp in milliseconds to YYYY-MM-DD
+         * Formats timestamp in milliseconds to YYYY-MM-DD.
          *
-         * @param $timestamp
+         * @param  $timestamp
          * @return string
          */
         public static function formatToDateString($timestamp): string

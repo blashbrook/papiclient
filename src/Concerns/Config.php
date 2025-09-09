@@ -1,6 +1,6 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Concerns;
+namespace Blashbrook\PAPIClient\Concerns;
 
     use Illuminate\Config\Repository;
     use Illuminate\Contracts\Foundation\Application;
@@ -8,7 +8,6 @@
 
     trait Config
     {
-
         /**
          * Returns LogonWorkstationID from PAPI_LOGONWORKSTATIONID if it is not supplied.
          *

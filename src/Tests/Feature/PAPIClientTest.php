@@ -1,10 +1,9 @@
 <?php
 
-    namespace Tests\Feature;
+namespace Tests\Feature;
 
     use PAPIClient;
     use Tests\TestCase;
-
 
     class PAPIClientTest extends TestCase
     {
@@ -29,5 +28,4 @@
             $response = PAPIClient::publicRequest('GET', 'apikeyvalidate');
             $this->assertEquals(json_decode($response->getStatusCode()), '200');
         }
-
     }

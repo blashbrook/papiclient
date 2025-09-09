@@ -69,7 +69,7 @@ trait Headers
             'Accept' => 'application/json',
             'Authorization' => $papiToken,
             'PolarisDate' => $papiDate,
-            'X-PAPI-AccessToken' => $accessSecret
+            'X-PAPI-AccessToken' => $accessSecret,
         ];
     }
 }

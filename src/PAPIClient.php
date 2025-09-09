@@ -21,9 +21,8 @@ class PAPIClient extends Client
      * require staff usernames and passwords.
      *
      * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $requestURI - function-specific part of API Endpoint
+     * @param  $requestURI  - function-specific part of API Endpoint
      * @param  null[]  $params  - Optional request parameters
-     *
      * @return ResponseInterface
      *
      * @throws GuzzleException
@@ -43,13 +42,12 @@ class PAPIClient extends Client
 
     /**
      * Sends an authenticated patron's request to Polaris API.  Public patron requests
-     * require the AccessSecret returned from a successful patron authentication
+     * require the AccessSecret returned from a successful patron authentication.
      *
      * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $requestURI - function-specific part of API Endpoint
-     * @param $accessSecret - AccessSecret returned after patron authentication
+     * @param  $requestURI  - function-specific part of API Endpoint
+     * @param  $accessSecret  - AccessSecret returned after patron authentication
      * @param  null[]  $params  - Optional request parameters
-     *
      * @return ResponseInterface
      *
      * @throws GuzzleException
@@ -68,14 +66,13 @@ class PAPIClient extends Client
     }
 
     /**
-     * Formats timestamp in milliseconds to YYYY-MM-DD
+     * Formats timestamp in milliseconds to YYYY-MM-DD.
      *
-     * @param $timestamp
+     * @param  $timestamp
      * @return string
      */
-/*    public static function formatDate($timestamp): string
-    {
-        return Carbon::createFromTimestampMs($timestamp)->format('Y-m-d');
-    }*/
-
+    /*    public static function formatDate($timestamp): string
+        {
+            return Carbon::createFromTimestampMs($timestamp)->format('Y-m-d');
+        }*/
 }
