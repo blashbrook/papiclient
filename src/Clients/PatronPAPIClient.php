@@ -6,7 +6,6 @@ use Blashbrook\PAPIClient\Concerns\Config;
 use Blashbrook\PAPIClient\Concerns\Headers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use http\Client;
 use Psr\Http\Message\ResponseInterface;
 
 /**
