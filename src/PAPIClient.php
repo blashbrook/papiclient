@@ -1,6 +1,6 @@
 <?php
 
-namespace Blashbrook\PAPIClient\Clients;
+namespace Blashbrook\PAPIClient;
 
 use Blashbrook\PAPIClient\Concerns\Config;
 use Blashbrook\PAPIClient\Concerns\Formatters;
@@ -28,7 +28,7 @@ class PAPIClient extends Client
      *
      * @throws GuzzleException
      */
-    public static function publicRequest($method, $requestURI, array $params = [null])
+    public function publicRequest($method, $requestURI, array $params = [null])
     {
         $uri = config('papiclient.publicURI').$requestURI;
         $headers = self::getHeaders($method, $uri);
@@ -56,7 +56,7 @@ class PAPIClient extends Client
      */
     public static function authenticatedPatronRequest($method, $requestURI, $accessSecret, array $params = [null])
     {
-        $uri = config('papiclient.publicURI').$requestURI;
+        $uri = PAPIClient.phpconfig('papiclient.publicURI').$requestURI;
         $headers = self::getAuthenticatedPatronHeaders($method, $uri, $accessSecret);
         $client = new Client();
         $json = self::getPolarisSettings($params);

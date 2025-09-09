@@ -22,7 +22,7 @@
     },
     "autoload": {
         "files": [
-            "src/PAPIClientServiceProvider.php"
+          "src/PAPIClient.php"
         ],
         "psr-4": {
             "Blashbrook\\PAPIClient\\": "src/"
@@ -30,17 +30,16 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Blashbrook\\PAPIClient\\Tests\\": "src/tests/"
+            "Blashbrook\\PAPIClient\\Tests\\": "src/Tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Blashbrook\\PAPIClient\\PAPIClientServiceProvider"
+                "Blashbrook\\PAPIClient\\Providers\\PAPIClientServiceProvider"
             ],
             "aliases": {
-                "PAPIClient": "Blashbrook\\PAPIClient\\Clients\\PAPIClient",
-                "PAPICLientServiceProvider": "Blashbrook\\PAPIClient\\PAPIClientServiceProvider"
+                "PAPIClient": "Blashbrook\\PAPIClient\\Facades\\PAPIClient"
             }
         }
     },
