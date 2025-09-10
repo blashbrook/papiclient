@@ -54,7 +54,7 @@ class PAPIClient extends Client
      */
     public static function authenticatedPatronRequest($method, $requestURI, $accessSecret, array $params = [null])
     {
-        $uri = PAPIClient.phpconfig('papiclient.publicURI').$requestURI;
+        $uri = config('papiclient.publicURI').$requestURI;
         $headers = self::getAuthenticatedPatronHeaders($method, $uri, $accessSecret);
         $client = new Client();
         $json = self::getPolarisSettings($params);
