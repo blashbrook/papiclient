@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/blashbrook/papiclient/compare/v1.4.3...v1.5.0) (2025-09-11)
+
+
+### Features
+
+* add chained command ([36e0fdf](https://github.com/blashbrook/papiclient/commit/36e0fdf27886851adae3c62b57e00ed61c1ca2d4))
+* refactoring ([1f18020](https://github.com/blashbrook/papiclient/commit/1f180201b714a65c3b77a27d0fe8484ad3fc6c0b))
+
 ## [1.4.3](https://github.com/blashbrook/papiclient/compare/v1.4.2...v1.4.3) (2025-09-09)
 
 

@@ -1,6 +1,6 @@
 {
     "name": "papiclient",
-    "version": "1.4.3",
+    "version": "1.5.0",
     "description": "HTTP request client for Polaris API.",
     "private": true,
     "repository": {
