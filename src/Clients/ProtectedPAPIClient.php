@@ -2,8 +2,9 @@
 
 namespace Blashbrook\PAPIClient\Clients;
 
-use Blashbrook\PAPIClient\Concerns\Config;
-use Blashbrook\PAPIClient\Concerns\Headers;
+use Blashbrook\PAPIClient\Concerns\GetConfig;
+use Blashbrook\PAPIClient\Concerns\CreateHeaders;
+use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -12,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class ProtectedPAPIClient
 {
-    use Headers;
+    use CreateHeaders, ReadResponses;
 
     /**
      * @param  $method
@@ -73,7 +74,7 @@ class ProtectedPAPIClient
             'Password' => env('PAPI_PASSWORD'),
         ];
         $response = self::getAuthTokens('POST', '/authenticator/staff', $json);
-        $body = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        $body = self::toArray($response);
         $expires = $body['AuthExpDate'];
         $end = substr($expires, 6, 10);
         $seconds = $end - Carbon::now()->timestamp;

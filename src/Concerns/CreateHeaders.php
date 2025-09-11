@@ -4,7 +4,7 @@ namespace Blashbrook\PAPIClient\Concerns;
 
 use Carbon\Carbon;
 
-trait Headers
+trait CreateHeaders
 {
     /**
      * Creates value and hash signature for PAPI Request Authorization header.
@@ -14,7 +14,7 @@ trait Headers
      * @param  $papiDate  - Polaris server local date and time
      * @return string
      */
-    protected static function getHash($method, $uri, $papiDate): string
+    private function getHash($method, $uri, $papiDate): string
     {
             //
         return 'PWS '.config('papiclient.id').':'
@@ -31,7 +31,7 @@ trait Headers
      * @param  $uri  - HTTP Request URI
      * @return array
      */
-    protected static function getHeaders($method, $uri): array
+    private function getHeaders($method, $uri): array
     {
         $papiDate = self::getDate();
         $papiToken = self::getHash($method, $uri, $papiDate);
@@ -55,7 +55,7 @@ trait Headers
      *
      * @return string
      */
-    protected static function getDate(): string
+    private function getDate(): string
     {
         return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
     }

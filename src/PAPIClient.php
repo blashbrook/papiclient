@@ -2,9 +2,10 @@
 
 namespace Blashbrook\PAPIClient;
 
-use Blashbrook\PAPIClient\Concerns\Config;
+use Blashbrook\PAPIClient\Concerns\GetConfig;
 use Blashbrook\PAPIClient\Concerns\Formatters;
-use Blashbrook\PAPIClient\Concerns\Headers;
+use Blashbrook\PAPIClient\Concerns\CreateHeaders;
+use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -14,8 +15,66 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PAPIClient extends Client
 {
-    use Headers, Config, Formatters;
+    use CreateHeaders, GetConfig, Formatters, ReadResponses;
 
+
+    protected string $method = 'GET';
+    protected string $uri = '';
+    protected array $params = [];
+    protected ?string $accessSecret = null;
+    protected ?string $accessToken = null;
+    protected ?string $patron = null;
+    protected bool $protected = false;
+
+    public function method(string $method): self
+    {
+        $this->method = strtoupper($method);
+        return $this;
+    }
+    public function protected(): static
+    {
+        $this->protected = true;
+        return $this;
+    }
+    public function patron(string $barcode)
+    {
+        $this->patron = $barcode;
+    }
+    public function uri(string $uri): self
+    {
+        $this->uri = $uri;
+        return $this;
+    }
+
+    public function params(array $params): self
+    {
+        $this->params = $params;
+        return $this;
+    }
+
+    public function auth(string $accessSecret): self
+    {
+        $this->accessSecret = $accessSecret;
+        return $this;
+    }
+
+    public function execRequest(): array
+    {
+        $fullUri = $this->protected
+            ? config('papiclient.protectedURI')
+            : config('papiclient.publicURI');
+        $fullUri .= $this->uri;
+        if($this->patron) $fullUri .= 'patron/' . $this->patron;
+        $headers = $this->accessSecret
+            ? self::getAuthenticatedPatronHeaders($this->method, $fullUri, $this->accessSecret)
+            : self::getHeaders($this->method, $fullUri);
+        $json = self::getPolarisSettings($this->params);
+        $response = $this->request($this->method, $fullUri, [
+            'headers' => $headers,
+            'json' => $json,
+        ]);
+        return $this->toArray($response);
+    }
     /**
      * Sends public request to Polaris API.  Public requests do not
      * require staff usernames and passwords.

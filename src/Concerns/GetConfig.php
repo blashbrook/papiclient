@@ -6,7 +6,7 @@ namespace Blashbrook\PAPIClient\Concerns;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Support\Arr;
 
-    trait Config
+    trait GetConfig
     {
         /**
          * Returns LogonWorkstationID from PAPI_LOGONWORKSTATIONID if it is not supplied.
