@@ -22,6 +22,44 @@ $ composer require blashbrook/papiclient
 
 ## Change log
 
+PAPIClient has been refactored to use fluency!
+Now you can chain commands together, making the client more flexible and easier to use.
+
+* Use Injection to instantiate PAPIClient in a class:
+````
+  use Blashbrook\PAPIClient\PAPIClient;
+
+  protected PAPIClient $papiclient;
+
+  public function __construct(PAPIClient $papiclient) {
+        $this->papiclient = $papiclient;
+  }
+````
+
+* In a Livewire component, use the boot method:
+```
+  use Blashbrook\PAPIClient\PAPIClient;
+
+  protected PAPIClient $papiclient;
+
+  public function boot(PAPIClient $papiclient) {
+    $this->papiclient = $papiclient;
+  }
+```
+* To make an API call to your Polaris server:
+````
+// Validate PAPI Access Key
+$response = $this->papiclient->method('GET')->uri('apikeyvalidate')->execRequest();
+````
+* functions include:
+  * method('GET|PUT')
+  * protected() // Uses the protected API base URI instead of the default public URI.
+  * patron('BARCODE') // Allows you to insert a patron's barcode into the URI.
+  * uri('API Endpoint') // The part of the URI that performs the desired function (i.e 'authenicator/patron' or 'apikeyvalidate').
+  * params(array) // Used for form submissions (i.e. ['Barcode'=>'55555555555555', 'Password'=> '1234'] is sent to log in a patron).
+  * auth('AccessSecret') // Inserts a patron's temporary authentication token in the request headers.
+  * MORE TO COME!
+
 Please see the [changelog](CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing
