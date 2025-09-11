@@ -2,8 +2,8 @@
 
 namespace Blashbrook\PAPIClient\Clients;
 
-use Blashbrook\PAPIClient\Concerns\Config;
-use Blashbrook\PAPIClient\Concerns\Headers;
+use Blashbrook\PAPIClient\Concerns\GetConfig;
+use Blashbrook\PAPIClient\Concerns\CreateHeaders;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PatronPAPIClient extends Client
 {
-    use Headers, Config;
+    use CreateHeaders, GetConfig;
 
     /**
      * Sends public request to Polaris API.  Public requests do not
