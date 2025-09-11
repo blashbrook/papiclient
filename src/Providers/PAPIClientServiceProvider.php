@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 
 class PAPIClientServiceProvider extends ServiceProvider
 {
-
     /**
      * Perform post-registration booting of services.
      *

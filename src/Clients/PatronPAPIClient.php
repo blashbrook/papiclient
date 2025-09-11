@@ -2,8 +2,8 @@
 
 namespace Blashbrook\PAPIClient\Clients;
 
-use Blashbrook\PAPIClient\Concerns\GetConfig;
 use Blashbrook\PAPIClient\Concerns\CreateHeaders;
+use Blashbrook\PAPIClient\Concerns\GetConfig;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;

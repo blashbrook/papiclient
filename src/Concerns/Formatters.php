@@ -2,18 +2,18 @@
 
 namespace Blashbrook\PAPIClient\Concerns;
 
-    use Carbon\Carbon;
+use Carbon\Carbon;
 
-    trait Formatters
+trait Formatters
+{
+    /**
+     * Formats timestamp in milliseconds to YYYY-MM-DD.
+     *
+     * @param  $timestamp
+     * @return string
+     */
+    public static function formatToDateString($timestamp): string
     {
-        /**
-         * Formats timestamp in milliseconds to YYYY-MM-DD.
-         *
-         * @param  $timestamp
-         * @return string
-         */
-        public static function formatToDateString($timestamp): string
-        {
-            return Carbon::createFromTimestampMs($timestamp)->toDateString();
-        }
+        return Carbon::createFromTimestampMs($timestamp)->toDateString();
     }
+}

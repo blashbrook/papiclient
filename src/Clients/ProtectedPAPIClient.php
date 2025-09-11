@@ -2,7 +2,6 @@
 
 namespace Blashbrook\PAPIClient\Clients;
 
-use Blashbrook\PAPIClient\Concerns\GetConfig;
 use Blashbrook\PAPIClient\Concerns\CreateHeaders;
 use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use Carbon\Carbon;
