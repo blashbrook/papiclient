@@ -8,11 +8,8 @@ use Blashbrook\PAPIClient\Concerns\GetConfig;
 use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class PublicPAPIClient.
- */
+
 class PAPIClient extends Client
 {
     use CreateHeaders, GetConfig, Formatters, ReadResponses;
@@ -25,6 +22,12 @@ class PAPIClient extends Client
     protected ?string $patron = null;
     protected bool $protected = false;
 
+    /**
+     * Accepts request methods like GET or POST.
+     *
+     * @param  string  $method
+     * @return $this
+     */
     public function method(string $method): self
     {
         $this->method = strtoupper($method);
@@ -32,18 +35,34 @@ class PAPIClient extends Client
         return $this;
     }
 
-    public function protected(): static
+    /**
+     *  Replaces the default public API URL with the protected URI
+     *
+     * @return $this
+     */
+    public function protected(): self
     {
         $this->protected = true;
 
         return $this;
     }
 
-    public function patron(string $barcode)
+    /**
+     * Accepts a Barcode when it is required by the API
+     *
+     * @param  string  $barcode
+     * @return self
+     */
+    public function patron(string $barcode): self
     {
         $this->patron = $barcode;
     }
 
+    /**
+     * Accepts the function-specific endpoint for an API URL
+     * @param  string  $uri
+     * @return $this
+     */
     public function uri(string $uri): self
     {
         $this->uri = $uri;
@@ -51,6 +70,12 @@ class PAPIClient extends Client
         return $this;
     }
 
+    /**
+     * Accepts any array, or content, expected by the API call.
+     *
+     * @param  array  $params
+     * @return $this
+     */
     public function params(array $params): self
     {
         $this->params = $params;
@@ -58,6 +83,12 @@ class PAPIClient extends Client
         return $this;
     }
 
+    /**
+     *  Adds the temporary AccessSecret for an authenticated patron to the header of subsequent API calls.
+     *
+     * @param  string  $accessSecret
+     * @return $this
+     */
     public function auth(string $accessSecret): self
     {
         $this->accessSecret = $accessSecret;
@@ -65,6 +96,10 @@ class PAPIClient extends Client
         return $this;
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
     public function execRequest(): array
     {
         $fullUri = $this->protected
@@ -86,63 +121,4 @@ class PAPIClient extends Client
         return $this->toArray($response);
     }
 
-    /**
-     * Sends public request to Polaris API.  Public requests do not
-     * require staff usernames and passwords.
-     *
-     * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $requestURI  - function-specific part of API Endpoint
-     * @param  null[]  $params  - Optional request parameters
-     * @return ResponseInterface
-     *
-     * @throws GuzzleException
-     */
-    public function publicRequest($method, $requestURI, array $params = [null])
-    {
-        $uri = config('papiclient.publicURI').$requestURI;
-        $headers = self::getHeaders($method, $uri);
-        $client = new Client();
-        $json = self::getPolarisSettings($params);
-
-        return $client->request($method, $uri,
-            ['headers' => $headers,
-                'json' => $json, ],
-        );
-    }
-
-    /**
-     * Sends an authenticated patron's request to Polaris API.  Public patron requests
-     * require the AccessSecret returned from a successful patron authentication.
-     *
-     * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $requestURI  - function-specific part of API Endpoint
-     * @param  $accessSecret  - AccessSecret returned after patron authentication
-     * @param  null[]  $params  - Optional request parameters
-     * @return ResponseInterface
-     *
-     * @throws GuzzleException
-     */
-    public static function authenticatedPatronRequest($method, $requestURI, $accessSecret, array $params = [null])
-    {
-        $uri = config('papiclient.publicURI').$requestURI;
-        $headers = self::getAuthenticatedPatronHeaders($method, $uri, $accessSecret);
-        $client = new Client();
-        $json = self::getPolarisSettings($params);
-
-        return $client->request($method, $uri,
-            ['headers' => $headers,
-                'json' => $json, ],
-        );
-    }
-
-    /**
-     * Formats timestamp in milliseconds to YYYY-MM-DD.
-     *
-     * @param  $timestamp
-     * @return string
-     */
-    /*    public static function formatDate($timestamp): string
-        {
-            return Carbon::createFromTimestampMs($timestamp)->format('Y-m-d');
-        }*/
 }

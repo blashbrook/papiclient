@@ -62,6 +62,9 @@ $response = $this->papiclient->method('GET')->uri('apikeyvalidate')->execRequest
 
 Please see the [changelog](CHANGELOG.md) for more information on what has changed recently.
 
+@TODO
+Add Error catching
+
 ## Testing
 
 ``` bash
