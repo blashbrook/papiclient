@@ -9,7 +9,6 @@ use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-
 class PAPIClient extends Client
 {
     use CreateHeaders, GetConfig, Formatters, ReadResponses;
@@ -36,7 +35,7 @@ class PAPIClient extends Client
     }
 
     /**
-     *  Replaces the default public API URL with the protected URI
+     *  Replaces the default public API URL with the protected URI.
      *
      * @return $this
      */
@@ -48,7 +47,7 @@ class PAPIClient extends Client
     }
 
     /**
-     * Accepts a Barcode when it is required by the API
+     * Accepts a Barcode when it is required by the API.
      *
      * @param  string  $barcode
      * @return self
@@ -59,7 +58,8 @@ class PAPIClient extends Client
     }
 
     /**
-     * Accepts the function-specific endpoint for an API URL
+     * Accepts the function-specific endpoint for an API URL.
+     *
      * @param  string  $uri
      * @return $this
      */
@@ -120,5 +120,4 @@ class PAPIClient extends Client
 
         return $this->toArray($response);
     }
-
 }
