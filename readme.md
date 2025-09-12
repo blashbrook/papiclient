@@ -81,11 +81,6 @@ PAPI_ADMIN_NAME=
 ```
 ## Usage
 
-## Change log
-
-PAPIClient has been refactored to use fluency!
-Now you can chain commands together, making the client more flexible and easier to use.
-
 * Use Injection to instantiate PAPIClient in a class:
 ````
   use Blashbrook\PAPIClient\PAPIClient;
@@ -120,6 +115,11 @@ $response = $this->papiclient->method('GET')->uri('apikeyvalidate')->execRequest
   * params(array) // Used for form submissions (i.e. ['Barcode'=>'55555555555555', 'Password'=> '1234'] is sent to log in a patron).
   * auth('AccessSecret') // Inserts a patron's temporary authentication token in the request headers.
   * MORE TO COME!
+
+## Change log
+
+PAPIClient has been refactored to use fluency!
+Now you can chain commands together, making the client more flexible and easier to use.
 
 Please see the [changelog](CHANGELOG.md) for more information on what has changed recently.
 
