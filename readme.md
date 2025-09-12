@@ -18,7 +18,7 @@ Via Composer
 $ composer require blashbrook/papiclient
 ```
 Add the following variables to the project .env file
-```
+``` bash
 # Access ID found under PAPI Key Management in the Polaris Web Admin Tool i.e. https://catalog.yourlibrary.org/webadmin/PAPIKeyManagement.aspx
 PAPI_ACCESS_ID=
 
