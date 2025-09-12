@@ -17,7 +17,68 @@ Via Composer
 ``` bash
 $ composer require blashbrook/papiclient
 ```
+Add the following variables to the project .env file
+```
+# Access ID found under PAPI Key Management in the Polaris Web Admin Tool i.e. https://catalog.yourlibrary.org/webadmin/PAPIKeyManagement.aspx
+PAPI_ACCESS_ID=
 
+# Access Key found under PAPI Key Management in the Polaris Web Admin Tool i.e. https://catalog.yourlibrary.org/webadmin/PAPIKeyManagement.aspx
+PAPI_ACCESS_KEY=
+
+# Polaris API base URL i.e. https://catalog/yourlibrary.org/PAPIService/REST
+PAPI_BASE_URL=  
+
+# default
+PAPI_PROTECTED_SCOPE=protected	
+
+# default	
+PAPI_PUBLIC_SCOPE=public  
+		
+# default
+PAPI_VERSION=v1 	
+
+# default				
+PAPI_LANGID=1033	
+
+# default				
+PAPI_APPID=100	
+
+# default					
+PAPI_ORGID=3
+
+# default protected PAPI URL constructor
+PAPI_PROTECTED_URI="${PAPI_BASE_URL}/${PAPI_PROTECTED_SCOPE}/${PAPI_VERSION}/${PAPI_LANGID}/${PAPI_APPID}/${PAPI_ORGID}/"
+
+# default public PAPI URL constructor
+PAPI_PUBLIC_URI="${PAPI_BASE_URL}/${PAPI_PUBLIC_SCOPE}/${PAPI_VERSION}/${PAPI_LANGID}/${PAPI_APPID}/${PAPI_ORGID}/"
+
+# Polaris branch ID found in Polaris under Administration > Explorer > Branches
+# Right-click branch name and select Properties > About
+PAPI_LOGONBRANCHID=
+
+# Search under Administration > Staff Member in Polaris
+# Right-click staff member name and select Properties > About
+PAPI_LOGONUSERID=
+
+# Search under Administration > Workstation in Polaris
+# Right-click workstation name and select Properties > About
+PAPI_LOGONWORKSTATIONID=
+
+# Active Directory Domain used to log into Polaris i.e. Domain\Username
+PAPI_DOMAIN=
+
+# Polaris username (or if no Domain, user's email address)
+PAPI_STAFF=
+
+# Polaris user password in double quotes
+PAPI_PASSWORD=
+
+# Email to receive staff notifications in double quotes
+PAPI_ADMIN_EMAIL="ecard@dcplibrary.org"
+
+# Display name for staff email in double quotes
+PAPI_ADMIN_NAME=
+```
 ## Usage
 
 ## Change log
