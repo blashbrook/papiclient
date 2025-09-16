@@ -25,7 +25,7 @@
         "semantic-release": "^24.2.8"
     },
     "dependencies": {
-        "marked": "^16.2.1",
+        "marked": "^16.3.0",
         "npm": "^11.5.1"
     },
     "engines": {
