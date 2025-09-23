@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/blashbrook/papiclient/compare/v2.0.0...v2.0.1) (2025-09-23)
+
+
+### Bug Fixes
+
+* update PAPIClient ([f5ca61f](https://github.com/blashbrook/papiclient/commit/f5ca61faa6b422bb60e94c0f170df0119449acc6))
+
 # [1.5.0](https://github.com/blashbrook/papiclient/compare/v1.4.3...v1.5.0) (2025-09-11)
 
 
