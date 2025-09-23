@@ -107,14 +107,14 @@ class PAPIClient extends Client
         $fullUri = $this->protected
             ? config('papiclient.protectedURI')
             : config('papiclient.publicURI');
-        $fullUri .= $this->uri;
         if ($this->patron) {
             $fullUri .= 'patron/'.$this->patron;
         }
+        $fullUri .= $this->uri;
         $headers = $this->accessSecret
-            ? self::getAuthenticatedPatronHeaders($this->method, $fullUri, $this->accessSecret)
-            : self::getHeaders($this->method, $fullUri);
-        $json = self::getPolarisSettings($this->params);
+            ? $this->getAuthenticatedPatronHeaders($this->method, $fullUri, $this->accessSecret)
+            : $this->getHeaders($this->method, $fullUri);
+        $json = $this->getPolarisSettings($this->params);
         $response = $this->request($this->method, $fullUri, [
             'headers' => $headers,
             'json' => $json,

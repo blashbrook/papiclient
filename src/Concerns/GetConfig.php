@@ -14,7 +14,7 @@ trait GetConfig
      * @param  null  $logonWorkstationID  - Polaris WorkstationID
      * @return Repository|Application|mixed
      */
-    protected static function setLogonWorkstationID($logonWorkstationID = null): mixed
+    private function setLogonWorkstationID($logonWorkstationID = null): mixed
     {
         return ($logonWorkstationID) ? $logonWorkstationID : config('papiclient.logonWorkstationID');
     }
@@ -25,7 +25,7 @@ trait GetConfig
      * @param  null  $patronBranchID
      * @return Repository|Application|mixed
      */
-    protected static function setPatronBranchID($patronBranchID = null): mixed
+    private function setPatronBranchID($patronBranchID = null): mixed
     {
         return ($patronBranchID) ? $patronBranchID : config('papiclient.logonBranchID');
     }
@@ -42,7 +42,7 @@ trait GetConfig
      * @param  $params
      * @return array
      */
-    protected static function getPolarisSettings($params): array
+    private function getPolarisSettings($params): array
     {
         $params = Arr::prepend($params, self::setPatronBranchID(), 'PatronBranchID');
 

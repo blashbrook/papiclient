@@ -12,7 +12,7 @@ trait Formatters
      * @param  $timestamp
      * @return string
      */
-    public static function formatToDateString($timestamp): string
+    private function formatToDateString($timestamp): string
     {
         return Carbon::createFromTimestampMs($timestamp)->toDateString();
     }

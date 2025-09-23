@@ -33,8 +33,8 @@ trait CreateHeaders
      */
     private function getHeaders($method, $uri): array
     {
-        $papiDate = self::getDate();
-        $papiToken = self::getHash($method, $uri, $papiDate);
+        $papiDate = $this->getDate();
+        $papiToken = $this->getHash($method, $uri, $papiDate);
 
         return [
             'Accept' => 'application/json',
@@ -60,10 +60,10 @@ trait CreateHeaders
         return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
     }
 
-    protected static function getAuthenticatedPatronHeaders($method, $uri, $accessSecret): array
+    private function getAuthenticatedPatronHeaders($method, $uri, $accessSecret): array
     {
-        $papiDate = self::getDate();
-        $papiToken = self::getHash($method, $uri, $papiDate);
+        $papiDate = $this->getDate();
+        $papiToken = $this->getHash($method, $uri, $papiDate);
 
         return [
             'Accept' => 'application/json',
