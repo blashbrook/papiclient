@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/blashbrook/papiclient/compare/v2.0.1...v2.0.2) (2025-09-23)
+
+
+### Bug Fixes
+
+* **PAPIClient:** remove static methods ([b182784](https://github.com/blashbrook/papiclient/commit/b182784486e8fa2557e89976de8a0803dcffc437))
+
 ## [2.0.1](https://github.com/blashbrook/papiclient/compare/v2.0.0...v2.0.1) (2025-09-23)
 
 
