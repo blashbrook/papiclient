@@ -55,7 +55,7 @@ class PAPIClient extends Client
     public function patron(string $barcode): self
     {
         $this->patron = $barcode;
-        
+
         return $this;
     }
 
