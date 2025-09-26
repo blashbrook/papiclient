@@ -4,15 +4,32 @@ namespace Blashbrook\PAPIClient\Concerns;
 
 use Carbon\Carbon;
 
+/**
+ * CreateHeaders Trait
+ * 
+ * Provides methods for creating authentication headers required by the Polaris API.
+ * Handles HMAC-SHA1 signature generation and proper header formatting.
+ * 
+ * @package Blashbrook\PAPIClient\Concerns
+ * @author Brian Lashbrook <blashbrook@gmail.com>
+ * 
+ * @since 1.0.0
+ */
 trait CreateHeaders
 {
     /**
-     * Creates value and hash signature for PAPI Request Authorization header.
+     * Creates HMAC-SHA1 hash signature for PAPI Request Authorization header.
+     * 
+     * Generates a Base64-encoded HMAC-SHA1 signature using the API access key.
+     * The signature is created from the concatenated HTTP method, URI, and timestamp.
      *
-     * @param  $method  - HTTP Request method (GET|POST|PUT)
-     * @param  $uri  - HTTP Request URI
-     * @param  $papiDate  - Polaris server local date and time
-     * @return string
+     * @param string $method HTTP Request method (GET, POST, PUT, DELETE)
+     * @param string $uri Complete HTTP Request URI
+     * @param string $papiDate Polaris server date/time in RFC format
+     * @return string PWS authorization header value with access ID and signature
+     * 
+     * @internal This method is used internally by header generation methods
+     * @since 1.0.0
      */
     private function getHash($method, $uri, $papiDate): string
     {
@@ -60,6 +77,19 @@ trait CreateHeaders
         return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
     }
 
+    /**
+     * Returns request headers for authenticated patron API calls.
+     * 
+     * Creates headers that include both API authentication and patron session token.
+     * Used for patron-specific operations that require authentication.
+     *
+     * @param string $method HTTP Request method (GET, POST, PUT, DELETE)
+     * @param string $uri Complete HTTP Request URI
+     * @param string $accessSecret Patron's temporary authentication token
+     * @return array<string, string> Complete request headers with patron authentication
+     * 
+     * @since 1.0.0
+     */
     private function getAuthenticatedPatronHeaders($method, $uri, $accessSecret): array
     {
         $papiDate = $this->getDate();

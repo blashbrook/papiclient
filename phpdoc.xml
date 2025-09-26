@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc version="3">
+    <title>PAPIClient Documentation</title>
+    <description>Polaris API Client for Laravel</description>
+    <paths>
+        <output>docs</output>
+        <cache>cache</cache>
+    </paths>
+    <version number="2.0.0">
+        <folder>src</folder>
+    </version>
+    <settings>
+        <setting name="graphs.enabled" value="true"/>
+        <setting name="guides.enabled" value="true"/>
+    </settings>
+    <extensions>
+        <extension>php</extension>
+    </extensions>
+    <ignore>
+        <path>*/vendor/*</path>
+        <path>*/Tests/*</path>
+        <path>*/tests/*</path>
+        <path>*/node_modules/*</path>
+    </ignore>
+    <markers>
+        <marker>TODO</marker>
+        <marker>FIXME</marker>
+    </markers>
+</phpdoc>

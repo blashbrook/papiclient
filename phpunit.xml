@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
          backupGlobals="false"
          backupStaticAttributes="false"
          colors="true"
@@ -8,15 +10,59 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="false"
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false">
+         
     <testsuites>
+        <testsuite name="Unit">
+            <directory>Tests/Unit</directory>
+        </testsuite>
+        
+        <testsuite name="Integration">
+            <directory>Tests/Integration</directory>
+        </testsuite>
+        
+        <testsuite name="Feature">
+            <directory>Tests/Feature</directory>
+        </testsuite>
+        
+        <!-- Legacy test support -->
         <testsuite name="Package">
             <directory suffix=".php">./Tests/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory>src/</directory>
-        </whitelist>
-    </filter>
+    
+    <source>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+        <exclude>
+            <directory>src/Tests</directory>
+            <directory>src/database</directory>
+            <directory>src/config</directory>
+        </exclude>
+    </source>
+    
+    <!-- Environment variables for testing -->
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_DEBUG" value="true"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+        
+        <!-- Set to true to enable integration tests -->
+        <env name="ENABLE_INTEGRATION_TESTS" value="false"/>
+        
+        <!-- Test PAPI Configuration -->
+        <env name="PAPI_ACCESS_ID" value="test_access_id"/>
+        <env name="PAPI_ACCESS_KEY" value="test_access_key"/>
+        <env name="PAPI_BASE_URL" value="https://api.test.com"/>
+        <env name="PAPI_PUBLIC_URI" value="https://api.test.com/public/v1/1033/100/1/"/>
+        <env name="PAPI_PROTECTED_URI" value="https://api.test.com/protected/v1/1033/100/1/"/>
+        <env name="PAPI_LOGONBRANCHID" value="1"/>
+        <env name="PAPI_LOGONUSERID" value="1"/>
+        <env name="PAPI_LOGONWORKSTATIONID" value="1"/>
+    </php>
 </phpunit>
