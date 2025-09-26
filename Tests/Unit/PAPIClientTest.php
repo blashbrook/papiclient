@@ -12,13 +12,12 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PAPIClient Unit Tests
- * 
+ * PAPIClient Unit Tests.
+ *
  * Tests the core functionality of the PAPIClient including method chaining,
  * header generation, authentication, and API request execution.
  * Uses mocked HTTP responses to avoid external API dependencies during testing.
- * 
- * @package Blashbrook\PAPIClient\Tests\Unit
+ *
  * @author Brian Lashbrook <blashbrook@gmail.com>
  */
 class PAPIClientTest extends TestCase
@@ -29,7 +28,7 @@ class PAPIClientTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Set up configuration mock
         config([
             'papiclient.id' => 'test_access_id',
@@ -40,11 +39,11 @@ class PAPIClientTest extends TestCase
             'papiclient.logonWorkstationID' => 1,
             'papiclient.logonUserID' => 1,
         ]);
-        
+
         // Set up mock handler for HTTP requests
         $this->mockHandler = new MockHandler();
         $handlerStack = HandlerStack::create($this->mockHandler);
-        
+
         // Create client with mocked handler
         $this->client = new PAPIClient(['handler' => $handlerStack]);
     }
@@ -61,7 +60,7 @@ class PAPIClientTest extends TestCase
     public function it_can_set_http_method()
     {
         $result = $this->client->method('POST');
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
         $this->assertSame($this->client, $result); // Ensures fluent interface
     }
@@ -70,12 +69,12 @@ class PAPIClientTest extends TestCase
     public function it_converts_method_to_uppercase()
     {
         $this->client->method('get');
-        
+
         // Use reflection to check private property
         $reflection = new \ReflectionClass($this->client);
         $methodProperty = $reflection->getProperty('method');
         $methodProperty->setAccessible(true);
-        
+
         $this->assertEquals('GET', $methodProperty->getValue($this->client));
     }
 
@@ -83,14 +82,14 @@ class PAPIClientTest extends TestCase
     public function it_can_set_protected_mode()
     {
         $result = $this->client->protected();
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
-        
+
         // Check protected flag is set
         $reflection = new \ReflectionClass($this->client);
         $protectedProperty = $reflection->getProperty('protected');
         $protectedProperty->setAccessible(true);
-        
+
         $this->assertTrue($protectedProperty->getValue($this->client));
     }
 
@@ -99,14 +98,14 @@ class PAPIClientTest extends TestCase
     {
         $barcode = '1234567890123';
         $result = $this->client->patron($barcode);
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
-        
+
         // Check patron property is set
         $reflection = new \ReflectionClass($this->client);
         $patronProperty = $reflection->getProperty('patron');
         $patronProperty->setAccessible(true);
-        
+
         $this->assertEquals($barcode, $patronProperty->getValue($this->client));
     }
 
@@ -115,14 +114,14 @@ class PAPIClientTest extends TestCase
     {
         $uri = 'apikeyvalidate';
         $result = $this->client->uri($uri);
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
-        
+
         // Check uri property is set
         $reflection = new \ReflectionClass($this->client);
         $uriProperty = $reflection->getProperty('uri');
         $uriProperty->setAccessible(true);
-        
+
         $this->assertEquals($uri, $uriProperty->getValue($this->client));
     }
 
@@ -131,14 +130,14 @@ class PAPIClientTest extends TestCase
     {
         $params = ['Barcode' => '1234567890123', 'Password' => 'test123'];
         $result = $this->client->params($params);
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
-        
+
         // Check params property is set
         $reflection = new \ReflectionClass($this->client);
         $paramsProperty = $reflection->getProperty('params');
         $paramsProperty->setAccessible(true);
-        
+
         $this->assertEquals($params, $paramsProperty->getValue($this->client));
     }
 
@@ -147,14 +146,14 @@ class PAPIClientTest extends TestCase
     {
         $accessSecret = 'temp_access_secret_token';
         $result = $this->client->auth($accessSecret);
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
-        
+
         // Check accessSecret property is set
         $reflection = new \ReflectionClass($this->client);
         $accessSecretProperty = $reflection->getProperty('accessSecret');
         $accessSecretProperty->setAccessible(true);
-        
+
         $this->assertEquals($accessSecret, $accessSecretProperty->getValue($this->client));
     }
 
@@ -168,7 +167,7 @@ class PAPIClientTest extends TestCase
             ->uri('authenticator/patron')
             ->params(['Password' => 'test123'])
             ->auth('access_token');
-        
+
         $this->assertInstanceOf(PAPIClient::class, $result);
         $this->assertSame($this->client, $result);
     }
@@ -271,10 +270,10 @@ class PAPIClientTest extends TestCase
         // Check required headers
         $this->assertArrayHasKey('Accept', $headers);
         $this->assertEquals(['application/json'], $headers['Accept']);
-        
+
         $this->assertArrayHasKey('Authorization', $headers);
         $this->assertStringStartsWith('PWS test_access_id:', $headers['Authorization'][0]);
-        
+
         $this->assertArrayHasKey('PolarisDate', $headers);
         $this->assertNotEmpty($headers['PolarisDate'][0]);
     }
@@ -314,7 +313,7 @@ class PAPIClientTest extends TestCase
 
         $postData = [
             'Barcode' => '1234567890123',
-            'Password' => 'test123'
+            'Password' => 'test123',
         ];
 
         $this->client
@@ -331,7 +330,7 @@ class PAPIClientTest extends TestCase
         // Check that Polaris settings are added
         $this->assertArrayHasKey('PatronBranchID', $body);
         $this->assertArrayHasKey('LogonWorkstationID', $body);
-        
+
         // Check that original params are included
         $this->assertArrayHasKey('Barcode', $body);
         $this->assertArrayHasKey('Password', $body);
@@ -346,7 +345,7 @@ class PAPIClientTest extends TestCase
             'PAPIErrorCode' => 0,
             'ErrorMessage' => 'Success',
             'PatronID' => 12345,
-            'AccessSecret' => 'temp_token_123'
+            'AccessSecret' => 'temp_token_123',
         ];
 
         $this->mockHandler->append(
@@ -444,13 +443,13 @@ class PAPIClientTest extends TestCase
             ->execRequest();
 
         $lastRequest = $this->mockHandler->getLastRequest();
-        
+
         // Should be GET request (not POST from previous)
         $this->assertEquals('GET', $lastRequest->getMethod());
-        
+
         // Should not include patron in URI
         $this->assertStringNotContains('1234567890123', $lastRequest->getUri()->__toString());
-        
+
         // Should use public URI (not protected from previous)
         $this->assertStringContains('public', $lastRequest->getUri()->__toString());
     }
@@ -460,7 +459,7 @@ class PAPIClientTest extends TestCase
     {
         // Mock successful API key validation
         $this->mockHandler->append(
-            new Response(200, ['Content-Type' => 'application/json'], 
+            new Response(200, ['Content-Type' => 'application/json'],
                 json_encode(['PAPIErrorCode' => 0, 'ErrorMessage' => 'Success'])
             )
         );
@@ -482,7 +481,7 @@ class PAPIClientTest extends TestCase
             'PAPIErrorCode' => 0,
             'ErrorMessage' => 'Success',
             'PatronID' => 12345,
-            'AccessSecret' => 'temp_access_token_123'
+            'AccessSecret' => 'temp_access_token_123',
         ];
 
         $this->mockHandler->append(
@@ -514,9 +513,9 @@ class PAPIClientTest extends TestCase
                     'HoldRequestID' => 123,
                     'Title' => 'Test Book',
                     'Author' => 'Test Author',
-                    'StatusDescription' => 'Ready for pickup'
-                ]
-            ]
+                    'StatusDescription' => 'Ready for pickup',
+                ],
+            ],
         ];
 
         $this->mockHandler->append(
@@ -543,7 +542,7 @@ class PAPIClientTest extends TestCase
         // Mock API error response (valid JSON but with error code)
         $errorResponse = [
             'PAPIErrorCode' => -1001,
-            'ErrorMessage' => 'Invalid barcode format'
+            'ErrorMessage' => 'Invalid barcode format',
         ];
 
         $this->mockHandler->append(

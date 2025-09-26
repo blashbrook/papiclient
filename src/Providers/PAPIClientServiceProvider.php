@@ -26,8 +26,6 @@ class PAPIClientServiceProvider extends ServiceProvider
         // Optional components for use with Livewire Flux UI
         Livewire::component('delivery-option-select-flux', DeliveryOptionSelectFlux::class);
 
-
-
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();

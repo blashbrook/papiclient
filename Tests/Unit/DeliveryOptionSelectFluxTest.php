@@ -34,7 +34,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         // Create the delivery_options table for testing
         Schema::create('delivery_options', function (Blueprint $table) {
             $table->id();
@@ -46,17 +46,17 @@ class DeliveryOptionSelectFluxTest extends TestCase
         // Seed test data
         DeliveryOption::create([
             'DeliveryOptionID' => 1,
-            'DeliveryOption' => 'Mailing Address'
+            'DeliveryOption' => 'Mailing Address',
         ]);
 
         DeliveryOption::create([
             'DeliveryOptionID' => 2,
-            'DeliveryOption' => 'Email Address'
+            'DeliveryOption' => 'Email Address',
         ]);
 
         DeliveryOption::create([
             'DeliveryOptionID' => 8,
-            'DeliveryOption' => 'TXT Messaging'
+            'DeliveryOption' => 'TXT Messaging',
         ]);
     }
 
@@ -68,7 +68,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
         // Assert that delivery options were loaded
         $this->assertInstanceOf(Collection::class, $component->get('deliveryOptions'));
         $this->assertCount(3, $component->get('deliveryOptions'));
-        
+
         // Assert that default deliveryOptionIDChanged is set to first option
         $this->assertEquals('1', $component->get('deliveryOptionIDChanged'));
     }
@@ -77,7 +77,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
     public function it_can_mount_with_predefined_delivery_option_id()
     {
         $component = Livewire::test(DeliveryOptionSelectFlux::class, [
-            'deliveryOptionIDChanged' => 8
+            'deliveryOptionIDChanged' => 8,
         ]);
 
         // Assert that the predefined value is preserved
@@ -99,7 +99,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
     {
         $component = new DeliveryOptionSelectFlux();
         $component->mount();
-        
+
         $view = $component->render();
         $fluxOptions = $view->getData()['fluxOptions'];
 
@@ -127,7 +127,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
         // This test specifically addresses the original trim() error
         $component = new DeliveryOptionSelectFlux();
         $component->mount();
-        
+
         $view = $component->render();
         $fluxOptions = $view->getData()['fluxOptions'];
 
@@ -139,10 +139,10 @@ class DeliveryOptionSelectFluxTest extends TestCase
 
         // Assert no complex objects or collections are passed to the view
         $this->assertIsArray($fluxOptions, 'fluxOptions should be a plain array, not a Collection');
-        
+
         // The view should not contain complex collection mapping
         $viewContent = $view->render();
-        $this->assertStringContainsString(':options="$fluxOptions"', $viewContent, 
+        $this->assertStringContainsString(':options="$fluxOptions"', $viewContent,
             'View should use pre-processed $fluxOptions instead of inline collection mapping');
     }
 
@@ -166,7 +166,7 @@ class DeliveryOptionSelectFluxTest extends TestCase
 
         // Simulate parent component updating the reactive property
         $component->set('deliveryOptionIDChanged', 8);
-        
+
         $this->assertEquals(8, $component->get('deliveryOptionIDChanged'));
         $component->assertOk();
     }
@@ -190,14 +190,14 @@ class DeliveryOptionSelectFluxTest extends TestCase
     {
         $component = new DeliveryOptionSelectFlux();
         $component->mount();
-        
+
         $view = $component->render();
         $viewData = $view->getData();
 
         // Assert the view receives exactly what it needs
         $this->assertArrayHasKey('fluxOptions', $viewData);
         $this->assertIsArray($viewData['fluxOptions']);
-        
+
         // Assert the structure matches what the Flux select component expects
         foreach ($viewData['fluxOptions'] as $option) {
             $this->assertArrayHasKey('value', $option);
@@ -211,20 +211,20 @@ class DeliveryOptionSelectFluxTest extends TestCase
     {
         $component = new DeliveryOptionSelectFlux();
         $component->mount();
-        
+
         // Get original data from component
         $originalOptions = $component->deliveryOptions;
-        
+
         // Get processed data from render method
         $view = $component->render();
         $fluxOptions = $view->getData()['fluxOptions'];
 
         // Assert data integrity is maintained
         $this->assertCount($originalOptions->count(), $fluxOptions);
-        
+
         foreach ($originalOptions as $index => $originalOption) {
             $processedOption = $fluxOptions[$index];
-            $this->assertEquals((string)$originalOption->DeliveryOptionID, $processedOption['value']);
+            $this->assertEquals((string) $originalOption->DeliveryOptionID, $processedOption['value']);
             $this->assertEquals($originalOption->DeliveryOption, $processedOption['label']);
         }
     }

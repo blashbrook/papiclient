@@ -8,9 +8,6 @@ use Livewire\Component;
 
 /**
  * @class DeliveryOptionSelectFlux
- * @package Blashbrook\PAPIClient\Livewire
- * A Livewire component designed to integrate the DeliveryOption logic with the Flux
- * UI framework's <flux:select> component.
  */
 class DeliveryOptionSelectFlux extends Component
 {
