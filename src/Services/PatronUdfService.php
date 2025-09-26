@@ -3,8 +3,8 @@
 namespace Blashbrook\PAPIClient\Services;
 
 use Blashbrook\PAPIClient\Concerns\FetchData;
-use Blashbrook\PAPIClient\PAPIClient;
 use Blashbrook\PAPIClient\Models\PatronUdf;
+use Blashbrook\PAPIClient\PAPIClient;
 
 class PatronUdfService
 {

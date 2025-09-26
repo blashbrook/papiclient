@@ -15,7 +15,6 @@ class PAPIClientServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         $this->loadMigrationsFrom(__DIR__.'/../database/Migrations');
 
         // Publishing is only necessary when using the CLI.
