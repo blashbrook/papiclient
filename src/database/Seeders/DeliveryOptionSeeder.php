@@ -1,8 +1,8 @@
 <?php
 
-namespace Blashbrook\PAPIForms\Database\Seeders;
+namespace Blashbrook\PAPIClient\Database\Seeders;
 
-use Blashbrook\PAPIForms\App\Models\DeliveryOption;
+use Blashbrook\PAPIClient\Models\DeliveryOption;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
