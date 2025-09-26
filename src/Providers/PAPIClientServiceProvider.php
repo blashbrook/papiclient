@@ -2,6 +2,7 @@
 
 namespace Blashbrook\PAPIClient\Providers;
 
+use Blashbrook\PAPIClient\Console\Commands\{RunSeeders, UpdatePatronCodes, UpdatePatronStatCodes, UpdatePatronUdfs};
 use Blashbrook\PAPIClient\PAPIClient;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +15,9 @@ class PAPIClientServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/Migrations');
+
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -62,5 +66,13 @@ class PAPIClientServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../Tests/Feature' => base_path('Tests/Feature'),
         ], 'papiclient.Tests');
+
+        // Registering package commands.
+        $this->commands([
+            RunSeeders::class,
+            UpdatePatronCodes::class,
+            UpdatePatronUdfs::class,
+            UpdatePatronStatCodes::class,
+        ]);
     }
 }

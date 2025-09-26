@@ -1,0 +1,34 @@
+[
+  {
+    "DeliveryOptionID": 1,
+    "DeliveryOption": "Mailing Address"
+  },
+  {
+    "DeliveryOptionID": 2,
+    "DeliveryOption": "Email Address"
+  },
+  {
+    "DeliveryOptionID": 3,
+    "DeliveryOption": "Phone 1"
+  },
+  {
+    "DeliveryOptionID": 4,
+    "DeliveryOption": "Phone 2"
+  },
+  {
+    "DeliveryOptionID": 5,
+    "DeliveryOption": "Phone 3"
+  },
+  {
+    "DeliveryOptionID": 6,
+    "DeliveryOption": "FAX"
+  },
+  {
+    "DeliveryOptionID": 7,
+    "DeliveryOption": "EDI"
+  },
+  {
+    "DeliveryOptionID": 8,
+    "DeliveryOption": "TXT Messaging"
+  }
+]
