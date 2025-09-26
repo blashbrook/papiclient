@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/blashbrook/papiclient/compare/v2.0.2...v2.1.0) (2025-09-26)
+
+
+### Features
+
+* add common functions and models ([952fcdd](https://github.com/blashbrook/papiclient/commit/952fcdd64a3ba90831cc3a6c521d59eba589ee10))
+* **database:** add seeders ([66d4598](https://github.com/blashbrook/papiclient/commit/66d45986646e363a74d3caeb2385a2d213ec69cf))
+
 ## [2.0.2](https://github.com/blashbrook/papiclient/compare/v2.0.1...v2.0.2) (2025-09-23)
 
 
