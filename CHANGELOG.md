@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/blashbrook/papiclient/compare/v2.2.0...v2.2.1) (2025-09-26)
+
+
+### Bug Fixes
+
+* apply diff ([b87c54e](https://github.com/blashbrook/papiclient/commit/b87c54ec4f5623dabc0ec7226427fbd4126de696))
+
 # [2.2.0](https://github.com/blashbrook/papiclient/compare/v2.1.0...v2.2.0) (2025-09-26)
 
 
