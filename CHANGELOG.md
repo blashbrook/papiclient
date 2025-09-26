@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/blashbrook/papiclient/compare/v2.1.0...v2.2.0) (2025-09-26)
+
+
+### Features
+
+* **documentation:** add robust documentation and deliveryoptionselectflux livewire blade component ([aeb2e62](https://github.com/blashbrook/papiclient/commit/aeb2e6298c28d26f725ad9d985c249b053ed1eba))
+
 # [2.1.0](https://github.com/blashbrook/papiclient/compare/v2.0.2...v2.1.0) (2025-09-26)
 
 
