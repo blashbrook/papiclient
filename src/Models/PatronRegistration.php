@@ -2,13 +2,11 @@
 
 namespace Blashbrook\PAPIClient\Models;
 
-use Blashbrook\PAPIClient\Models\{DeliveryOption,PatronCode};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatronRegistration extends Model
 {
-
     protected $fillable = [
         'LogonBranchID',
         'LogonUserID',
