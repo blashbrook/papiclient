@@ -1,0 +1,208 @@
+<?php
+
+namespace Blashbrook\PAPIClient\Livewire;
+
+use Blashbrook\PAPIClient\Models\PostalCode;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Modelable;
+use Livewire\Component;
+
+class PostalCodeSelectFlux extends Component
+{
+    #[Modelable]
+    public $selectedPostalCodeChanged;
+
+    public $placeholder = 'Select your city and postal code';
+    public Collection $options;
+    public Collection $filteredOptions;
+   // public array $attrs = [];
+    
+    /**
+     * Available postal code filters - can be configured to limit options
+     * Example: ['State' => 'CO', 'County' => 'Denver']
+     */
+   // public array $filters = [];
+    
+    /**
+     * Available states/provinces that can be filtered
+     * Override to limit which states appear
+     */
+    private array $availableStates = [];
+
+    private $availableDeliveryOptions = [
+        'Mailing Address' => 'Mail',
+        'Email Address' => 'Email',
+        'Phone 1' => 'Phone',
+        'TXT Messaging' => 'Text Messaging',
+    ];
+    
+    /**
+     * Format for displaying postal code options
+     * Options: 'full', 'city_state_zip', 'city_zip', 'custom'
+     */
+    public string $displayFormat = 'city_state_zip';
+
+/*    public function mount($selectedPostalCodeChanged = null, $placeholder = null, $filters = [], $displayFormat = 'city_state_zip', $attrs = [])
+    {
+        $this->selectedPostalCodeChanged = $selectedPostalCodeChanged ?? session('PostalCodeID', null);
+        $this->placeholder = $placeholder ?? 'Select your city and postal code';
+        $this->filters = $filters;
+        $this->displayFormat = $displayFormat;
+        $this->attrs = $attrs;
+        
+        $this->loadPostalCodes();
+    }   */
+
+    public function mount($selectedPostalCodeChanged = null)
+    {
+        $this->selectedPostalCodeChanged = $selectedPostalCodeChanged ?? session('PostalCodeID', null);
+        $this->placeholder = $placeholder ?? 'Select your city and postal code';
+        $this->filters = $filters;
+        $this->displayFormat = $displayFormat;
+        $this->attrs = $attrs;
+
+        $this->loadPostalCodes();
+    }
+    
+    /**
+     * Load postal codes from database with filtering
+     */
+    private function loadPostalCodes(): void
+    {
+        $query = PostalCode::select(
+            'id',
+            'PostalCodeID',
+            'City',
+            'State', 
+            'PostalCode',
+            'County',
+            'CountryID'
+        );
+        
+        // Apply filters if specified
+        foreach ($this->filters as $field => $value) {
+            if (!empty($value)) {
+                $query->where($field, $value);
+            }
+        }
+        
+        // Apply state filtering if configured
+        if (!empty($this->availableStates)) {
+            $query->whereIn('State', $this->availableStates);
+        }
+        
+        $this->options = $query->orderBy('State')
+            ->orderBy('City')
+            ->orderBy('PostalCode')
+            ->get();
+            
+        $this->filteredOptions = $this->options;
+    }
+    
+    /**
+     * Get formatted display string for postal code option
+     */
+    private function formatPostalCodeDisplay(PostalCode $postalCode): string
+    {
+        return match ($this->displayFormat) {
+            'full' => "{$postalCode->City}, {$postalCode->State} {$postalCode->PostalCode} ({$postalCode->County})",
+            'city_zip' => "{$postalCode->City} {$postalCode->PostalCode}",
+            'city_state_zip' => "{$postalCode->City}, {$postalCode->State} {$postalCode->PostalCode}",
+            'custom' => $this->customFormatDisplay($postalCode),
+            default => "{$postalCode->City}, {$postalCode->State} {$postalCode->PostalCode}",
+        };
+    }
+    
+    /**
+     * Override this method for custom display formatting
+     */
+    protected function customFormatDisplay(PostalCode $postalCode): string
+    {
+        return "{$postalCode->City}, {$postalCode->State} {$postalCode->PostalCode}";
+    }
+    
+    /**
+     * Filter postal codes by search term
+     */
+    public function filterOptions(string $search = ''): void
+    {
+        if (empty($search)) {
+            $this->filteredOptions = $this->options;
+            return;
+        }
+        
+        $this->filteredOptions = $this->options->filter(function ($postalCode) use ($search) {
+            $searchLower = strtolower($search);
+            return str_contains(strtolower($postalCode->City), $searchLower) ||
+                   str_contains(strtolower($postalCode->State), $searchLower) ||
+                   str_contains($postalCode->PostalCode, $search) ||
+                   str_contains(strtolower($postalCode->County ?? ''), $searchLower);
+        });
+    }
+    
+    /**
+     * Handle updates to the selected postal code
+     */
+    public function updatedSelectedPostalCodeChanged($value)
+    {
+        if (!$value) {
+            return;
+        }
+        
+        // Store in session for persistence
+        session(['PostalCodeID' => $value]);
+        
+        // Get the selected postal code details
+        $selectedPostalCode = $this->options->firstWhere('id', $value);
+        
+        if ($selectedPostalCode) {
+            // Dispatch comprehensive event for parent components
+            $this->dispatch('postalCodeUpdated', [
+                'id' => $selectedPostalCode->id,
+                'postalCodeId' => $selectedPostalCode->PostalCodeID,
+                'city' => $selectedPostalCode->City,
+                'state' => $selectedPostalCode->State,
+                'postalCode' => $selectedPostalCode->PostalCode,
+                'county' => $selectedPostalCode->County,
+                'countryId' => $selectedPostalCode->CountryID,
+                'displayText' => $this->formatPostalCodeDisplay($selectedPostalCode)
+            ]);
+        }
+    }
+    
+    /**
+     * Get the current selected postal code details
+     */
+    public function getSelectedPostalCodeProperty()
+    {
+        if (!$this->selectedPostalCodeChanged) {
+            return null;
+        }
+        
+        return $this->options->firstWhere('id', $this->selectedPostalCodeChanged);
+    }
+    
+    /**
+     * Get available states for filtering
+     */
+    public function getAvailableStatesProperty(): Collection
+    {
+        return $this->options->pluck('State')->unique()->sort()->values();
+    }
+
+    public function render()
+    {
+        $fluxOptions = $this->deliveryOptions->map(function ($option) {
+            return [
+                // Cast the ID to a string, which is necessary for HTML select values.
+                'value' => (string) $option->id,
+                // Use custom display name from our mapping, fallback to original if not found
+               // 'label' => $this->availableDeliveryOptions[$option->DeliveryOption] ?? $option->DeliveryOption,
+            ];
+        })->toArray();
+
+        return view('papiclient::livewire.postal-code-select-flux', [
+            'fluxOptions' => $fluxOptions,
+        ]);
+    }
+}

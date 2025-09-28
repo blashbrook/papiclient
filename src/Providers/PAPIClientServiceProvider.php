@@ -3,7 +3,12 @@
 namespace Blashbrook\PAPIClient\Providers;
 
 use Blashbrook\PAPIClient\Console\Commands\{RunSeeders, UpdatePatronCodes, UpdatePatronStatCodes, UpdatePatronUdfs};
-use Blashbrook\PAPIClient\Livewire\{DeliveryOptionSelect, DeliveryOptionSelectFlux, PatronUDFSelect, PostalCodeSelect};
+use Blashbrook\PAPIClient\Livewire\{DeliveryOptionSelect,
+    DeliveryOptionSelectFlux,
+    PatronUDFSelect,
+    PatronUDFSelectFlux,
+    PostalCodeSelect,
+    PostalCodeSelectFlux};
 use Blashbrook\PAPIClient\PAPIClient;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -25,6 +30,8 @@ class PAPIClientServiceProvider extends ServiceProvider
         Livewire::component('postal-code-select', PostalCodeSelect::class);
         // Optional components for use with Livewire Flux UI
         Livewire::component('delivery-option-select-flux', DeliveryOptionSelectFlux::class);
+        Livewire::component('patron-udf-select-flux', PatronUDFSelectFlux::class);
+        Livewire::component('postal-code-select-flux', PostalCodeSelectFlux::class);
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {

@@ -228,4 +228,111 @@ class DeliveryOptionSelectFluxTest extends TestCase
             $this->assertEquals($originalOption->DeliveryOption, $processedOption['label']);
         }
     }
+
+    /** @test */
+    public function it_updates_session_when_delivery_option_changes()
+    {
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Change delivery option
+        $component->set('deliveryOptionIDChanged', 2);
+
+        // Assert session was updated
+        $this->assertEquals(2, session('DeliveryOptionID'));
+    }
+
+    /** @test */
+    public function it_dispatches_delivery_option_updated_event()
+    {
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Change delivery option
+        $component->set('deliveryOptionIDChanged', 2);
+
+        // Assert event was dispatched with correct data
+        $component->assertDispatched('deliveryOptionUpdated', function ($event, $data) {
+            return $data['deliveryOptionId'] === 2 &&
+                   $data['deliveryOption'] === 'Email Address' &&
+                   $data['displayName'] === 'Email';
+        });
+    }
+
+    /** @test */
+    public function it_uses_custom_display_names_in_events()
+    {
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Test each available option's custom display name
+        $expectedMappings = [
+            1 => ['option' => 'Mailing Address', 'display' => 'Mail'],
+            2 => ['option' => 'Email Address', 'display' => 'Email'],
+            8 => ['option' => 'TXT Messaging', 'display' => 'Text Messaging']
+        ];
+
+        foreach ($expectedMappings as $id => $expected) {
+            $component->set('deliveryOptionIDChanged', $id);
+
+            $component->assertDispatched('deliveryOptionUpdated', function ($event, $data) use ($id, $expected) {
+                return $data['deliveryOptionId'] === $id &&
+                       $data['deliveryOption'] === $expected['option'] &&
+                       $data['displayName'] === $expected['display'];
+            });
+        }
+    }
+
+    /** @test */
+    public function it_loads_initial_value_from_session()
+    {
+        // Set session value
+        session(['DeliveryOptionID' => 8]);
+
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Assert component loaded session value
+        $this->assertEquals(8, $component->get('deliveryOptionIDChanged'));
+    }
+
+    /** @test */
+    public function it_prioritizes_parameter_over_session_value()
+    {
+        // Set session value
+        session(['DeliveryOptionID' => 8]);
+
+        // Mount with explicit parameter
+        $component = Livewire::test(DeliveryOptionSelectFlux::class, [
+            'deliveryOptionIDChanged' => 2
+        ]);
+
+        // Assert parameter takes precedence
+        $this->assertEquals(2, $component->get('deliveryOptionIDChanged'));
+    }
+
+    /** @test */
+    public function it_handles_nonexistent_delivery_option_gracefully()
+    {
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Try to set non-existent delivery option
+        $component->set('deliveryOptionIDChanged', 999);
+
+        // Session should be updated even for non-existent option
+        $this->assertEquals(999, session('DeliveryOptionID'));
+        
+        // But no event should be dispatched for non-existent option
+        $component->assertNotDispatched('deliveryOptionUpdated');
+    }
+
+    /** @test */
+    public function it_supports_wire_model_binding()
+    {
+        $component = Livewire::test(DeliveryOptionSelectFlux::class);
+
+        // Simulate wire:model binding from parent component
+        $component->set('deliveryOptionIDChanged', 2);
+
+        // Verify the binding works
+        $this->assertEquals(2, $component->get('deliveryOptionIDChanged'));
+        $this->assertEquals(2, session('DeliveryOptionID'));
+        $component->assertDispatched('deliveryOptionUpdated');
+    }
 }

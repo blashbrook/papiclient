@@ -28,6 +28,8 @@ Take a look at [contributing.md](contributing.md) to see a to do list.
     - [Configuration](#configuration)
     - [Usage Examples](#usage-examples)
     - [Troubleshooting](#troubleshooting)
+  - [PatronUDFSelectFlux](#patronudfselectflux)
+  - [PostalCodeSelectFlux](#postalcodeselectflux)
 - [Change log](#change-log)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -184,6 +186,10 @@ class YourComponent extends Component
 
 That's it! The component will show: Mail, Email, Phone, Text Messaging with session persistence.
 
+**Important:** The component includes an `updatedDeliveryOptionIDChanged()` listener that automatically:
+- Updates the session with the new selection
+- Dispatches a `deliveryOptionUpdated` event to notify parent components
+
 #### Configuration
 
 ##### 1. Available Delivery Options
@@ -328,6 +334,141 @@ php artisan test --filter=DeliveryOptionSelectFluxTest
 **Session not persisting:**
 - Ensure `updatedDeliveryOptionIDChanged()` method is implemented in parent component
 - Verify Laravel session configuration is correct
+
+### PatronUDFSelectFlux
+
+A dynamic Livewire component that creates select dropdowns from Patron User Defined Fields (UDFs) stored in your database. Perfect for forms that need library-specific custom fields like School, Department, Grade Level, etc.
+
+#### Features
+- **Dynamic UDF Loading**: Automatically loads options from PatronUdf database records
+- **External Label Selection**: Specify which UDF to use via the `patronUdfLabel` parameter
+- **Session Integration**: Remembers user's selection with label-specific session keys
+- **Flux UI Integration**: Modern, accessible UI components
+- **Custom Display Names**: Override database values with user-friendly labels
+- **Event Broadcasting**: Notifies parent components of selection changes
+- **Automatic Listener**: Includes `updatedSelectedPatronUDFChanged()` for external variable updates
+
+#### Quick Start
+
+To use the PatronUDF component for a "School" selection:
+
+1. **In your Livewire component:**
+```php
+class YourComponent extends Component
+{
+    public $selectedSchool;
+    
+    public function mount()
+    {
+        $this->selectedSchool = session('PatronUDF_School', '');
+    }
+    
+    #[On('patronUdfUpdated')]
+    public function handleUdfUpdate($data)
+    {
+        if ($data['label'] === 'School') {
+            $this->selectedSchool = $data['value'];
+            // Handle school selection logic here
+        }
+    }
+}
+```
+
+2. **In your Blade template:**
+```blade
+<livewire:patron-udf-select-flux 
+    wire:model="selectedSchool"
+    :patron-udf-label="'School'"
+    :selected-patron-udf-changed="$selectedSchool"
+/>
+```
+
+**Important:** The component includes an `updatedSelectedPatronUDFChanged()` listener that automatically:
+- Updates the label-specific session (`PatronUDF_School`, etc.)
+- Dispatches a `patronUdfUpdated` event to notify parent components
+- Supports two-way data binding with external variables
+
+### PostalCodeSelectFlux
+
+A comprehensive Livewire component for postal code selection with city, state, and county information. Ideal for address forms, service area selection, and location-based features.
+
+#### Features
+- **Rich Location Data**: Shows city, state, postal code, and county information
+- **Multiple Display Formats**: Customizable display formats (full, city_state_zip, city_zip, etc.)
+- **Geographic Filtering**: Filter by state, county, or other geographic criteria
+- **Session Integration**: Remembers user's postal code selection
+- **Flux UI Integration**: Modern, accessible select component
+- **Event Broadcasting**: Dispatches detailed postal code information
+- **Search Functionality**: Built-in search and filtering capabilities
+- **Automatic Listener**: Includes `updatedSelectedPostalCodeChanged()` for external variable updates
+
+#### Quick Start
+
+To use the postal code component for address selection:
+
+1. **In your Livewire component:**
+```php
+class AddressComponent extends Component
+{
+    public $selectedPostalCode;
+    public $userCity;
+    public $userState;
+    
+    public function mount()
+    {
+        $this->selectedPostalCode = session('PostalCodeID', null);
+    }
+    
+    #[On('postalCodeUpdated')]
+    public function handlePostalCodeUpdate($data)
+    {
+        $this->userCity = $data['city'];
+        $this->userState = $data['state'];
+        // Auto-populate address fields
+        $this->updateAddressFromPostalCode($data);
+    }
+    
+    private function updateAddressFromPostalCode($postalData)
+    {
+        // Handle postal code selection logic
+        $this->dispatch('addressUpdated', $postalData);
+    }
+}
+```
+
+2. **In your Blade template:**
+```blade
+<livewire:postal-code-select-flux 
+    wire:model="selectedPostalCode"
+    :selected-postal-code-changed="$selectedPostalCode"
+    display-format="city_state_zip"
+/>
+```
+
+**Important:** The component includes an `updatedSelectedPostalCodeChanged()` listener that automatically:
+- Updates the session with the new postal code ID
+- Dispatches a comprehensive `postalCodeUpdated` event with all location data
+- Supports two-way data binding with external variables
+
+#### Listener Implementation Details
+
+**All Flux components include automatic listeners that:**
+- Update external variables when selections change (enabling `wire:model` binding)
+- Persist selections in session storage
+- Dispatch events to notify parent components
+- Handle empty/null values gracefully
+- Support real-time updates without page refresh
+
+**Example of listener in action:**
+```php
+// When user selects a new postal code:
+// 1. updatedSelectedPostalCodeChanged() fires automatically
+// 2. Session is updated: session(['PostalCodeID' => $newValue])
+// 3. Event is dispatched: postalCodeUpdated with full location data
+// 4. Parent component receives event and can update other fields
+```
+
+For complete configuration and usage examples, see the comprehensive testing documentation below.
 
 ## Change log
 
@@ -503,6 +644,183 @@ The test suite uses `phpunit.xml` with separate configurations for:
 - ⚠️ **Integration tests**: Require real API credentials
 - ✅ **Performance tests**: Safe (use mocked responses)
 
+### Component Testing
+
+The package includes comprehensive tests for all Livewire components (DeliveryOptionSelectFlux, PatronUDFSelectFlux, PostalCodeSelectFlux).
+
+#### Component Test Structure
+
+```
+Tests/
+├── Unit/
+│   ├── PatronUDFSelectFluxTest.php      # Unit tests for PatronUDF component
+│   ├── PostalCodeSelectFluxTest.php     # Unit tests for PostalCode component
+│   └── PAPIClientTest.php               # Unit tests for API client
+├── Feature/
+│   ├── LivewireComponentsTest.php       # Feature tests for all components
+│   └── PAPIClientTest.php               # Feature tests for API client
+└── Integration/
+    └── PAPIClientIntegrationTest.php     # Integration tests with real API
+```
+
+#### Running Component Tests
+
+**All component tests:**
+```bash
+# Run all component-related tests
+vendor/bin/phpunit --filter "Component|Livewire"
+
+# Via make command
+make test-components  # If you add this to Makefile
+```
+
+**Individual component tests:**
+```bash
+# PatronUDFSelectFlux tests
+vendor/bin/phpunit Tests/Unit/PatronUDFSelectFluxTest.php
+vendor/bin/phpunit --filter PatronUDFSelectFlux
+
+# PostalCodeSelectFlux tests
+vendor/bin/phpunit Tests/Unit/PostalCodeSelectFluxTest.php
+vendor/bin/phpunit --filter PostalCodeSelectFlux
+
+# All Livewire component feature tests
+vendor/bin/phpunit Tests/Feature/LivewireComponentsTest.php
+```
+
+**Test specific component features:**
+```bash
+# Test only session integration
+vendor/bin/phpunit --filter "session|Session"
+
+# Test only event dispatching
+vendor/bin/phpunit --filter "event|Event|dispatch"
+
+# Test only filtering and search
+vendor/bin/phpunit --filter "filter|Filter|search"
+```
+
+#### Component Test Coverage
+
+**PatronUDFSelectFlux Tests Cover:**
+- Component instantiation and initialization
+- UDF loading based on external label parameter
+- Label-specific session management (`PatronUDF_{Label}`)
+- Event dispatching (`patronUdfUpdated`)
+- Option filtering and display name customization
+- Edge cases (empty values, non-existent labels, whitespace handling)
+- Multiple component instances working independently
+- View rendering and Flux UI integration
+
+**PostalCodeSelectFlux Tests Cover:**
+- Component instantiation and configuration
+- Postal code loading with geographic filtering
+- Multiple display formats (full, city_state_zip, city_zip)
+- Search and filtering functionality
+- Session persistence (`PostalCodeID`)
+- Event dispatching with comprehensive location data
+- Database query ordering and optimization
+- Edge cases (empty filters, invalid formats)
+- Performance considerations for large datasets
+
+**Feature Tests Cover:**
+- Cross-component integration and independence
+- Real database interactions with migrations
+- Session state persistence across "page loads"
+- Component coexistence without interference
+- Flux UI template rendering
+- Error handling with missing database data
+
+#### Test Database Setup
+
+Component tests use in-memory SQLite databases with the `RefreshDatabase` trait:
+
+```php
+// Tests automatically create test data
+PatronUdf::create([
+    'PatronUdfID' => 1,
+    'Label' => 'School',
+    'Display' => true,
+    'Values' => 'Elementary School,Middle School,High School,College',
+    'Required' => true
+]);
+
+PostalCode::create([
+    'PostalCodeID' => 1,
+    'PostalCode' => '80202',
+    'City' => 'Denver',
+    'State' => 'CO',
+    'County' => 'Denver County',
+    'CountryID' => 1
+]);
+```
+
+#### Testing Component Interactions
+
+**Test Event Handling:**
+```php
+// Example from tests - verifying event dispatch
+$component->set('selectedPatronUDFChanged', 'College');
+
+$component->assertDispatched('patronUdfUpdated', [
+    'label' => 'School',
+    'value' => 'College', 
+    'displayName' => 'College'
+]);
+```
+
+**Test Session Integration:**
+```php
+// Verify session persistence
+$component->set('selectedPostalCodeChanged', 1);
+$this->assertEquals(1, Session::get('PostalCodeID'));
+
+// Verify session loading on component mount
+Session::put('PatronUDF_School', 'High School');
+$component = Livewire::test(PatronUDFSelectFlux::class, [
+    'patronUdfLabel' => 'School'
+]);
+$this->assertEquals('High School', $component->get('selectedPatronUDFChanged'));
+```
+
+**Test Component Properties:**
+```php
+// Test dynamic option loading
+$options = $component->get('options');
+$this->assertCount(4, $options);
+
+// Test filtering functionality
+$component->call('filterOptions', 'Denver');
+$filteredOptions = $component->get('filteredOptions');
+$this->assertCount(1, $filteredOptions);
+```
+
+#### Running Tests with Coverage
+
+```bash
+# Component test coverage
+vendor/bin/phpunit --coverage-html coverage-components --filter "Component|Livewire"
+
+# Full coverage including components
+make test-coverage
+```
+
+#### Component Test Performance
+
+**Test execution speed:**
+- Unit tests: ~50-100ms per test (no database I/O)
+- Feature tests: ~200-500ms per test (includes database operations)
+- Full component test suite: ~5-10 seconds
+
+**Optimizing test performance:**
+```bash
+# Run tests in parallel (if available)
+vendor/bin/phpunit --parallel 4
+
+# Run only fast unit tests during development
+vendor/bin/phpunit --testsuite=Unit --filter Component
+```
+
 ### Troubleshooting Tests
 
 **Tests not found:**
@@ -512,6 +830,26 @@ composer dump-autoload
 
 **Integration tests skipped:**
 Ensure `ENABLE_INTEGRATION_TESTS=true` is set
+
+**Component tests failing:**
+```bash
+# Clear Laravel caches
+php artisan cache:clear
+php artisan view:clear
+php artisan config:clear
+
+# Ensure database migrations are up to date
+php artisan migrate:refresh --env=testing
+```
+
+**Livewire component tests failing:**
+```bash
+# Verify Livewire is properly installed
+composer show livewire/livewire
+
+# Check component registration
+php artisan livewire:list
+```
 
 **Coverage requires Xdebug:**
 ```bash
@@ -524,6 +862,556 @@ pecl install xdebug
 sudo chown -R $(whoami):$(whoami) storage/
 chmod -R 755 storage/
 ```
+
+**Database-related test failures:**
+```bash
+# Ensure test database is properly configured
+# Check phpunit.xml database settings
+# Verify RefreshDatabase trait is being used
+```
+
+### PatronUDFSelectFlux
+
+A dynamic Livewire component that creates select dropdowns from Patron User Defined Fields (UDFs) stored in your database. Perfect for forms that need library-specific custom fields like School, Department, Grade Level, etc.
+
+#### Features
+- **Dynamic UDF Loading**: Automatically loads options from PatronUdf database records
+- **External Label Selection**: Specify which UDF to use via the `patronUdfLabel` parameter
+- **Session Integration**: Remembers user's selection with label-specific session keys
+- **Flux UI Integration**: Modern, accessible UI components
+- **Custom Display Names**: Override database values with user-friendly labels
+- **Event Broadcasting**: Notifies parent components of selection changes
+
+#### Quick Start
+
+To use the PatronUDF component for a "School" selection:
+
+1. **In your Livewire component:**
+```php
+class YourComponent extends Component
+{
+    public $selectedSchool;
+    
+    public function mount()
+    {
+        $this->selectedSchool = session('PatronUDF_School', '');
+    }
+    
+    #[On('patronUdfUpdated')]
+    public function handleUdfUpdate($data)
+    {
+        if ($data['label'] === 'School') {
+            $this->selectedSchool = $data['value'];
+            // Handle school selection logic here
+        }
+    }
+}
+```
+
+2. **In your Blade template:**
+```blade
+<livewire:patron-udf-select-flux 
+    wire:model="selectedSchool"
+    :patron-udf-label="'School'"
+    :selected-patron-udf-changed="$selectedSchool"
+/>
+```
+
+#### Configuration
+
+##### 1. Database Setup
+
+Ensure your `patron_udfs` table has records like:
+
+```php
+// Migration example
+Schema::create('patron_udfs', function (Blueprint $table) {
+    $table->id();
+    $table->integer('PatronUdfID')->unique();
+    $table->string('Label');           // e.g., 'School', 'Department', 'Grade'
+    $table->boolean('Display')->default(true);
+    $table->text('Values')->nullable(); // Comma-separated values
+    $table->boolean('Required')->default(false);
+    $table->string('DefaultValue')->nullable();
+    $table->timestamps();
+});
+```
+
+**Sample Data:**
+```php
+// Seeder example
+PatronUdf::create([
+    'PatronUdfID' => 1,
+    'Label' => 'School',
+    'Display' => true,
+    'Values' => 'Elementary School,Middle School,High School,College,Adult Education',
+    'Required' => true
+]);
+
+PatronUdf::create([
+    'PatronUdfID' => 2,
+    'Label' => 'Department',
+    'Display' => true,
+    'Values' => 'Math,Science,English,History,Art,Music',
+    'Required' => false
+]);
+```
+
+##### 2. Component Parameters
+
+```blade
+<livewire:patron-udf-select-flux 
+    :patron-udf-label="'School'"                    {{-- Required: UDF Label to use --}}
+    wire:model="selectedValue"                      {{-- Two-way data binding --}}
+    :selected-patron-udf-changed="$currentValue"    {{-- Initial value --}}
+    :placeholder="'Choose your school'"             {{-- Custom placeholder --}}
+    :attrs="['class' => 'custom-class']"            {{-- Additional HTML attributes --}}
+/>
+```
+
+##### 3. Usage Examples
+
+**Basic School Selection:**
+```blade
+<livewire:patron-udf-select-flux patron-udf-label="School" />
+```
+
+**Department Selection with Custom Placeholder:**
+```blade
+<livewire:patron-udf-select-flux 
+    patron-udf-label="Department"
+    placeholder="Select your department"
+    wire:model="userDepartment"
+/>
+```
+
+**Grade Level with Session Integration:**
+```php
+// In your component
+public function mount()
+{
+    $this->selectedGrade = session('PatronUDF_Grade', '');
+}
+
+public function updatedSelectedGrade($value)
+{
+    session(['PatronUDF_Grade' => $value]);
+}
+```
+
+```blade
+<livewire:patron-udf-select-flux 
+    patron-udf-label="Grade"
+    wire:model="selectedGrade"
+    :selected-patron-udf-changed="$selectedGrade"
+/>
+```
+
+##### 4. Event Handling
+
+The component dispatches `patronUdfUpdated` events:
+
+```php
+#[On('patronUdfUpdated')]
+public function handlePatronUdfUpdate($data)
+{
+    // $data contains:
+    // - 'label': The UDF label (e.g., 'School')
+    // - 'value': Selected value (e.g., 'High School')
+    // - 'displayName': Display name (customizable)
+    
+    match($data['label']) {
+        'School' => $this->updateSchoolPreferences($data['value']),
+        'Department' => $this->updateDepartmentSettings($data['value']),
+        default => null
+    };
+}
+```
+
+##### 5. Session Integration
+
+- **Auto-session keys**: `PatronUDF_{Label}` (e.g., `PatronUDF_School`)
+- **Persistent selection**: User choices persist across browser sessions
+- **Label-specific**: Different UDFs maintain separate session values
+
+##### 6. Customization
+
+**Custom Display Names (Advanced):**
+Extend the component to override display names:
+
+```php
+// Create a custom component extending PatronUDFSelectFlux
+class CustomSchoolSelectFlux extends PatronUDFSelectFlux
+{
+    protected function getCustomDisplayName(string $value): string
+    {
+        return match($value) {
+            'Elementary School' => '🏫 Elementary (K-5)',
+            'Middle School' => '🏛️ Middle School (6-8)',
+            'High School' => '🎓 High School (9-12)',
+            'College' => '🏛️ College/University',
+            default => $value
+        };
+    }
+}
+```
+
+##### 7. Troubleshooting
+
+**No options appearing:**
+- Verify PatronUdf record exists with the specified Label
+- Check that `Display` field is `true`
+- Ensure `Values` field contains comma-separated options
+- Confirm database connection is working
+
+**Session not persisting:**
+- Verify Laravel session configuration
+- Check session driver settings
+- Ensure session middleware is active
+
+**Wrong UDF loading:**
+- Double-check the `patronUdfLabel` parameter spelling
+- Verify Label field in database matches exactly (case-sensitive)
+- Check for duplicate Label entries in database
+
+### PostalCodeSelectFlux
+
+A comprehensive Livewire component for postal code selection with city, state, and county information. Ideal for address forms, service area selection, and location-based features.
+
+#### Features
+- **Rich Location Data**: Shows city, state, postal code, and county information
+- **Multiple Display Formats**: Customizable display formats (full, city_state_zip, city_zip, etc.)
+- **Geographic Filtering**: Filter by state, county, or other geographic criteria
+- **Session Integration**: Remembers user's postal code selection
+- **Flux UI Integration**: Modern, accessible select component
+- **Event Broadcasting**: Dispatches detailed postal code information
+- **Search Functionality**: Built-in search and filtering capabilities
+
+#### Quick Start
+
+To use the postal code component for address selection:
+
+1. **In your Livewire component:**
+```php
+class AddressComponent extends Component
+{
+    public $selectedPostalCode;
+    public $userCity;
+    public $userState;
+    
+    public function mount()
+    {
+        $this->selectedPostalCode = session('PostalCodeID', null);
+    }
+    
+    #[On('postalCodeUpdated')]
+    public function handlePostalCodeUpdate($data)
+    {
+        $this->userCity = $data['city'];
+        $this->userState = $data['state'];
+        // Auto-populate address fields
+        $this->updateAddressFromPostalCode($data);
+    }
+    
+    private function updateAddressFromPostalCode($postalData)
+    {
+        // Handle postal code selection logic
+        $this->dispatch('addressUpdated', $postalData);
+    }
+}
+```
+
+2. **In your Blade template:**
+```blade
+<livewire:postal-code-select-flux 
+    wire:model="selectedPostalCode"
+    :selected-postal-code-changed="$selectedPostalCode"
+    display-format="city_state_zip"
+/>
+```
+
+#### Configuration
+
+##### 1. Database Setup
+
+Ensure your `postal_codes` table has the structure:
+
+```php
+// Migration example
+Schema::create('postal_codes', function (Blueprint $table) {
+    $table->id();
+    $table->integer('PostalCodeID')->unique();
+    $table->string('PostalCode', 10);      // e.g., '80202', '80202-1234'
+    $table->string('City', 100);
+    $table->string('State', 2);            // State abbreviation
+    $table->string('County', 100)->nullable();
+    $table->integer('CountryID')->default(1);
+    $table->timestamps();
+    
+    $table->index(['State', 'City']);
+    $table->index('PostalCode');
+});
+```
+
+**Sample Data:**
+```php
+// Seeder example
+PostalCode::create([
+    'PostalCodeID' => 1,
+    'PostalCode' => '80202',
+    'City' => 'Denver',
+    'State' => 'CO',
+    'County' => 'Denver County',
+    'CountryID' => 1
+]);
+
+PostalCode::create([
+    'PostalCodeID' => 2,
+    'PostalCode' => '80203',
+    'City' => 'Denver',
+    'State' => 'CO',
+    'County' => 'Denver County',
+    'CountryID' => 1
+]);
+```
+
+##### 2. Component Parameters
+
+```blade
+<livewire:postal-code-select-flux 
+    wire:model="selectedValue"                           {{-- Two-way data binding --}}
+    :selected-postal-code-changed="$currentValue"        {{-- Initial value --}}
+    :placeholder="'Choose your location'"                {{-- Custom placeholder --}}
+    :display-format="'city_state_zip'"                   {{-- Display format --}}
+    :filters="['State' => 'CO']"                         {{-- Geographic filters --}}
+    :attrs="['class' => 'location-select']"              {{-- Additional HTML attributes --}}
+/>
+```
+
+##### 3. Display Formats
+
+**Available formats:**
+- `full`: "Denver, CO 80202 (Denver County)"
+- `city_state_zip`: "Denver, CO 80202" (default)
+- `city_zip`: "Denver 80202"
+- `custom`: Use custom formatting method
+
+```blade
+{{-- Full format with county --}}
+<livewire:postal-code-select-flux display-format="full" />
+
+{{-- Compact format --}}
+<livewire:postal-code-select-flux display-format="city_zip" />
+
+{{-- Standard format --}}
+<livewire:postal-code-select-flux display-format="city_state_zip" />
+```
+
+##### 4. Geographic Filtering
+
+**Filter by State:**
+```blade
+<livewire:postal-code-select-flux 
+    :filters="['State' => 'CO']"
+    placeholder="Select Colorado location"
+/>
+```
+
+**Filter by Multiple Criteria:**
+```blade
+<livewire:postal-code-select-flux 
+    :filters="[
+        'State' => 'CO',
+        'County' => 'Denver County'
+    ]"
+/>
+```
+
+**Dynamic Filtering in Parent Component:**
+```php
+public $selectedState = 'CO';
+public $availablePostalCodes = [];
+
+public function updatedSelectedState($state)
+{
+    // Re-render postal code component with new filter
+    $this->dispatch('updatePostalCodeFilter', ['State' => $state]);
+}
+```
+
+##### 5. Usage Examples
+
+**Basic Postal Code Selection:**
+```blade
+<livewire:postal-code-select-flux />
+```
+
+**Service Area Selection:**
+```blade
+<div class="service-area-form">
+    <label>Select Service Area:</label>
+    <livewire:postal-code-select-flux 
+        wire:model="serviceArea"
+        :filters="['State' => 'CO', 'County' => 'Denver County']"
+        display-format="city_state_zip"
+        placeholder="Choose service area"
+    />
+</div>
+```
+
+**Address Form Integration:**
+```php
+class AddressFormComponent extends Component
+{
+    public $selectedPostalCode;
+    public $address = [
+        'city' => '',
+        'state' => '',
+        'postal_code' => '',
+        'county' => ''
+    ];
+    
+    #[On('postalCodeUpdated')]
+    public function handlePostalCodeSelection($data)
+    {
+        $this->address = [
+            'city' => $data['city'],
+            'state' => $data['state'], 
+            'postal_code' => $data['postalCode'],
+            'county' => $data['county']
+        ];
+        
+        // Auto-populate form fields
+        $this->dispatch('addressFieldsUpdated', $this->address);
+    }
+}
+```
+
+```blade
+<form>
+    <div class="form-group">
+        <label>Location:</label>
+        <livewire:postal-code-select-flux 
+            wire:model="selectedPostalCode"
+            :selected-postal-code-changed="$selectedPostalCode"
+        />
+    </div>
+    
+    {{-- Auto-populated fields --}}
+    <input type="text" value="{{ $address['city'] }}" readonly>
+    <input type="text" value="{{ $address['state'] }}" readonly>
+    <input type="text" value="{{ $address['postal_code'] }}" readonly>
+</form>
+```
+
+##### 6. Event Handling
+
+The component dispatches comprehensive `postalCodeUpdated` events:
+
+```php
+#[On('postalCodeUpdated')]
+public function handlePostalCodeUpdate($data)
+{
+    // $data contains:
+    // - 'id': Database ID
+    // - 'postalCodeId': PostalCodeID field
+    // - 'city': City name
+    // - 'state': State abbreviation
+    // - 'postalCode': Postal code
+    // - 'county': County name
+    // - 'countryId': Country ID
+    // - 'displayText': Formatted display string
+    
+    $this->updateLocationPreferences($data);
+    $this->loadNearbyServices($data['postalCode']);
+    $this->calculateShippingCosts($data);
+}
+```
+
+##### 7. Session Integration
+
+- **Session key**: `PostalCodeID`
+- **Persistent selection**: User's postal code choice persists across sessions
+- **Auto-restoration**: Component automatically loads saved selection on mount
+
+```php
+// Manual session management
+public function mount()
+{
+    $this->selectedPostalCode = session('PostalCodeID', null);
+}
+
+public function updatedSelectedPostalCode($value)
+{
+    session(['PostalCodeID' => $value]);
+}
+```
+
+##### 8. Advanced Customization
+
+**Custom Display Format:**
+Extend the component for custom formatting:
+
+```php
+class CustomPostalCodeSelectFlux extends PostalCodeSelectFlux
+{
+    protected function customFormatDisplay(PostalCode $postalCode): string
+    {
+        return "{$postalCode->City} ({$postalCode->PostalCode}) - {$postalCode->County}";
+    }
+}
+```
+
+**Search Integration:**
+```php
+public function searchPostalCodes($searchTerm)
+{
+    $this->filterOptions($searchTerm);
+    $this->render(); // Re-render with filtered options
+}
+```
+
+##### 9. Performance Optimization
+
+**Lazy Loading:**
+```blade
+{{-- Load postal codes only when needed --}}
+<livewire:postal-code-select-flux lazy />
+```
+
+**Pagination for Large Datasets:**
+```php
+// In a custom extended component
+protected function loadPostalCodes(): void
+{
+    $this->options = PostalCode::select(/* fields */)
+        ->limit(500) // Limit initial load
+        ->get();
+}
+```
+
+##### 10. Troubleshooting
+
+**No postal codes appearing:**
+- Verify postal_codes table has data
+- Check database connection
+- Ensure proper column names match model
+- Verify filters aren't too restrictive
+
+**Performance issues:**
+- Add database indexes on State, City, PostalCode
+- Consider lazy loading for large datasets
+- Implement search functionality for better UX
+
+**Session not persisting:**
+- Verify Laravel session configuration
+- Check session driver and middleware
+- Ensure session storage is writable
+
+**Incorrect location data:**
+- Verify postal code data accuracy in database
+- Check PostalCode model fillable fields
+- Ensure proper data seeding
 
 ## Contributing
 

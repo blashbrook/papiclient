@@ -1,0 +1,25 @@
+<div>
+    <flux:select
+        wire:model="selectedPostalCodeChanged"
+        placeholder="{{ $placeholder }}"
+        {{ $attributes->merge($attrs) }}
+    >
+        @foreach($options as $option)
+            <flux:option value="{{ $option->id }}">
+                @switch($displayFormat)
+                    @case('full')
+                        {{ $option->City }}, {{ $option->State }} {{ $option->PostalCode }} ({{ $option->County }})
+                        @break
+                    @case('city_zip')
+                        {{ $option->City }} {{ $option->PostalCode }}
+                        @break
+                    @case('city_state_zip')
+                        {{ $option->City }}, {{ $option->State }} {{ $option->PostalCode }}
+                        @break
+                    @default
+                        {{ $option->City }}, {{ $option->State }} {{ $option->PostalCode }}
+                @endswitch
+            </flux:option>
+        @endforeach
+    </flux:select>
+</div>

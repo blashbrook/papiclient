@@ -55,8 +55,35 @@ class DeliveryOptionSelectFlux extends Component
             return array_key_exists($option->DeliveryOption, $this->availableDeliveryOptions);
         });
 
-        // Initialize with provided value or default to first allowed option
-        $this->deliveryOptionIDChanged = $deliveryOptionIDChanged ?? $this->deliveryOptions->first()->DeliveryOptionID ?? null;
+        // Initialize with provided value, session value, or default to first allowed option
+        $this->deliveryOptionIDChanged = $deliveryOptionIDChanged 
+            ?? session('DeliveryOptionID', $this->deliveryOptions->first()->DeliveryOptionID ?? null);
+    }
+    
+    /**
+     * Handle updates to the delivery option selection.
+     * Updates session and dispatches event to notify parent components.
+     *
+     * @param mixed $value
+     * @return void
+     */
+    public function updatedDeliveryOptionIDChanged($value): void
+    {
+        // Store in session for persistence
+        session(['DeliveryOptionID' => $value]);
+        
+        // Find the selected delivery option for event data
+        $selectedOption = $this->deliveryOptions->firstWhere('DeliveryOptionID', $value);
+        
+        if ($selectedOption) {
+            // Dispatch event with comprehensive delivery option data
+            $this->dispatch('deliveryOptionUpdated', [
+                'deliveryOptionId' => $selectedOption->DeliveryOptionID,
+                'deliveryOption' => $selectedOption->DeliveryOption,
+                'displayName' => $this->availableDeliveryOptions[$selectedOption->DeliveryOption] 
+                    ?? $selectedOption->DeliveryOption
+            ]);
+        }
     }
 
     /**
@@ -66,9 +93,7 @@ class DeliveryOptionSelectFlux extends Component
      */
     public function render()
     {
-        // CRITICAL FIX: Perform the complex mapping here in the PHP class.
-        // This ensures the view receives a clean PHP array, resolving the trim() error
-        // caused by complex collection mapping inside the Blade attribute binding.
+
         $fluxOptions = $this->deliveryOptions->map(function ($option) {
             return [
                 // Cast the ID to a string, which is necessary for HTML select values.

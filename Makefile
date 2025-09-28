@@ -48,6 +48,19 @@ test-coverage-clover: ## Generate clover coverage report
 test-performance: ## Run performance tests
 	vendor/bin/phpunit --group performance --colors=always
 
+# Component Testing
+test-components: ## Run all Livewire component tests
+	vendor/bin/phpunit --filter "Component|Livewire" --colors=always
+
+test-patron-udf: ## Run PatronUDFSelectFlux tests
+	vendor/bin/phpunit Tests/Unit/PatronUDFSelectFluxTest.php --colors=always
+
+test-postal-code: ## Run PostalCodeSelectFlux tests
+	vendor/bin/phpunit Tests/Unit/PostalCodeSelectFluxTest.php --colors=always
+
+test-livewire-feature: ## Run Livewire component feature tests
+	vendor/bin/phpunit Tests/Feature/LivewireComponentsTest.php --colors=always
+
 # Test with real PAPI API (use cautiously)
 test-real-api: ## Run integration tests with real API (set env vars first)
 	@echo "WARNING: This will make real API calls. Ensure you have proper credentials set."
