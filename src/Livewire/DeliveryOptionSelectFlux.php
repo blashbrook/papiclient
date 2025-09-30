@@ -3,6 +3,8 @@
 namespace Blashbrook\PAPIClient\Livewire;
 
 use Blashbrook\PAPIClient\Models\DeliveryOption;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
@@ -89,7 +91,7 @@ class DeliveryOptionSelectFlux extends Component
     /**
      * Renders the component's view, passing pre-processed options.
      *
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     * @return View|Factory
      */
     public function render()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Blashbrook\PAPIClient\Models\PostalCode;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -86,7 +87,7 @@ class PostalCodeSelectFluxTest extends Component
     private function loadPostalCodeDetails()
     {
         if ($this->selectedPostalCode) {
-            $postalCodeData = \Blashbrook\PAPIClient\Models\PostalCode::find($this->selectedPostalCode);
+            $postalCodeData = PostalCode::find($this->selectedPostalCode);
             
             if ($postalCodeData) {
                 $this->userCity = $postalCodeData->City;

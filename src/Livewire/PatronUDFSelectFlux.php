@@ -40,9 +40,9 @@
         /**
          * Mounts the component and loads UDF options based on the label.
          *
-         * @param string|null $selected The initial value from the parent's wire:model.
-         * @param string $udfLabel The label of the UDF field (e.g., 'Non-Resident').
-         * @param string $placeholder The placeholder text.
+         * @param  string|null  $selected  The initial value from the parent's wire:model.
+         * @param  string  $udfLabel  The label of the UDF field (e.g., 'Non-Resident').
+         * @param  string  $placeholder  The placeholder text.
          * @return void
          */
         public function mount($selected, $udfLabel, $placeholder)
@@ -74,7 +74,7 @@
         /**
          * Livewire lifecycle hook called when $selectedOption changes.
          *
-         * @param string $value The newly selected UDF value.
+         * @param  string  $value  The newly selected UDF value.
          * @return void
          */
         public function updatedSelectedOption($value): void
@@ -85,11 +85,11 @@
         /**
          * Handles the selection update and dispatches the 'patronUdfUpdated' event.
          *
-         * @param string $newSelection The new selected value.
+         * @param  string  $newSelection  The new selected value.
          * @return void
          *
          * @dispatch 'patronUdfUpdated' {
-         * "label": string,     // The UDF Label (e.g., 'Non-Resident')
+         * "label": string,     // The UDF Label
          * "value": string,     // The selected UDF value
          * "displayName": string // The selected UDF display name (same as value)
          * }

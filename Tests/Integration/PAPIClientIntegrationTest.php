@@ -3,6 +3,9 @@
 namespace Blashbrook\PAPIClient\Tests\Integration;
 
 use Blashbrook\PAPIClient\PAPIClient;
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ServerException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -86,7 +89,7 @@ class PAPIClientIntegrationTest extends TestCase
             if (isset($response['PAPIErrorCode'])) {
                 $this->assertNotEquals(0, $response['PAPIErrorCode']);
             }
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (GuzzleException $e) {
             // HTTP errors (404, 500, etc.) are also acceptable for invalid endpoints
             $this->assertNotEmpty($e->getMessage());
         }
@@ -138,7 +141,7 @@ class PAPIClientIntegrationTest extends TestCase
                 $this->assertNotEquals(0, $response['PAPIErrorCode'],
                     'Expected protected endpoint to require authentication');
             }
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (GuzzleException $e) {
             // HTTP 401/403 errors are expected for unauthenticated requests
             $this->assertTrue(
                 str_contains($e->getMessage(), '401') || str_contains($e->getMessage(), '403'),
@@ -163,7 +166,7 @@ class PAPIClientIntegrationTest extends TestCase
                 ->uri('authenticator/patron')
                 ->params(['Password' => 'test'])
                 ->execRequest();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Ignore authentication failures for this test
         }
 
@@ -202,7 +205,7 @@ class PAPIClientIntegrationTest extends TestCase
                 $this->assertNotEquals(0, $response['PAPIErrorCode']);
                 $this->assertArrayHasKey('ErrorMessage', $response);
             }
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (GuzzleException $e) {
             // HTTP errors for malformed requests are also acceptable
             $this->assertNotEmpty($e->getMessage());
         }
@@ -227,11 +230,11 @@ class PAPIClientIntegrationTest extends TestCase
             if (is_array($response)) {
                 $this->assertArrayHasKey('PAPIErrorCode', $response);
             }
-        } catch (\GuzzleHttp\Exception\ServerException $e) {
+        } catch (ServerException $e) {
             // Server errors (5xx) should be caught and handled
             $this->assertGreaterThanOrEqual(500, $e->getResponse()->getStatusCode());
             $this->assertLessThan(600, $e->getResponse()->getStatusCode());
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (GuzzleException $e) {
             // Other HTTP errors should also be handled gracefully
             $this->assertNotEmpty($e->getMessage());
         }
@@ -266,7 +269,7 @@ class PAPIClientIntegrationTest extends TestCase
             // Should return structured response even for failed authentication
             $this->assertIsArray($postResponse);
             $this->assertArrayHasKey('PAPIErrorCode', $postResponse);
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (GuzzleException $e) {
             // HTTP errors are also acceptable
             $this->assertNotEmpty($e->getMessage());
         }
@@ -359,7 +362,7 @@ class PAPIClientPerformanceTest extends TestCase
                     ->method('GET')
                     ->uri('apikeyvalidate')
                     ->execRequest();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Ignore errors for this test
             }
         }

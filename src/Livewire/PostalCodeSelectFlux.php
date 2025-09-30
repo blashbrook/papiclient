@@ -3,6 +3,8 @@
 namespace Blashbrook\PAPIClient\Livewire;
 
 use Blashbrook\PAPIClient\Models\PostalCode;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Modelable;
 use Livewire\Component;
@@ -79,7 +81,7 @@ class PostalCodeSelectFlux extends Component
     /**
      * Prepares options for the Flux select view and renders.
      *
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     * @return View|Factory
      */
     public function render()
     {

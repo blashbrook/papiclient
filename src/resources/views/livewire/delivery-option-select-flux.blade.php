@@ -1,6 +1,7 @@
+@php use Blashbrook\PAPIClient\Livewire\DeliveryOptionSelectFlux; @endphp
 @php
     /**
-     * @var \Blashbrook\PAPIClient\Livewire\DeliveryOptionSelectFlux $this
+     * @var DeliveryOptionSelectFlux $this
      * @var array $fluxOptions Pre-processed options array from the component
      */
 @endphp

@@ -4,12 +4,16 @@ namespace Blashbrook\PAPIClient\Tests\Unit;
 
 use Blashbrook\PAPIClient\PAPIClient;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use JsonException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * PAPIClient Unit Tests.
@@ -71,7 +75,7 @@ class PAPIClientTest extends TestCase
         $this->client->method('get');
 
         // Use reflection to check private property
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $methodProperty = $reflection->getProperty('method');
         $methodProperty->setAccessible(true);
 
@@ -86,7 +90,7 @@ class PAPIClientTest extends TestCase
         $this->assertInstanceOf(PAPIClient::class, $result);
 
         // Check protected flag is set
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $protectedProperty = $reflection->getProperty('protected');
         $protectedProperty->setAccessible(true);
 
@@ -102,7 +106,7 @@ class PAPIClientTest extends TestCase
         $this->assertInstanceOf(PAPIClient::class, $result);
 
         // Check patron property is set
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $patronProperty = $reflection->getProperty('patron');
         $patronProperty->setAccessible(true);
 
@@ -118,7 +122,7 @@ class PAPIClientTest extends TestCase
         $this->assertInstanceOf(PAPIClient::class, $result);
 
         // Check uri property is set
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $uriProperty = $reflection->getProperty('uri');
         $uriProperty->setAccessible(true);
 
@@ -134,7 +138,7 @@ class PAPIClientTest extends TestCase
         $this->assertInstanceOf(PAPIClient::class, $result);
 
         // Check params property is set
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $paramsProperty = $reflection->getProperty('params');
         $paramsProperty->setAccessible(true);
 
@@ -150,7 +154,7 @@ class PAPIClientTest extends TestCase
         $this->assertInstanceOf(PAPIClient::class, $result);
 
         // Check accessSecret property is set
-        $reflection = new \ReflectionClass($this->client);
+        $reflection = new ReflectionClass($this->client);
         $accessSecretProperty = $reflection->getProperty('accessSecret');
         $accessSecretProperty->setAccessible(true);
 
@@ -388,7 +392,7 @@ class PAPIClientTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], 'invalid json content')
         );
 
-        $this->expectException(\JsonException::class);
+        $this->expectException(JsonException::class);
 
         $this->client
             ->method('GET')
@@ -401,9 +405,9 @@ class PAPIClientTest extends TestCase
     {
         // Mock network timeout
         $this->mockHandler->append(
-            new \GuzzleHttp\Exception\ConnectException(
+            new ConnectException(
                 'Connection timeout',
-                new \GuzzleHttp\Psr7\Request('GET', 'test')
+                new Request('GET', 'test')
             )
         );
 

@@ -4,10 +4,12 @@ namespace Blashbrook\PAPIClient\Tests\Unit;
 
 use Blashbrook\PAPIClient\Livewire\DeliveryOptionSelectFlux;
 use Blashbrook\PAPIClient\Models\DeliveryOption;
+use Blashbrook\PAPIClient\Providers\PAPIClientServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Livewire;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class DeliveryOptionSelectFluxTest extends TestCase
@@ -15,8 +17,8 @@ class DeliveryOptionSelectFluxTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            \Blashbrook\PAPIClient\Providers\PAPIClientServiceProvider::class,
-            \Livewire\LivewireServiceProvider::class,
+            PAPIClientServiceProvider::class,
+            LivewireServiceProvider::class,
         ];
     }
 

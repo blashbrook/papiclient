@@ -8,29 +8,29 @@
  * @author Brian Lashbrook <blashbrook@gmail.com>
  */
 
-namespace Blashbrook\PAPIClient\Models {
+namespace Blashbrook\PAPIClient\Models {use Carbon\Carbon;use Eloquent;use Illuminate\Database\Eloquent\Builder;
     /**
      * DeliveryOption Model.
      *
      * @property int $id
      * @property int $DeliveryOptionID
      * @property string $DeliveryOption
-     * @property \Carbon\Carbon|null $created_at
-     * @property \Carbon\Carbon|null $updated_at
+     * @property Carbon|null $created_at
+     * @property Carbon|null $updated_at
      * @property-read string $display_name Custom display name for the option
      *
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption query()
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereDeliveryOption($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereDeliveryOptionID($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereUpdatedAt($value)
+     * @method static Builder|DeliveryOption newModelQuery()
+     * @method static Builder|DeliveryOption newQuery()
+     * @method static Builder|DeliveryOption query()
+     * @method static Builder|DeliveryOption whereCreatedAt($value)
+     * @method static Builder|DeliveryOption whereDeliveryOption($value)
+     * @method static Builder|DeliveryOption whereDeliveryOptionID($value)
+     * @method static Builder|DeliveryOption whereId($value)
+     * @method static Builder|DeliveryOption whereUpdatedAt($value)
      *
-     * @mixin \Eloquent
+     * @mixin Eloquent
      */
-    class DeliveryOption extends \Eloquent
+    class DeliveryOption extends Eloquent
     {
     }
 
@@ -40,16 +40,16 @@ namespace Blashbrook\PAPIClient\Models {
      * @property int $id
      * @property int $PatronCodeID
      * @property string $Description
-     * @property \Carbon\Carbon|null $created_at
-     * @property \Carbon\Carbon|null $updated_at
+     * @property Carbon|null $created_at
+     * @property Carbon|null $updated_at
      *
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronCode newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronCode newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronCode query()
+     * @method static Builder|PatronCode newModelQuery()
+     * @method static Builder|PatronCode newQuery()
+     * @method static Builder|PatronCode query()
      *
-     * @mixin \Eloquent
+     * @mixin Eloquent
      */
-    class PatronCode extends \Eloquent
+    class PatronCode extends Eloquent
     {
     }
 
@@ -59,28 +59,28 @@ namespace Blashbrook\PAPIClient\Models {
      * @property int $id
      * @property int $PatronUdfID
      * @property string $Label
-     * @property \Carbon\Carbon|null $created_at
-     * @property \Carbon\Carbon|null $updated_at
+     * @property Carbon|null $created_at
+     * @property Carbon|null $updated_at
      *
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronUdf newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronUdf newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|PatronUdf query()
+     * @method static Builder|PatronUdf newModelQuery()
+     * @method static Builder|PatronUdf newQuery()
+     * @method static Builder|PatronUdf query()
      *
-     * @mixin \Eloquent
+     * @mixin Eloquent
      */
-    class PatronUdf extends \Eloquent
+    class PatronUdf extends Eloquent
     {
     }
 }
 
-namespace Blashbrook\PAPIClient\Livewire {
+namespace Blashbrook\PAPIClient\Livewire {use Illuminate\Database\Eloquent\Collection;use Livewire\Component;
     /**
      * DeliveryOptionSelectFlux Component.
      *
      * @property int|null $deliveryOptionIDChanged
-     * @property \Illuminate\Database\Eloquent\Collection $deliveryOptions
+     * @property Collection $deliveryOptions
      */
-    class DeliveryOptionSelectFlux extends \Livewire\Component
+    class DeliveryOptionSelectFlux extends Component
     {
     }
 }

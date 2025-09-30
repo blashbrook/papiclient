@@ -2,10 +2,12 @@
 
 namespace Blashbrook\PAPIClient\Concerns;
 
+use JsonException;
+
 trait ReadResponses
 {
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     private function toArray($response)
     {

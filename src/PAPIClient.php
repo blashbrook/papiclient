@@ -8,6 +8,7 @@ use Blashbrook\PAPIClient\Concerns\GetConfig;
 use Blashbrook\PAPIClient\Concerns\ReadResponses;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
 
 /**
  * PAPIClient - Polaris API Client.
@@ -190,7 +191,7 @@ class PAPIClient extends Client
      * @return array<string, mixed> Decoded JSON response from the API
      *
      * @throws GuzzleException If HTTP request fails (network, 4xx, 5xx errors)
-     * @throws \JsonException If response JSON cannot be decoded
+     * @throws JsonException If response JSON cannot be decoded
      *
      * @example Basic API validation:
      *   $result = $client->method('GET')->uri('apikeyvalidate')->execRequest();

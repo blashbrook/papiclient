@@ -2,6 +2,8 @@
 
 namespace Blashbrook\PAPIClient\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,17 +17,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id Laravel auto-increment primary key
  * @property int $DeliveryOptionID Polaris delivery option ID
  * @property string $DeliveryOption Display name of the delivery option
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  *
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption query()
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereDeliveryOption(string $value)
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereDeliveryOptionID(int $value)
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereId(int $value)
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereCreatedAt(string $value)
- * @method static \Illuminate\Database\Eloquent\Builder|DeliveryOption whereUpdatedAt(string $value)
+ * @method static Builder|DeliveryOption newModelQuery()
+ * @method static Builder|DeliveryOption newQuery()
+ * @method static Builder|DeliveryOption query()
+ * @method static Builder|DeliveryOption whereDeliveryOption(string $value)
+ * @method static Builder|DeliveryOption whereDeliveryOptionID(int $value)
+ * @method static Builder|DeliveryOption whereId(int $value)
+ * @method static Builder|DeliveryOption whereCreatedAt(string $value)
+ * @method static Builder|DeliveryOption whereUpdatedAt(string $value)
  *
  * @example Find by Polaris ID:
  *   $option = DeliveryOption::where('DeliveryOptionID', 8)->first();
