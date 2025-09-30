@@ -1,3 +1,12 @@
+{{--
+/**
+ * Blade view for the PostalCodeSelectFlux Livewire component.
+ *
+ * @var \Blashbrook\PAPIClient\Livewire\PostalCodeSelectFlux $this The component instance.
+ * @var array $fluxOptions Options for the flux:select component, where each item is ['value' => string, 'label' => string].
+ * @var string|null $selectedOption The selected option value, bound via wire:model.
+ */
+--}}
 <div>
     <flux:select
             wire:change="handleUpdate($event.target.value)"
