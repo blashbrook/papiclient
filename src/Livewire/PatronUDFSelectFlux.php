@@ -17,15 +17,16 @@
         public Collection $options;
 
         // Define the UDF label to fetch
-        public $patronUdfLabel = 'School';
+        public $udfLabel = '';
+        public $placeholder = '';
 
-        public function mount($selected)
+        public function mount($selected, $udfLabel, $placeholder)
         {
             // Set the initial selected value from the parent
             $this->selectedOption = $selected;
 
             // Load UDF options
-            $patronUdf = PatronUdf::where('Label', $this->patronUdfLabel)->first();
+            $patronUdf = PatronUdf::where('Label', $this->udfLabel)->first();
 
             $rawOptions = collect();
             if ($patronUdf && $patronUdf->Values) {
@@ -54,13 +55,13 @@
             if ($selectedOption) {
                 // Dispatch the event with the full details
                 $this->dispatch('patronUdfUpdated', [
-                    'label' => $this->patronUdfLabel,
+                    'label' => $this->udfLabel,
                     'value' => $selectedOption['value'],
                     'displayName' => $selectedOption['label'],
                 ]);
 
                 // Persist to session
-                session(['PatronUDF_' . $this->patronUdfLabel => $newSelection]);
+                session([$this->udfLabel => $newSelection]);
             }
         }
 

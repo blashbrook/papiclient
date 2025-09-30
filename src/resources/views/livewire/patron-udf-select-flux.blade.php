@@ -2,8 +2,8 @@
     <flux:select
             wire:model.live="selectedOption"
             name="selectedOption"
-            label="School"
-            placeholder="Select your school if applicable"
+            label="{{ $udfLabel }}"
+            placeholder="{{ $placeholder }}"
     >
         @foreach($fluxOptions as $option)
             {{-- Using flux:select.option assuming standard Flux component usage --}}
