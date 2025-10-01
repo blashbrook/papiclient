@@ -16,7 +16,7 @@ class DeliveryOptionSelectFlux extends Component
     /**
      * The ID of the currently selected delivery option.
      * This property allows two-way binding with the parent component
-     * (e.g., PatronNotificationsTest) via wire:model.
+     * via wire:model.
      *
      * @var int|null
      */
