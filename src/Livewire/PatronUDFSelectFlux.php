@@ -45,7 +45,7 @@
          * @param  string  $placeholder  The placeholder text.
          * @return void
          */
-        public function mount($selected, $udfLabel, $placeholder)
+        public function mount($selected = null, $udfLabel = '', $placeholder = 'Select an option')
         {
             // Set properties passed as props
             $this->udfLabel = $udfLabel;

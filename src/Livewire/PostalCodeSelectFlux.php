@@ -31,7 +31,7 @@ class PostalCodeSelectFlux extends Component
      * @param string|null $selected The initial selected ID passed from the parent.
      * @return void
      */
-    public function mount($selected): void
+    public function mount($selected = null): void
     {
         $this->options = PostalCode::select(
             'id',

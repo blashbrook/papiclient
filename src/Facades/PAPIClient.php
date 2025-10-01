@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Blashbrook\PAPIClient\PAPIClient auth(string $accessSecret) Set authentication token
  * @method static array<string, mixed> execRequest() Execute the API request
  *
- * @example Basic usage:
+ * @examples Basic usage:
  *   $response = PAPIClient::method('GET')->uri('apikeyvalidate')->execRequest();
- * @example Patron authentication:
+ * @examples Patron authentication:
  *   $result = PAPIClient::protected()->patron('1234567890123')
  *                      ->uri('authenticator/patron')
  *                      ->params(['Password' => 'secret'])
  *                      ->execRequest();
- * @example Authenticated API call:
+ * @examples Authenticated API call:
  *   $holds = PAPIClient::protected()->patron('1234567890123')
  *                     ->auth($accessToken)
  *                     ->uri('patron/holds')

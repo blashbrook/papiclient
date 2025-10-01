@@ -260,7 +260,7 @@ class YourParentComponent extends Component
 Ensure your `delivery_options` table has the structure:
 
 ```php
-// Migration example
+// Migration examples
 Schema::create('delivery_options', function (Blueprint $table) {
     $table->id();
     $table->integer('DeliveryOptionID')->unique();
@@ -271,7 +271,7 @@ Schema::create('delivery_options', function (Blueprint $table) {
 
 **Sample Data:**
 ```php
-// Seeder example
+// Seeder examples
 DeliveryOption::create(['DeliveryOptionID' => 1, 'DeliveryOption' => 'Mailing Address']);
 DeliveryOption::create(['DeliveryOptionID' => 2, 'DeliveryOption' => 'Email Address']);
 DeliveryOption::create(['DeliveryOptionID' => 3, 'DeliveryOption' => 'Phone 1']);
@@ -759,7 +759,7 @@ PostalCode::create([
 
 **Test Event Handling:**
 ```php
-// Example from tests - verifying event dispatch
+// Examples from tests - verifying event dispatch
 $component->set('selectedPatronUDFChanged', 'College');
 
 $component->assertDispatched('patronUdfUpdated', [
@@ -924,7 +924,7 @@ class YourComponent extends Component
 Ensure your `patron_udfs` table has records like:
 
 ```php
-// Migration example
+// Migration examples
 Schema::create('patron_udfs', function (Blueprint $table) {
     $table->id();
     $table->integer('PatronUdfID')->unique();
@@ -939,7 +939,7 @@ Schema::create('patron_udfs', function (Blueprint $table) {
 
 **Sample Data:**
 ```php
-// Seeder example
+// Seeder examples
 PatronUdf::create([
     'PatronUdfID' => 1,
     'Label' => 'School',
@@ -1137,7 +1137,7 @@ class AddressComponent extends Component
 Ensure your `postal_codes` table has the structure:
 
 ```php
-// Migration example
+// Migration examples
 Schema::create('postal_codes', function (Blueprint $table) {
     $table->id();
     $table->integer('PostalCodeID')->unique();
@@ -1155,7 +1155,7 @@ Schema::create('postal_codes', function (Blueprint $table) {
 
 **Sample Data:**
 ```php
-// Seeder example
+// Seeder examples
 PostalCode::create([
     'PostalCodeID' => 1,
     'PostalCode' => '80202',
