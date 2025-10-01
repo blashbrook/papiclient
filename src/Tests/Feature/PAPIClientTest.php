@@ -25,7 +25,8 @@ namespace Tests\Feature;
          */
         public function test_api_key_is_valid()
         {
-            $response = PAPIClient::publicRequest('GET', 'apikeyvalidate');
-            $this->assertEquals(json_decode($response->getStatusCode()), '200');
+            $papiclient = new PAPIClient();
+            $response = $papiclient->method('GET')->uri('apikeyvalidate')->execRequest();
+            $this->assertEquals($response['PAPIErrorCode'], '0');
         }
     }
