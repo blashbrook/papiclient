@@ -1,3 +1,31 @@
+# [2.4.0](https://github.com/blashbrook/papiclient/compare/v2.3.0...v2.4.0) (2025-10-02)
+
+
+### Features
+
+* **deliveryoptionselectfluxexample:** fix and add documentation to the delivery-option-select-flux-example component ([545843c](https://github.com/blashbrook/papiclient/commit/545843c651f6d33c99d368057f693088f7a497cc))
+* **selectflux:** add livewire flux select components that can be plugged into any livewire component' ([b32f177](https://github.com/blashbrook/papiclient/commit/b32f1777a09d2522605107f67530da71ab44bf80))
+* **selectfluxexamples:** add examples for flux select components and fix tests ([38a3ed2](https://github.com/blashbrook/papiclient/commit/38a3ed23ce47525d0c0af3f629f59d257951847b))
+
+# [2.3.0](https://github.com/blashbrook/papiclient/compare/v2.2.1...v2.3.0) (2025-10-01)
+
+
+### Bug Fixes
+
+* **PAPIClientTest:** fix failing tests ([53d200d](https://github.com/blashbrook/papiclient/commit/53d200dcb6749daf0e3273ebff1bb3a00fb2bc87))
+* **patron-udf-select-flux.blade:** add phpdoc blocks for blade ([2524108](https://github.com/blashbrook/papiclient/commit/25241086bd297dfa9a6924e9fdb2a7cec756d6cd))
+* **patronudfselectflux:** add phpdoc blocks for component ([673141b](https://github.com/blashbrook/papiclient/commit/673141be69685cfd2f0533faadd1be33d10bf481))
+* **patronudfselectflux:** add variables for label and placeholder ([0201954](https://github.com/blashbrook/papiclient/commit/0201954d7217febebfbb840dd94c539b1a19336c))
+* **patronudfselectflux:** fix patron udf to work with schools only, for now ([0431e1c](https://github.com/blashbrook/papiclient/commit/0431e1ccdacac448a3d3e037805199729b9c1817))
+* **postalCodeSelectFlux:** add phpdoc blocks for component and blade ([6397405](https://github.com/blashbrook/papiclient/commit/6397405b41530df0331eab0c87bf6ca3a76a769e))
+* **PostalCodeSelectFlux:** seperate session values from select component ([cb1f40d](https://github.com/blashbrook/papiclient/commit/cb1f40d053d9cdaba5258c11cbc23e407d5e19b6))
+* **select-flux:** update phpdoc blocks for component and blade ([cee7411](https://github.com/blashbrook/papiclient/commit/cee7411df836f717d44bc8407ecc7be5d75e5004))
+
+
+### Features
+
+* **flux select:** add flux select livewire components ([a8857c3](https://github.com/blashbrook/papiclient/commit/a8857c32732c6a020551248144a46390e0eda3a1))
+
 ## [2.2.1](https://github.com/blashbrook/papiclient/compare/v2.2.0...v2.2.1) (2025-09-26)
 
 
