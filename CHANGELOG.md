@@ -1,3 +1,11 @@
+## [2.4.5](https://github.com/blashbrook/papiclient/compare/v2.4.4...v2.4.5) (2025-10-02)
+
+
+### Bug Fixes
+
+* **database:** capitalize database directory for psr-4 compliance ([ddba2b1](https://github.com/blashbrook/papiclient/commit/ddba2b114e879c8f0c62af6694076d5aaf3c4a1e))
+* **Database:** try to force capitalization of database folder for psr-4 ([8106b21](https://github.com/blashbrook/papiclient/commit/8106b21aeb46d428f2d76dc09ba6bf741452690e))
+
 ## [2.4.4](https://github.com/blashbrook/papiclient/compare/v2.4.3...v2.4.4) (2025-10-02)
 
 
