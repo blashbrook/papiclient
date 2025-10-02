@@ -31,8 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Blashbrook\\PAPIClient\\Tests\\": "src/Tests/",
-            "Blashbrook\\PAPIClient\\Database\\": "src/Database/"
+            "Blashbrook\\PAPIClient\\Tests\\": "src/Tests/"
         }
     },
     "extra": {
