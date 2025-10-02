@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Blashbrook\PAPIClient\Tests\Unit;
 
 use Blashbrook\PAPIClient\Livewire\PostalCodeSelectFlux;
 use Blashbrook\PAPIClient\Models\PostalCode;

@@ -21,14 +21,14 @@ use JsonException;
  *
  * @version 2.0.0
  *
- * @example Basic Usage:
+ * @examples Basic Usage:
  *   $response = $papiclient->method('GET')->uri('apikeyvalidate')->execRequest();
- * @example Patron Authentication:
+ * @examples Patron Authentication:
  *   $response = $papiclient->protected()->patron('1234567890123')
  *                         ->uri('authenticator/patron')
  *                         ->params(['Password' => 'pass123'])
  *                         ->execRequest();
- * @example Authenticated API Call:
+ * @examples Authenticated API Call:
  *   $response = $papiclient->protected()->patron('1234567890123')
  *                         ->auth($accessSecret)
  *                         ->uri('patron/holds')
@@ -99,8 +99,8 @@ class PAPIClient extends Client
      * @param  string  $method  HTTP method (case-insensitive)
      * @return static Returns this instance for method chaining
      *
-     * @example $client->method('GET')->uri('apikeyvalidate');
-     * @example $client->method('post')->uri('patron/holds');
+     * @examples $client->method('GET')->uri('apikeyvalidate');
+     * @examples $client->method('post')->uri('patron/holds');
      *
      * @since 1.0.0
      */
@@ -193,14 +193,14 @@ class PAPIClient extends Client
      * @throws GuzzleException If HTTP request fails (network, 4xx, 5xx errors)
      * @throws JsonException If response JSON cannot be decoded
      *
-     * @example Basic API validation:
+     * @examples Basic API validation:
      *   $result = $client->method('GET')->uri('apikeyvalidate')->execRequest();
-     * @example Patron authentication:
+     * @examples Patron authentication:
      *   $result = $client->protected()->patron('1234567890123')
      *                   ->uri('authenticator/patron')
      *                   ->params(['Password' => 'secret'])
      *                   ->execRequest();
-     * @example Authenticated patron data retrieval:
+     * @examples Authenticated patron data retrieval:
      *   $holds = $client->protected()->patron('1234567890123')
      *                  ->auth($accessToken)
      *                  ->uri('patron/holds')

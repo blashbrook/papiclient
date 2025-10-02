@@ -7,7 +7,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 
 /**
- * Example component showing how to integrate PostalCodeSelectFlux
+ * Examples component showing how to integrate PostalCodeSelectFlux
  * Copy this to your actual notifications-test component location
  */
 class PostalCodeSelectFluxTest extends Component
@@ -103,7 +103,7 @@ class PostalCodeSelectFluxTest extends Component
      */
     private function updateServiceAreaSettings($postalData)
     {
-        // Example: Enable/disable certain notification types based on location
+        // Examples: Enable/disable certain notification types based on location
         if ($postalData['state'] === 'CO') {
             // Colorado-specific settings
             $this->enableColoradoNotifications();
@@ -118,7 +118,7 @@ class PostalCodeSelectFluxTest extends Component
      */
     private function updateNotificationSettings($deliveryData)
     {
-        // Example: Adjust notification message based on delivery method
+        // Examples: Adjust notification message based on delivery method
         switch ($deliveryData['deliveryOptionId']) {
             case 1: // Mailing Address
                 $this->notificationMessage = "Notification will be sent to your mailing address in {$this->userCity}, {$this->userState}";
@@ -146,7 +146,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Send notification (example action)
+     * Send notification (examples action)
      */
     public function sendNotification()
     {
@@ -195,7 +195,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Example Colorado-specific functionality
+     * Examples Colorado-specific functionality
      */
     private function enableColoradoNotifications()
     {
@@ -208,7 +208,7 @@ class PostalCodeSelectFluxTest extends Component
      */
     private function updateDeliveryZone($postalData)
     {
-        // Example delivery zone logic
+        // Examples delivery zone logic
         if (in_array($postalData['state'], ['CO', 'WY', 'NE'])) {
             // Mountain region
             $deliveryZone = 'mountain';

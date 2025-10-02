@@ -2,9 +2,13 @@
 
 namespace Blashbrook\PAPIClient\Providers;
 
+use Blashbrook\PAPIClient\Models\PatronUdf;
 use Blashbrook\PAPIClient\Console\Commands\{RunSeeders, UpdatePatronCodes, UpdatePatronStatCodes, UpdatePatronUdfs};
 use Blashbrook\PAPIClient\Livewire\{DeliveryOptionSelect,
     DeliveryOptionSelectFlux,
+    Examples\DeliveryOptionSelectFluxExample,
+    Examples\PatronUdfSelectFluxExample,
+    Examples\PostalCodeSelectFluxExample,
     PatronUDFSelect,
     PatronUDFSelectFlux,
     PostalCodeSelect,
@@ -24,14 +28,21 @@ class PAPIClientServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'papiclient');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         Livewire::component('delivery-option-select', DeliveryOptionSelect::class);
         Livewire::component('patron-udf-select', PatronUDFSelect::class);
         Livewire::component('postal-code-select', PostalCodeSelect::class);
+
         // Optional components for use with Livewire Flux UI
         Livewire::component('delivery-option-select-flux', DeliveryOptionSelectFlux::class);
         Livewire::component('patron-udf-select-flux', PatronUDFSelectFlux::class);
         Livewire::component('postal-code-select-flux', PostalCodeSelectFlux::class);
+
+        //Examples using Flux components
+        Livewire::component('postal-code-select-flux-example', PostalCodeSelectFluxExample::class);
+        Livewire::component('patron-udf-select-flux-example', PatronUdfSelectFluxExample::class);
+        Livewire::component('delivery-option-select-flux-example', DeliveryOptionSelectFluxExample::class);
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -80,7 +91,7 @@ class PAPIClientServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../Tests/Feature' => base_path('Tests/Feature'),
-        ], 'papiclient.Tests');
+        ], 'papiclient.tests');
 
         // Registering package commands.
         $this->commands([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Blashbrook\PAPIClient\Tests\Unit;
 
 use Blashbrook\PAPIClient\Livewire\PatronUDFSelectFlux;
 use Blashbrook\PAPIClient\Models\PatronUdf;

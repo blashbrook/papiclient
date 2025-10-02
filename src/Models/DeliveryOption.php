@@ -29,11 +29,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|DeliveryOption whereCreatedAt(string $value)
  * @method static Builder|DeliveryOption whereUpdatedAt(string $value)
  *
- * @example Find by Polaris ID:
+ * @examples Find by Polaris ID:
  *   $option = DeliveryOption::where('DeliveryOptionID', 8)->first();
- * @example Get all available options:
+ * @examples Get all available options:
  *   $options = DeliveryOption::all();
- * @example Create new option:
+ * @examples Create new option:
  *   DeliveryOption::create([
  *       'DeliveryOptionID' => 5,
  *       'DeliveryOption' => 'Push Notification'
