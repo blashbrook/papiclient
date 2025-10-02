@@ -1,3 +1,12 @@
+# [2.4.0](https://github.com/blashbrook/papiclient/compare/v2.3.0...v2.4.0) (2025-10-02)
+
+
+### Features
+
+* **deliveryoptionselectfluxexample:** fix and add documentation to the delivery-option-select-flux-example component ([545843c](https://github.com/blashbrook/papiclient/commit/545843c651f6d33c99d368057f693088f7a497cc))
+* **selectflux:** add livewire flux select components that can be plugged into any livewire component' ([b32f177](https://github.com/blashbrook/papiclient/commit/b32f1777a09d2522605107f67530da71ab44bf80))
+* **selectfluxexamples:** add examples for flux select components and fix tests ([38a3ed2](https://github.com/blashbrook/papiclient/commit/38a3ed23ce47525d0c0af3f629f59d257951847b))
+
 # [2.3.0](https://github.com/blashbrook/papiclient/compare/v2.2.1...v2.3.0) (2025-10-01)
 
 
