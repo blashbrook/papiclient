@@ -112,7 +112,7 @@ class LivewireComponentsTest extends TestCase
         // Should only show the options defined in availableDeliveryOptions
         $this->assertGreaterThan(0, $options->count());
         
-        // Verify it's not showing all database records
+        // Verify it's not showing all Database records
         $this->assertLessThanOrEqual(4, $options->count());
     }
 
@@ -271,7 +271,7 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PostalCodeSelectFlux::class);
         
         // The PostalCode component has a mismatch between the field it queries ('id') 
-        // and the actual database field ('PostalCodeID'), so no events will be dispatched
+        // and the actual Database field ('PostalCodeID'), so no events will be dispatched
         // This test verifies the component doesn't crash when trying to dispatch
         $component->set('selectedOption', 1);
         

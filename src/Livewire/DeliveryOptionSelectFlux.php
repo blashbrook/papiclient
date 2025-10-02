@@ -25,7 +25,7 @@ class DeliveryOptionSelectFlux extends Component
     /** @var Collection Collection of DeliveryOption models. */
     public Collection $options;
 
-    /** @var array<string, string> Map of database DeliveryOption name to the desired display name. */
+    /** @var array<string, string> Map of Database DeliveryOption name to the desired display name. */
     private $availableDeliveryOptions = [
         'Mailing Address' => 'Mail',
         'Email Address' => 'Email',
@@ -42,7 +42,7 @@ class DeliveryOptionSelectFlux extends Component
     public function mount($selected = null): void
     {
 
-        // Fetch all delivery options from database
+        // Fetch all delivery options from Database
         $allDeliveryOptions = DeliveryOption::all();
 
         // Filter to only include options that are in our allowed list

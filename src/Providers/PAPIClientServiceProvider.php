@@ -26,7 +26,7 @@ class PAPIClientServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'papiclient');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 

@@ -21,7 +21,7 @@ class UpdatePatronStatCodes extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches Patron Statistical Class Codes from Polaris and populates the local database.';
+    protected $description = 'Fetches Patron Statistical Class Codes from Polaris and populates the local Database.';
 
     /**
      * The ApiDataFetcher service instance.
@@ -53,7 +53,7 @@ class UpdatePatronStatCodes extends Command
 
         $this->patronStatClassCode->fetch();
 
-        $this->info('Successfully imported Patron Statistical Class Codes from Polaris into local database.');
+        $this->info('Successfully imported Patron Statistical Class Codes from Polaris into local Database.');
 
         return Command::SUCCESS;
     }

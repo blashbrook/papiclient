@@ -838,7 +838,7 @@ php artisan cache:clear
 php artisan view:clear
 php artisan config:clear
 
-# Ensure database migrations are up to date
+# Ensure Database migrations are up to date
 php artisan migrate:refresh --env=testing
 ```
 
@@ -865,8 +865,8 @@ chmod -R 755 storage/
 
 **Database-related test failures:**
 ```bash
-# Ensure test database is properly configured
-# Check phpunit.xml database settings
+# Ensure test Database is properly configured
+# Check phpunit.xml Database settings
 # Verify RefreshDatabase trait is being used
 ```
 

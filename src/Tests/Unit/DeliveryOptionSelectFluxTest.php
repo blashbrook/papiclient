@@ -24,11 +24,11 @@ class DeliveryOptionSelectFluxTest extends TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        // Set up test database
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
+        // Set up test Database
+        $app['config']->set('Database.default', 'sqlite');
+        $app['config']->set('Database.connections.sqlite', [
             'driver' => 'sqlite',
-            'database' => ':memory:',
+            'Database' => ':memory:',
             'prefix' => '',
         ]);
     }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 class PostalCodeSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the Database seeds.
      */
     public function run(): void
     {

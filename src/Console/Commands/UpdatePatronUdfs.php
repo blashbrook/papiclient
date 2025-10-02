@@ -21,7 +21,7 @@ class UpdatePatronUdfs extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches Patron UDFs from Polaris and populates the local database.';
+    protected $description = 'Fetches Patron UDFs from Polaris and populates the local Database.';
 
     /**
      * The ApiDataFetcher service instance.
@@ -53,7 +53,7 @@ class UpdatePatronUdfs extends Command
 
         $this->patronUdfFetcher->fetch();
 
-        $this->info('Successfully imported Patron UDFs from Polaris into local database.');
+        $this->info('Successfully imported Patron UDFs from Polaris into local Database.');
 
         return Command::SUCCESS;
     }

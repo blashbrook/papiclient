@@ -82,7 +82,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Load postal code details from database if we have a selection
+     * Load postal code details from Database if we have a selection
      */
     private function loadPostalCodeDetails()
     {

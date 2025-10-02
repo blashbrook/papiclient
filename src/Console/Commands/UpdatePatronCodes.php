@@ -19,7 +19,7 @@ class UpdatePatronCodes extends Command
      *
      * @var string
      */
-    protected $description = 'Fetches Patron Codes from Polaris API and populates the local database.';
+    protected $description = 'Fetches Patron Codes from Polaris API and populates the local Database.';
 
     /**
      * The PatronCodeFetcher service instance.

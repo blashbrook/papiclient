@@ -9,7 +9,7 @@
 
     /**
      * @property string|null $selectedOption The currently selected UDF value, bound via wire:model.
-     * @property string $udfLabel The UDF Label used to look up options in the database.
+     * @property string $udfLabel The UDF Label used to look up options in the Database.
      * @property string $placeholder The placeholder text for the select input.
      * @property Collection<array> $options Collection of UDF options, where each item is ['value' => string, 'label' => string].
      */
