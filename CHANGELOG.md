@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/blashbrook/papiclient/compare/v2.4.1...v2.4.2) (2025-10-02)
+
+
+### Bug Fixes
+
+* **composer:** update psr-4 namespaces ([35e81eb](https://github.com/blashbrook/papiclient/commit/35e81eb9473a6628d0278c4cf63e15fbef90f661))
+
 ## [2.4.1](https://github.com/blashbrook/papiclient/compare/v2.4.0...v2.4.1) (2025-10-02)
 
 
