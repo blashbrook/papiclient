@@ -8,8 +8,8 @@
 --}}
 <div>
     <flux:select
-            wire:model.live="deliveryOptionIDChanged"
-            name="deliveryOptionIDChanged"
+            wire:model.live="selectedOption"
+            name="selectedOption"
             label="Notification Method"
             placeholder="Select a Delivery Method"
     >
