@@ -1,3 +1,10 @@
+## [2.4.3](https://github.com/blashbrook/papiclient/compare/v2.4.2...v2.4.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* **composer:** fix psr-4 loading paths ([7193db8](https://github.com/blashbrook/papiclient/commit/7193db8662c91519f4ab925d34f91b4cf08ce05c))
+
 ## [2.4.2](https://github.com/blashbrook/papiclient/compare/v2.4.1...v2.4.2) (2025-10-02)
 
 
