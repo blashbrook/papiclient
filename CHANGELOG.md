@@ -1,3 +1,10 @@
+## [2.4.6](https://github.com/blashbrook/papiclient/compare/v2.4.5...v2.4.6) (2025-10-03)
+
+
+### Bug Fixes
+
+* **composer:** update illuminate support ([4eb1d6c](https://github.com/blashbrook/papiclient/commit/4eb1d6cfa4bb31403069f325ddcc65c4d5119ff9))
+
 ## [2.4.5](https://github.com/blashbrook/papiclient/compare/v2.4.4...v2.4.5) (2025-10-02)
 
 
