@@ -1,3 +1,10 @@
+## [2.4.8](https://github.com/blashbrook/papiclient/compare/v2.4.7...v2.4.8) (2025-10-03)
+
+
+### Bug Fixes
+
+* **php.yml:** update php version for github action ([7c2d8e5](https://github.com/blashbrook/papiclient/commit/7c2d8e569e41c4950b949a144d213ba38eb96a54))
+
 ## [2.4.7](https://github.com/blashbrook/papiclient/compare/v2.4.6...v2.4.7) (2025-10-03)
 
 
