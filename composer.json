@@ -47,7 +47,7 @@
     "require": {
         "nette/schema": "^v1.3.0",
         "league/commonmark": "^2.4.0",
-        "php": "^8.2",
+        "php": "^8.3",
         "illuminate/database": "^10.0",
         "illuminate/support": "^10.0"
     }
