@@ -23,12 +23,10 @@
           "src/PAPIClient.php"
         ],
         "psr-4": {
-            "Blashbrook\\PAPIClient\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Blashbrook\\PAPIClient\\Tests\\": "src/Tests/"
+            "Blashbrook\\PAPIClient\\": "src/",
+            "Blashbrook\\PAPIClient\\Database\\Migrations\\": "src/database/Migrations/",
+            "Blashbrook\\PAPIClient\\Database\\Seeders\\": "src/database/Seeders/",
+            "Blashbrook\\PAPIClient\\Tests\\": "src/tests/"
         }
     },
     "extra": {

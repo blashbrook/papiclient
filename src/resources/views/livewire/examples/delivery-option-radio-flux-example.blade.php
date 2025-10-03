@@ -19,6 +19,6 @@
                 wire:model="selectedDeliveryOptionID"
                 :selected="$selectedDeliveryOptionID"
         />
-        <flux:button wire:click="$set('selectedDeliveryOptionID', null)">Clear Selection</flux:button>
+        <flux:button class="mt-6" wire:click="$set('selectedDeliveryOptionID', null)">Clear Selection</flux:button>
     </div>
 </div>
