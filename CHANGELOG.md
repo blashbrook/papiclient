@@ -1,3 +1,10 @@
+## [2.4.7](https://github.com/blashbrook/papiclient/compare/v2.4.6...v2.4.7) (2025-10-03)
+
+
+### Bug Fixes
+
+* **web:** fix route/web ([5b2bbe3](https://github.com/blashbrook/papiclient/commit/5b2bbe35d0d38b10322031d36aa7f2f52b9ac899))
+
 ## [2.4.6](https://github.com/blashbrook/papiclient/compare/v2.4.5...v2.4.6) (2025-10-03)
 
 
