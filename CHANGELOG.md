@@ -1,3 +1,60 @@
+## [2.4.8](https://github.com/blashbrook/papiclient/compare/v2.4.7...v2.4.8) (2025-10-03)
+
+
+### Bug Fixes
+
+* **php.yml:** update php version for github action ([7c2d8e5](https://github.com/blashbrook/papiclient/commit/7c2d8e569e41c4950b949a144d213ba38eb96a54))
+
+## [2.4.7](https://github.com/blashbrook/papiclient/compare/v2.4.6...v2.4.7) (2025-10-03)
+
+
+### Bug Fixes
+
+* **web:** fix route/web ([5b2bbe3](https://github.com/blashbrook/papiclient/commit/5b2bbe35d0d38b10322031d36aa7f2f52b9ac899))
+
+## [2.4.6](https://github.com/blashbrook/papiclient/compare/v2.4.5...v2.4.6) (2025-10-03)
+
+
+### Bug Fixes
+
+* **composer:** update illuminate support ([4eb1d6c](https://github.com/blashbrook/papiclient/commit/4eb1d6cfa4bb31403069f325ddcc65c4d5119ff9))
+
+## [2.4.5](https://github.com/blashbrook/papiclient/compare/v2.4.4...v2.4.5) (2025-10-02)
+
+
+### Bug Fixes
+
+* **database:** capitalize database directory for psr-4 compliance ([ddba2b1](https://github.com/blashbrook/papiclient/commit/ddba2b114e879c8f0c62af6694076d5aaf3c4a1e))
+* **Database:** try to force capitalization of database folder for psr-4 ([8106b21](https://github.com/blashbrook/papiclient/commit/8106b21aeb46d428f2d76dc09ba6bf741452690e))
+
+## [2.4.4](https://github.com/blashbrook/papiclient/compare/v2.4.3...v2.4.4) (2025-10-02)
+
+
+### Bug Fixes
+
+* **composer:** fix psr-4 loading paths ([01ddf13](https://github.com/blashbrook/papiclient/commit/01ddf136efc190d6c23992f83d6b114c7aa35b64))
+
+## [2.4.3](https://github.com/blashbrook/papiclient/compare/v2.4.2...v2.4.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* **composer:** fix psr-4 loading paths ([7193db8](https://github.com/blashbrook/papiclient/commit/7193db8662c91519f4ab925d34f91b4cf08ce05c))
+
+## [2.4.2](https://github.com/blashbrook/papiclient/compare/v2.4.1...v2.4.2) (2025-10-02)
+
+
+### Bug Fixes
+
+* **composer:** update psr-4 namespaces ([35e81eb](https://github.com/blashbrook/papiclient/commit/35e81eb9473a6628d0278c4cf63e15fbef90f661))
+
+## [2.4.1](https://github.com/blashbrook/papiclient/compare/v2.4.0...v2.4.1) (2025-10-02)
+
+
+### Bug Fixes
+
+* **database:** capitalize database directory for psr-4 compliance ([7312191](https://github.com/blashbrook/papiclient/commit/7312191d7ddb375f8b38f16adad8bc0af42bfe20))
+
 # [2.4.0](https://github.com/blashbrook/papiclient/compare/v2.3.0...v2.4.0) (2025-10-02)
 
 
