@@ -1,3 +1,15 @@
+# [2.5.0](https://github.com/blashbrook/papiclient/compare/v2.4.8...v2.5.0) (2025-10-04)
+
+
+### Bug Fixes
+
+* **app.css:** fix radio display ([e200db1](https://github.com/blashbrook/papiclient/commit/e200db10bbed439ad445f15f3345db2b7d90a597))
+
+
+### Features
+
+* **deliveryoptionradio:** create flux radio component and example page ([17486eb](https://github.com/blashbrook/papiclient/commit/17486eba87f12f9e8fa6ebc0f0c1ea1eae479424))
+
 ## [2.4.8](https://github.com/blashbrook/papiclient/compare/v2.4.7...v2.4.8) (2025-10-03)
 
 
