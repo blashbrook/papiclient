@@ -86,7 +86,7 @@
             $this->udfData = $data;
         }
 
-        #[Layout('papiclient::components.layouts.flux')]
+        #[Layout('components.layouts.app')]
         public function render()
         {
             return view('papiclient::livewire.examples.patron-udf-select-flux-example');
