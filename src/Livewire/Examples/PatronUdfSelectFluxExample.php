@@ -1,6 +1,6 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Livewire\Examples;
+namespace Blashbrook\PAPIClient\Livewire\Examples;
 
     use Livewire\Attributes\{Layout, On};
     use Livewire\Component;
@@ -17,7 +17,6 @@
      */
     class PatronUdfSelectFluxExample extends Component
     {
-
         /**
          * Edit $udfLabel, $placeholder, and $udfRegistrationField to configure the Patron UDF select field.
          *
@@ -32,17 +31,17 @@
          * to store the selected UDF value for persistence.
          */
         /**
-         * @var string $udfLabel The display name of the UDF Field in Polaris (e.g., 'Non-Resident').
+         * @var string The display name of the UDF Field in Polaris (e.g., 'Non-Resident').
          */
         public $udfLabel = 'Non-Resident';
 
         /**
-         * @var string $placeholder Placeholder text for the option select input (e.g., 'Select one').
+         * @var string Placeholder text for the option select input (e.g., 'Select one').
          */
         public $placeholder = 'Select one';
 
         /**
-         * @var string $udfRegistrationField Field name used in the PatronRegistration table (User1-User5).
+         * @var string Field name used in the PatronRegistration table (User1-User5).
          */
         public $udfRegistrationField = 'User3';
 
@@ -58,6 +57,7 @@
 
         /**
          * Initializes selected UDF option from the session.
+         *
          * @return void
          */
         public function mount()

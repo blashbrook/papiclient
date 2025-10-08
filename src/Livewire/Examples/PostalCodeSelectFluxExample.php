@@ -1,7 +1,6 @@
 <?php
 
-
-    namespace Blashbrook\PAPIClient\Livewire\Examples;
+namespace Blashbrook\PAPIClient\Livewire\Examples;
 
     use Illuminate\Contracts\View\View;
     use Livewire\Attributes\{Layout, On};
@@ -14,7 +13,6 @@
      */
     class PostalCodeSelectFluxExample extends Component
     {
-
         /**
          * @var string|null The selected Postal Code ID, bound via wire:model to the child component.
          */
@@ -22,17 +20,18 @@
 
         /**
          * @var array Holds the full details of the selected postal code (City, State, County, etc.)
-         * received via the 'postalCodeUpdated' event.
+         *            received via the 'postalCodeUpdated' event.
          */
         public $postalCodeData = [];
 
         /**
          * Initializes the component, loading a demonstration value from the session if available.
+         *
          * @return void
          */
         public function mount()
         {
-            session(['PostalCodeID'=>'12']);
+            session(['PostalCodeID' => '12']);
             $this->selectedPostalCodeID = session('PostalCodeID');
         }
 

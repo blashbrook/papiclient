@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Blashbrook\PAPIClient\Livewire\Examples;
 
 use Illuminate\Contracts\View\View;
@@ -14,7 +13,6 @@ use Livewire\Component;
  */
 class DeliveryOptionRadioFluxExample extends Component
 {
-
     /**
      * @var string|null The selected Delivery Option ID, bound via wire:model to the child component.
      */
@@ -22,12 +20,13 @@ class DeliveryOptionRadioFluxExample extends Component
 
     /**
      * @var array Holds the full details of the selected delivery option
-     * received via the 'deliveryOptionUpdated' event.
+     *            received via the 'deliveryOptionUpdated' event.
      */
     public $deliveryOptionData = [];
 
     /**
      * Initializes the component, loading a demonstration value from the session if available.
+     *
      * @return void
      */
     public function mount()

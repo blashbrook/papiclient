@@ -17,7 +17,7 @@ class PatronUDFSelectFluxTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Create test PatronUdf records
         PatronUdf::create([
             'PatronUdfID' => 1,
@@ -25,7 +25,7 @@ class PatronUDFSelectFluxTest extends TestCase
             'Display' => true,
             'Values' => 'Elementary School,Middle School,High School,College,Adult Education',
             'Required' => true,
-            'DefaultValue' => 'High School'
+            'DefaultValue' => 'High School',
         ]);
 
         PatronUdf::create([
@@ -34,7 +34,7 @@ class PatronUDFSelectFluxTest extends TestCase
             'Display' => true,
             'Values' => 'Math,Science,English,History,Art,Music',
             'Required' => false,
-            'DefaultValue' => null
+            'DefaultValue' => null,
         ]);
 
         PatronUdf::create([
@@ -43,7 +43,7 @@ class PatronUDFSelectFluxTest extends TestCase
             'Display' => false, // This should be filtered out
             'Values' => '9th,10th,11th,12th',
             'Required' => false,
-            'DefaultValue' => null
+            'DefaultValue' => null,
         ]);
     }
 
@@ -51,7 +51,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_can_instantiate_the_component(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->assertStatus(200);
@@ -62,12 +62,12 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_loads_udf_options_based_on_label(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $options = $component->get('options');
         $this->assertCount(5, $options);
-        
+
         $optionValues = $options->pluck('value')->toArray();
         $this->assertContains('Elementary School', $optionValues);
         $this->assertContains('Middle School', $optionValues);
@@ -80,7 +80,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_only_loads_udfs_with_display_true(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'Grade'
+            'patronUdfLabel' => 'Grade',
         ]);
 
         $options = $component->get('options');
@@ -91,12 +91,12 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_handles_different_udf_labels(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'Department'
+            'patronUdfLabel' => 'Department',
         ]);
 
         $options = $component->get('options');
         $this->assertCount(6, $options);
-        
+
         $optionValues = $options->pluck('value')->toArray();
         $this->assertContains('Math', $optionValues);
         $this->assertContains('Science', $optionValues);
@@ -107,7 +107,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_sets_default_placeholder(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $this->assertEquals('Select School', $component->get('placeholder'));
@@ -118,7 +118,7 @@ class PatronUDFSelectFluxTest extends TestCase
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'patronUdfLabel' => 'School',
-            'placeholder' => 'Choose your educational level'
+            'placeholder' => 'Choose your educational level',
         ]);
 
         $this->assertEquals('Choose your educational level', $component->get('placeholder'));
@@ -130,7 +130,7 @@ class PatronUDFSelectFluxTest extends TestCase
         Session::put('PatronUDF_School', 'High School');
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $this->assertEquals('High School', $component->get('selectedPatronUDFChanged'));
@@ -141,7 +141,7 @@ class PatronUDFSelectFluxTest extends TestCase
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'patronUdfLabel' => 'School',
-            'selectedPatronUDFChanged' => 'College'
+            'selectedPatronUDFChanged' => 'College',
         ]);
 
         $this->assertEquals('College', $component->get('selectedPatronUDFChanged'));
@@ -154,7 +154,7 @@ class PatronUDFSelectFluxTest extends TestCase
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'patronUdfLabel' => 'School',
-            'selectedPatronUDFChanged' => 'College'
+            'selectedPatronUDFChanged' => 'College',
         ]);
 
         $this->assertEquals('College', $component->get('selectedPatronUDFChanged'));
@@ -164,7 +164,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_updates_session_when_selection_changes(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->set('selectedPatronUDFChanged', 'College');
@@ -176,7 +176,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_dispatches_patron_udf_updated_event_on_change(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->set('selectedPatronUDFChanged', 'College');
@@ -184,7 +184,7 @@ class PatronUDFSelectFluxTest extends TestCase
         $component->assertDispatched('patronUdfUpdated', [
             'label' => 'School',
             'value' => 'College',
-            'displayName' => 'College'
+            'displayName' => 'College',
         ]);
     }
 
@@ -196,11 +196,11 @@ class PatronUDFSelectFluxTest extends TestCase
             'Label' => 'EmptyUDF',
             'Display' => true,
             'Values' => '',
-            'Required' => false
+            'Required' => false,
         ]);
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'EmptyUDF'
+            'patronUdfLabel' => 'EmptyUDF',
         ]);
 
         $options = $component->get('options');
@@ -215,11 +215,11 @@ class PatronUDFSelectFluxTest extends TestCase
             'Label' => 'NullUDF',
             'Display' => true,
             'Values' => null,
-            'Required' => false
+            'Required' => false,
         ]);
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'NullUDF'
+            'patronUdfLabel' => 'NullUDF',
         ]);
 
         $options = $component->get('options');
@@ -234,16 +234,16 @@ class PatronUDFSelectFluxTest extends TestCase
             'Label' => 'WhitespaceUDF',
             'Display' => true,
             'Values' => ' Option One , Option Two , Option Three ',
-            'Required' => false
+            'Required' => false,
         ]);
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'WhitespaceUDF'
+            'patronUdfLabel' => 'WhitespaceUDF',
         ]);
 
         $options = $component->get('options');
         $optionValues = $options->pluck('value')->toArray();
-        
+
         $this->assertContains('Option One', $optionValues);
         $this->assertContains('Option Two', $optionValues);
         $this->assertContains('Option Three', $optionValues);
@@ -258,16 +258,16 @@ class PatronUDFSelectFluxTest extends TestCase
             'Label' => 'FilterUDF',
             'Display' => true,
             'Values' => 'Valid Option,,   ,Another Valid Option, ',
-            'Required' => false
+            'Required' => false,
         ]);
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'FilterUDF'
+            'patronUdfLabel' => 'FilterUDF',
         ]);
 
         $options = $component->get('options');
         $this->assertCount(2, $options);
-        
+
         $optionValues = $options->pluck('value')->toArray();
         $this->assertContains('Valid Option', $optionValues);
         $this->assertContains('Another Valid Option', $optionValues);
@@ -277,7 +277,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_handles_nonexistent_udf_label(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'NonexistentLabel'
+            'patronUdfLabel' => 'NonexistentLabel',
         ]);
 
         $options = $component->get('options');
@@ -288,7 +288,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_returns_selected_option_property(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->set('selectedPatronUDFChanged', 'High School');
@@ -303,7 +303,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_returns_null_for_selected_option_when_nothing_selected(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $selectedOption = $component->instance()->getSelectedOptionProperty();
@@ -314,11 +314,11 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_maintains_unique_session_keys_per_label(): void
     {
         $schoolComponent = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $deptComponent = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'Department'
+            'patronUdfLabel' => 'Department',
         ]);
 
         $schoolComponent->set('selectedPatronUDFChanged', 'College');
@@ -335,7 +335,7 @@ class PatronUDFSelectFluxTest extends TestCase
 
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'patronUdfLabel' => 'School',
-            'attrs' => $customAttrs
+            'attrs' => $customAttrs,
         ]);
 
         $this->assertEquals($customAttrs, $component->get('attrs'));
@@ -345,7 +345,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_can_render_the_component_view(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->assertViewIs('papiclient::livewire.patron-udf-select-flux');
@@ -355,7 +355,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_handles_case_sensitive_label_matching(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'school' // lowercase
+            'patronUdfLabel' => 'school', // lowercase
         ]);
 
         $options = $component->get('options');
@@ -366,12 +366,12 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_creates_options_with_sequential_ids(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $options = $component->get('options');
         $ids = $options->pluck('id')->toArray();
-        
+
         $this->assertEquals([1, 2, 3, 4, 5], $ids);
     }
 
@@ -379,7 +379,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_dispatches_event_with_correct_display_name(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         $component->set('selectedPatronUDFChanged', 'Elementary School');
@@ -395,7 +395,7 @@ class PatronUDFSelectFluxTest extends TestCase
     public function it_does_not_dispatch_event_when_value_is_empty(): void
     {
         $component = Livewire::test(PatronUDFSelectFlux::class, [
-            'patronUdfLabel' => 'School'
+            'patronUdfLabel' => 'School',
         ]);
 
         // Set to empty value
