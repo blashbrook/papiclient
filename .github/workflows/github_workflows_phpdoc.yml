@@ -1,0 +1,34 @@
+name: Generate PHPDoc
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  phpdoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Install phpDocumentor
+        run: composer require --dev phpdocumentor/phpdocumentor
+
+      - name: Generate documentation
+        run: vendor/bin/phpdoc
+
+      # Optional: Upload docs as a workflow artifact
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: phpdoc
+          path: docs/
