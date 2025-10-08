@@ -21,7 +21,7 @@ class LivewireComponentsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Create test data for all components
         $this->createDeliveryOptions();
         $this->createPatronUdfs();
@@ -32,22 +32,22 @@ class LivewireComponentsTest extends TestCase
     {
         DeliveryOption::create([
             'DeliveryOptionID' => 1,
-            'DeliveryOption' => 'Mailing Address'
+            'DeliveryOption' => 'Mailing Address',
         ]);
 
         DeliveryOption::create([
             'DeliveryOptionID' => 2,
-            'DeliveryOption' => 'Email Address'
+            'DeliveryOption' => 'Email Address',
         ]);
 
         DeliveryOption::create([
             'DeliveryOptionID' => 3,
-            'DeliveryOption' => 'Phone 1'
+            'DeliveryOption' => 'Phone 1',
         ]);
 
         DeliveryOption::create([
             'DeliveryOptionID' => 8,
-            'DeliveryOption' => 'TXT Messaging'
+            'DeliveryOption' => 'TXT Messaging',
         ]);
     }
 
@@ -58,7 +58,7 @@ class LivewireComponentsTest extends TestCase
             'Label' => 'School',
             'Display' => true,
             'Values' => 'Elementary School,Middle School,High School,College',
-            'Required' => true
+            'Required' => true,
         ]);
 
         PatronUdf::create([
@@ -66,7 +66,7 @@ class LivewireComponentsTest extends TestCase
             'Label' => 'Department',
             'Display' => true,
             'Values' => 'Math,Science,English,History',
-            'Required' => false
+            'Required' => false,
         ]);
     }
 
@@ -78,7 +78,7 @@ class LivewireComponentsTest extends TestCase
             'City' => 'Denver',
             'State' => 'CO',
             'County' => 'Denver County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
 
         PostalCode::create([
@@ -87,7 +87,7 @@ class LivewireComponentsTest extends TestCase
             'City' => 'Beverly Hills',
             'State' => 'CA',
             'County' => 'Los Angeles County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
     }
 
@@ -97,7 +97,7 @@ class LivewireComponentsTest extends TestCase
     public function delivery_option_component_can_be_rendered(): void
     {
         $component = Livewire::test(DeliveryOptionSelectFlux::class);
-        
+
         $component->assertStatus(200)
                  ->assertViewIs('papiclient::livewire.delivery-option-select-flux');
     }
@@ -106,12 +106,12 @@ class LivewireComponentsTest extends TestCase
     public function delivery_option_component_loads_available_options(): void
     {
         $component = Livewire::test(DeliveryOptionSelectFlux::class);
-        
+
         $options = $component->get('deliveryOptions');
-        
+
         // Should only show the options defined in availableDeliveryOptions
         $this->assertGreaterThan(0, $options->count());
-        
+
         // Verify it's not showing all Database records
         $this->assertLessThanOrEqual(4, $options->count());
     }
@@ -120,9 +120,9 @@ class LivewireComponentsTest extends TestCase
     public function delivery_option_component_persists_selection_in_session(): void
     {
         $component = Livewire::test(DeliveryOptionSelectFlux::class);
-        
+
         $component->set('deliveryOptionIDChanged', 2);
-        
+
         $this->assertEquals(2, Session::get('DeliveryOptionID'));
     }
 
@@ -130,10 +130,10 @@ class LivewireComponentsTest extends TestCase
     public function delivery_option_component_dispatches_updated_event(): void
     {
         $component = Livewire::test(DeliveryOptionSelectFlux::class);
-        
+
         // Set initial value first, then change it to trigger the updated hook
         $component->set('deliveryOptionIDChanged', 2);
-        
+
         $component->assertDispatched('deliveryOptionUpdated');
     }
 
@@ -145,9 +145,9 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $component->assertStatus(200)
                  ->assertViewIs('papiclient::livewire.patron-udf-select-flux');
     }
@@ -158,12 +158,12 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $options = $component->get('options');
         $this->assertCount(4, $options);
-        
+
         $optionValues = $options->pluck('value')->toArray();
         $this->assertContains('Elementary School', $optionValues);
         $this->assertContains('High School', $optionValues);
@@ -175,21 +175,21 @@ class LivewireComponentsTest extends TestCase
         $schoolComponent = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $deptComponent = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'Department',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $schoolOptions = $schoolComponent->get('options');
         $deptOptions = $deptComponent->get('options');
-        
+
         $this->assertCount(4, $schoolOptions);
         $this->assertCount(4, $deptOptions);
-        
+
         $this->assertNotEquals(
             $schoolOptions->pluck('value')->toArray(),
             $deptOptions->pluck('value')->toArray()
@@ -202,11 +202,11 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $component->set('selectedOption', 'High School');
-        
+
         $this->assertEquals('High School', Session::get('School'));
     }
 
@@ -216,19 +216,17 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $component->set('selectedOption', 'College');
-        
+
         $component->assertDispatched('patronUdfUpdated', [
             'label' => 'School',
             'value' => 'College',
-            'displayName' => 'College'
+            'displayName' => 'College',
         ]);
     }
-
-
 
     // PostalCodeSelectFlux Feature Tests
 
@@ -236,7 +234,7 @@ class LivewireComponentsTest extends TestCase
     public function postal_code_component_can_be_rendered(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class);
-        
+
         $component->assertStatus(200)
                  ->assertViewIs('papiclient::livewire.postal-code-select-flux');
     }
@@ -245,10 +243,10 @@ class LivewireComponentsTest extends TestCase
     public function postal_code_component_loads_all_postal_codes(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class);
-        
+
         $options = $component->get('options');
         $this->assertCount(2, $options);
-        
+
         $cities = $options->pluck('City')->toArray();
         $this->assertContains('Denver', $cities);
         $this->assertContains('Beverly Hills', $cities);
@@ -258,9 +256,9 @@ class LivewireComponentsTest extends TestCase
     public function postal_code_component_persists_selection_in_session(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class);
-        
+
         $component->set('selectedOption', 1);
-        
+
         // PostalCode component doesn't store in session, just verify the property is set
         $this->assertEquals(1, $component->get('selectedOption'));
     }
@@ -269,12 +267,12 @@ class LivewireComponentsTest extends TestCase
     public function postal_code_component_dispatches_comprehensive_update_event(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class);
-        
-        // The PostalCode component has a mismatch between the field it queries ('id') 
+
+        // The PostalCode component has a mismatch between the field it queries ('id')
         // and the actual Database field ('PostalCodeID'), so no events will be dispatched
         // This test verifies the component doesn't crash when trying to dispatch
         $component->set('selectedOption', 1);
-        
+
         // Since the component can't find the postal code record, no event is dispatched
         // We'll just verify the component doesn't crash
         $component->assertStatus(200);
@@ -289,21 +287,21 @@ class LivewireComponentsTest extends TestCase
         $patronUdfComponent = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
         $postalCodeComponent = Livewire::test(PostalCodeSelectFlux::class);
-        
+
         // Set values in each component
         $deliveryComponent->set('deliveryOptionIDChanged', 2);
         $patronUdfComponent->set('selectedOption', 'College');
         $postalCodeComponent->set('selectedOption', 1);
-        
+
         // Verify each component maintains its own session state
         $this->assertEquals(2, Session::get('DeliveryOptionID'));
         $this->assertEquals('College', Session::get('School'));
         // PostalCode component doesn't store in session, just verify component state
         $this->assertEquals(1, $postalCodeComponent->get('selectedOption'));
-        
+
         // Verify components still work independently
         $this->assertCount(4, $patronUdfComponent->get('options'));
         $this->assertCount(2, $postalCodeComponent->get('options'));
@@ -316,9 +314,9 @@ class LivewireComponentsTest extends TestCase
         $patronUdfComponent = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'NonExistentLabel',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         $this->assertCount(0, $patronUdfComponent->get('options'));
         $patronUdfComponent->assertStatus(200);
     }
@@ -330,13 +328,13 @@ class LivewireComponentsTest extends TestCase
         $component1 = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
         $component1->set('selectedOption', 'High School');
-        
+
         // Verify session was set
         $this->assertEquals('High School', Session::get('School'));
-        
+
         // Component doesn't load from session on mount, so test session persistence directly
         $this->assertEquals('High School', Session::get('School'));
     }
@@ -347,13 +345,13 @@ class LivewireComponentsTest extends TestCase
         $component = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
-        
+
         // Set a value
         $component->set('selectedOption', 'College');
         $this->assertEquals('College', Session::get('School'));
-        
+
         // Clear the value - verify component property is cleared
         $component->set('selectedOption', '');
         $this->assertEquals('', $component->get('selectedOption'));
@@ -366,15 +364,15 @@ class LivewireComponentsTest extends TestCase
         $patronUdfComponent = Livewire::test(PatronUDFSelectFlux::class, [
             'selected' => null,
             'udfLabel' => 'School',
-            'placeholder' => 'Select an option'
+            'placeholder' => 'Select an option',
         ]);
         $postalCodeComponent = Livewire::test(PostalCodeSelectFlux::class);
-        
+
         // All components should render successfully
         $deliveryComponent->assertStatus(200);
         $patronUdfComponent->assertStatus(200);
         $postalCodeComponent->assertStatus(200);
-        
+
         // All should use their respective Flux templates
         $deliveryComponent->assertViewIs('papiclient::livewire.delivery-option-select-flux');
         $patronUdfComponent->assertViewIs('papiclient::livewire.patron-udf-select-flux');

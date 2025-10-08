@@ -8,7 +8,10 @@
  * @author Brian Lashbrook <blashbrook@gmail.com>
  */
 
-namespace Blashbrook\PAPIClient\Models {use Carbon\Carbon;use Eloquent;use Illuminate\Database\Eloquent\Builder;
+namespace Blashbrook\PAPIClient\Models {use Carbon\Carbon;
+    use Eloquent;
+    use Illuminate\Database\Eloquent\Builder;
+
     /**
      * DeliveryOption Model.
      *
@@ -73,7 +76,9 @@ namespace Blashbrook\PAPIClient\Models {use Carbon\Carbon;use Eloquent;use Illum
     }
 }
 
-namespace Blashbrook\PAPIClient\Livewire {use Illuminate\Database\Eloquent\Collection;use Livewire\Component;
+namespace Blashbrook\PAPIClient\Livewire {use Illuminate\Database\Eloquent\Collection;
+    use Livewire\Component;
+
     /**
      * DeliveryOptionSelectFlux Component.
      *

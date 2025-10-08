@@ -17,7 +17,7 @@ class PostalCodeSelectFluxTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Create test PostalCode records
         PostalCode::create([
             'PostalCodeID' => 1,
@@ -25,7 +25,7 @@ class PostalCodeSelectFluxTest extends TestCase
             'City' => 'Denver',
             'State' => 'CO',
             'County' => 'Denver County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
 
         PostalCode::create([
@@ -34,7 +34,7 @@ class PostalCodeSelectFluxTest extends TestCase
             'City' => 'Denver',
             'State' => 'CO',
             'County' => 'Denver County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
 
         PostalCode::create([
@@ -43,7 +43,7 @@ class PostalCodeSelectFluxTest extends TestCase
             'City' => 'Beverly Hills',
             'State' => 'CA',
             'County' => 'Los Angeles County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
 
         PostalCode::create([
@@ -52,7 +52,7 @@ class PostalCodeSelectFluxTest extends TestCase
             'City' => 'New York',
             'State' => 'NY',
             'County' => 'New York County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
 
         PostalCode::create([
@@ -61,7 +61,7 @@ class PostalCodeSelectFluxTest extends TestCase
             'City' => 'Boulder',
             'State' => 'CO',
             'County' => 'Boulder County',
-            'CountryID' => 1
+            'CountryID' => 1,
         ]);
     }
 
@@ -90,7 +90,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $options = $component->get('options');
         $firstOption = $options->first();
-        
+
         // Should be ordered by State, then City, then PostalCode
         // CA (Beverly Hills), CO (Boulder, Denver), NY (New York)
         $this->assertEquals('CA', $firstOption->State);
@@ -109,7 +109,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_accepts_custom_placeholder(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'placeholder' => 'Choose your location'
+            'placeholder' => 'Choose your location',
         ]);
 
         $this->assertEquals('Choose your location', $component->get('placeholder'));
@@ -127,7 +127,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_accepts_custom_display_format(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'displayFormat' => 'full'
+            'displayFormat' => 'full',
         ]);
 
         $this->assertEquals('full', $component->get('displayFormat'));
@@ -147,7 +147,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_accepts_initial_value_parameter(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'selectedPostalCodeChanged' => 3
+            'selectedPostalCodeChanged' => 3,
         ]);
 
         $this->assertEquals(3, $component->get('selectedPostalCodeChanged'));
@@ -159,7 +159,7 @@ class PostalCodeSelectFluxTest extends TestCase
         Session::put('PostalCodeID', 2);
 
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'selectedPostalCodeChanged' => 3
+            'selectedPostalCodeChanged' => 3,
         ]);
 
         $this->assertEquals(3, $component->get('selectedPostalCodeChanged'));
@@ -169,12 +169,12 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_filters_by_state(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'filters' => ['State' => 'CO']
+            'filters' => ['State' => 'CO'],
         ]);
 
         $options = $component->get('options');
         $this->assertCount(3, $options); // Denver (2) + Boulder (1)
-        
+
         $states = $options->pluck('State')->unique()->toArray();
         $this->assertEquals(['CO'], $states);
     }
@@ -185,13 +185,13 @@ class PostalCodeSelectFluxTest extends TestCase
         $component = Livewire::test(PostalCodeSelectFlux::class, [
             'filters' => [
                 'State' => 'CO',
-                'County' => 'Denver County'
-            ]
+                'County' => 'Denver County',
+            ],
         ]);
 
         $options = $component->get('options');
         $this->assertCount(2, $options); // Only Denver postal codes
-        
+
         $counties = $options->pluck('County')->unique()->toArray();
         $this->assertEquals(['Denver County'], $counties);
     }
@@ -200,7 +200,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_handles_empty_filters(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'filters' => ['State' => '']
+            'filters' => ['State' => ''],
         ]);
 
         $options = $component->get('options');
@@ -286,7 +286,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $availableStates = $component->instance()->getAvailableStatesProperty();
         $states = $availableStates->toArray();
-        
+
         $this->assertCount(3, $states);
         $this->assertContains('CA', $states);
         $this->assertContains('CO', $states);
@@ -300,7 +300,7 @@ class PostalCodeSelectFluxTest extends TestCase
         $customAttrs = ['class' => 'location-select', 'data-test' => 'postal-code'];
 
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'attrs' => $customAttrs
+            'attrs' => $customAttrs,
         ]);
 
         $this->assertEquals($customAttrs, $component->get('attrs'));
@@ -322,9 +322,9 @@ class PostalCodeSelectFluxTest extends TestCase
         // Filter by city name
         $component->call('filterOptions', 'Denver');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(2, $filteredOptions); // Two Denver postal codes
-        
+
         $cities = $filteredOptions->pluck('City')->unique()->toArray();
         $this->assertEquals(['Denver'], $cities);
     }
@@ -336,7 +336,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', 'CA');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(1, $filteredOptions);
         $this->assertEquals('CA', $filteredOptions->first()->State);
     }
@@ -348,7 +348,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', '90210');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(1, $filteredOptions);
         $this->assertEquals('90210', $filteredOptions->first()->PostalCode);
     }
@@ -360,7 +360,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', 'Boulder');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(1, $filteredOptions);
         $this->assertEquals('Boulder County', $filteredOptions->first()->County);
     }
@@ -386,7 +386,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', 'denver');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(2, $filteredOptions);
     }
 
@@ -397,7 +397,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', 'Bev');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(1, $filteredOptions);
         $this->assertEquals('Beverly Hills', $filteredOptions->first()->City);
     }
@@ -409,7 +409,7 @@ class PostalCodeSelectFluxTest extends TestCase
 
         $component->call('filterOptions', 'NonexistentPlace');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(0, $filteredOptions);
     }
 
@@ -417,15 +417,15 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_handles_multiple_filters_and_search(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'filters' => ['State' => 'CO']
+            'filters' => ['State' => 'CO'],
         ]);
 
         // Should only search within CO postal codes
         $component->call('filterOptions', 'Denver');
         $filteredOptions = $component->get('filteredOptions');
-        
+
         $this->assertCount(2, $filteredOptions);
-        
+
         // All results should still be in CO
         $states = $filteredOptions->pluck('State')->unique()->toArray();
         $this->assertEquals(['CO'], $states);
@@ -437,12 +437,12 @@ class PostalCodeSelectFluxTest extends TestCase
         $component = Livewire::test(PostalCodeSelectFlux::class);
 
         $originalCount = $component->get('options')->count();
-        
+
         $component->call('filterOptions', 'Denver');
-        
+
         // Original options should remain unchanged
         $this->assertEquals($originalCount, $component->get('options')->count());
-        
+
         // But filtered options should be different
         $this->assertNotEquals($originalCount, $component->get('filteredOptions')->count());
     }
@@ -451,7 +451,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_dispatches_event_with_display_text_in_correct_format(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'displayFormat' => 'full'
+            'displayFormat' => 'full',
         ]);
 
         $component->set('selectedPostalCodeChanged', 1);
@@ -465,7 +465,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_handles_city_zip_display_format(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'displayFormat' => 'city_zip'
+            'displayFormat' => 'city_zip',
         ]);
 
         $component->set('selectedPostalCodeChanged', 1);
@@ -479,7 +479,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_handles_city_state_zip_display_format(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'displayFormat' => 'city_state_zip'
+            'displayFormat' => 'city_state_zip',
         ]);
 
         $component->set('selectedPostalCodeChanged', 1);
@@ -493,7 +493,7 @@ class PostalCodeSelectFluxTest extends TestCase
     public function it_falls_back_to_default_format_for_invalid_display_format(): void
     {
         $component = Livewire::test(PostalCodeSelectFlux::class, [
-            'displayFormat' => 'invalid_format'
+            'displayFormat' => 'invalid_format',
         ]);
 
         $component->set('selectedPostalCodeChanged', 1);

@@ -12,11 +12,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use JsonException;
-
 //use PHPUnit\Framework\Attributes\Test;
-use ReflectionClass;
 use Orchestra\Testbench\TestCase;
-
+use ReflectionClass;
 
 /**
  * PAPIClient Unit Tests.
@@ -32,28 +30,28 @@ class PAPIClientTest extends TestCase
     private PAPIClient $client;
     private MockHandler $mockHandler;
 
-/*    protected function setUp(): void
-    {
-        parent::setUp();
+    /*    protected function setUp(): void
+        {
+            parent::setUp();
 
-        // Set up configuration mock
-        config([
-            'papiclient.id' => env('PAPI_ACCESS_ID'),
-            'papiclient.key' => env('PAPI_ACCESS_KEY'),
-            'papiclient.publicURI' => env('PAPI_PUBLIC_URI'),
-            'papiclient.protectedURI' => env('PAPI_PROTECTED_URI'),
-            'papiclient.logonBranchID' => env('PAPI_LOGONBRANCHID'),
-            'papiclient.logonWorkstationID' => env('PAPI_LOGONWORKSTATIONID'),
-            'papiclient.logonUserID' => env('PAPI_LOGONUSERID')
-        ]);
+            // Set up configuration mock
+            config([
+                'papiclient.id' => env('PAPI_ACCESS_ID'),
+                'papiclient.key' => env('PAPI_ACCESS_KEY'),
+                'papiclient.publicURI' => env('PAPI_PUBLIC_URI'),
+                'papiclient.protectedURI' => env('PAPI_PROTECTED_URI'),
+                'papiclient.logonBranchID' => env('PAPI_LOGONBRANCHID'),
+                'papiclient.logonWorkstationID' => env('PAPI_LOGONWORKSTATIONID'),
+                'papiclient.logonUserID' => env('PAPI_LOGONUSERID')
+            ]);
 
-        // Set up mock handler for HTTP requests
-        $this->mockHandler = new MockHandler();
-        $handlerStack = HandlerStack::create($this->mockHandler);
+            // Set up mock handler for HTTP requests
+            $this->mockHandler = new MockHandler();
+            $handlerStack = HandlerStack::create($this->mockHandler);
 
-        // Create client with mocked handler
-        $this->client = new PAPIClient(['handler' => $handlerStack]);
-    }*/
+            // Create client with mocked handler
+            $this->client = new PAPIClient(['handler' => $handlerStack]);
+        }*/
 
     #[Test]
     public function it_can_instantiate_papiclient()
@@ -419,44 +417,44 @@ class PAPIClientTest extends TestCase
             ->execRequest();
     }
 
- /*   #[Test]
-    public function it_resets_state_correctly_between_requests()
-    {
-        // First request
-        $this->mockHandler->append(
-            new Response(200, ['Content-Type' => 'application/json'], '{"result": "first"}')
-        );
+    /*   #[Test]
+       public function it_resets_state_correctly_between_requests()
+       {
+           // First request
+           $this->mockHandler->append(
+               new Response(200, ['Content-Type' => 'application/json'], '{"result": "first"}')
+           );
 
-        $this->client
-            ->method('POST')
-            ->protected()
-            ->patron('1234567890123')
-            ->uri('test1')
-            ->params(['param1' => 'value1'])
-            ->auth('token1')
-            ->execRequest();
+           $this->client
+               ->method('POST')
+               ->protected()
+               ->patron('1234567890123')
+               ->uri('test1')
+               ->params(['param1' => 'value1'])
+               ->auth('token1')
+               ->execRequest();
 
-        // Second request with different parameters
-        $this->mockHandler->append(
-            new Response(200, ['Content-Type' => 'application/json'], '{"result": "second"}')
-        );
+           // Second request with different parameters
+           $this->mockHandler->append(
+               new Response(200, ['Content-Type' => 'application/json'], '{"result": "second"}')
+           );
 
-        $this->client
-            ->method('GET')
-            ->uri('test2')
-            ->execRequest();
+           $this->client
+               ->method('GET')
+               ->uri('test2')
+               ->execRequest();
 
-        $lastRequest = $this->mockHandler->getLastRequest();
+           $lastRequest = $this->mockHandler->getLastRequest();
 
-        // Should be GET request (not POST from previous)
-        $this->assertEquals('GET', $lastRequest->getMethod());
+           // Should be GET request (not POST from previous)
+           $this->assertEquals('GET', $lastRequest->getMethod());
 
-        // Should not include patron in URI
-        $this->assertStringNotContainsString('1234567890123', $lastRequest->getUri()->__toString());
+           // Should not include patron in URI
+           $this->assertStringNotContainsString('1234567890123', $lastRequest->getUri()->__toString());
 
-        // Should use public URI (not protected from previous)
-        $this->assertStringContainsString('public', $lastRequest->getUri()->__toString());
-    }*/
+           // Should use public URI (not protected from previous)
+           $this->assertStringContainsString('public', $lastRequest->getUri()->__toString());
+       }*/
 
     #[Test]
     public function it_can_execute_common_api_key_validation_request()

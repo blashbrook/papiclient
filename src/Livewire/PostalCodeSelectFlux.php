@@ -17,7 +17,6 @@ use Livewire\Component;
  */
 class PostalCodeSelectFlux extends Component
 {
-
     /** @var string|null The selected ID, synchronized with the parent. */
     #[Modelable]
     public $selectedOption = null;
@@ -28,7 +27,7 @@ class PostalCodeSelectFlux extends Component
     /**
      * Mount the component and load all postal codes.
      *
-     * @param string|null $selected The initial selected ID passed from the parent.
+     * @param  string|null  $selected  The initial selected ID passed from the parent.
      * @return void
      */
     public function mount($selected = null): void
@@ -46,7 +45,8 @@ class PostalCodeSelectFlux extends Component
 
     /**
      * Livewire lifecycle hook called when $selectedOption changes via wire:model.live.
-     * @param string $value The newly selected ID.
+     *
+     * @param  string  $value  The newly selected ID.
      * @return void
      */
     public function updatedSelectedOption($value)
@@ -57,7 +57,7 @@ class PostalCodeSelectFlux extends Component
     /**
      * Handles the update logic and dispatches the 'postalCodeUpdated' event with full data.
      *
-     * @param string $newSelection The ID of the newly selected postal code.
+     * @param  string  $newSelection  The ID of the newly selected postal code.
      * @return void
      *
      * @dispatch 'postalCodeUpdated' { "id": string, "City": string, "State": string, "PostalCode": string, "County": string, "CountryID": string }
@@ -65,7 +65,7 @@ class PostalCodeSelectFlux extends Component
     public function handleUpdate($newSelection): void
     {
         $selectedOption = $this->options->firstWhere('id', (string) $newSelection);
-        
+
         if ($selectedOption) {
             $this->dispatch('postalCodeUpdated', [
                 'id' => $selectedOption->id,
@@ -73,7 +73,7 @@ class PostalCodeSelectFlux extends Component
                 'State' => $selectedOption->State,
                 'PostalCode' => $selectedOption->PostalCode,
                 'County' => $selectedOption->County,
-                'CountryID' => $selectedOption->CountryID
+                'CountryID' => $selectedOption->CountryID,
             ]);
         }
     }
@@ -85,14 +85,13 @@ class PostalCodeSelectFlux extends Component
      */
     public function render()
     {
-
         $fluxOptions = $this->options->map(function ($option) {
             return [
                 // Cast the ID to a string, which is necessary for HTML select values.
                 'value' => (string) $option->id,
                 // Use custom display name from our mapping, fallback to original if not found
-                'label' => $option->City . ', ' .
-                           $option->State . '  ' .
+                'label' => $option->City.', '.
+                           $option->State.'  '.
                            $option->PostalCode,
             ];
         })->toArray();
@@ -101,5 +100,4 @@ class PostalCodeSelectFlux extends Component
             'fluxOptions' => $fluxOptions,
         ]);
     }
-
 }

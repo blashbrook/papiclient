@@ -1,6 +1,6 @@
 <?php
 
-    namespace Blashbrook\PAPIClient\Livewire;
+namespace Blashbrook\PAPIClient\Livewire;
 
     use Blashbrook\PAPIClient\Models\PatronUdf;
     use Illuminate\Support\Collection;
@@ -15,24 +15,26 @@
      */
     class PatronUDFSelectFlux extends Component
     {
-
         #[Modelable]
         public $selectedOption = null;
 
         /**
          * UDF options formatted for the flux:select component.
+         *
          * @var Collection
          */
         public Collection $options;
 
         /**
          * The UDF label, passed as a prop from the parent.
+         *
          * @var string
          */
         public $udfLabel = '';
 
         /**
          * The placeholder text, passed as a prop from the parent.
+         *
          * @var string
          */
         public $placeholder = '';

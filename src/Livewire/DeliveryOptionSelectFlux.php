@@ -17,7 +17,6 @@ use Livewire\Component;
  */
 class DeliveryOptionSelectFlux extends Component
 {
-
     /** @var string|null The selected ID, synchronized with the parent. */
     #[Modelable]
     public $selectedOption = null;
@@ -36,12 +35,11 @@ class DeliveryOptionSelectFlux extends Component
     /**
      * Mount the component and load all available delivery options.
      *
-     * @param string|null $selected The initial selected ID passed from the parent.
+     * @param  string|null  $selected  The initial selected ID passed from the parent.
      * @return void
      */
     public function mount($selected = null): void
     {
-
         // Fetch all delivery options from Database
         $allDeliveryOptions = DeliveryOption::all();
 
@@ -56,7 +54,8 @@ class DeliveryOptionSelectFlux extends Component
 
     /**
      * Livewire lifecycle hook called when $selectedOption changes via wire:model.live.
-     * @param string $value The newly selected ID.
+     *
+     * @param  string  $value  The newly selected ID.
      * @return void
      */
     public function updatedSelectedOption($value): void
@@ -67,7 +66,7 @@ class DeliveryOptionSelectFlux extends Component
     /**
      * Handles the update logic and dispatches the 'deliveryOptionUpdated' event with full data.
      *
-     * @param string $newSelection The ID of the newly selected delivery option.
+     * @param  string  $newSelection  The ID of the newly selected delivery option.
      * @return void
      *
      * @dispatch 'deliveryOptionUpdated' { "deliveryOptionId": string, "deliveryOption": string, "displayName": string }
@@ -83,7 +82,7 @@ class DeliveryOptionSelectFlux extends Component
                 'deliveryOptionId' => $selectedOption->DeliveryOptionID,
                 'deliveryOption' => $selectedOption->DeliveryOption,
                 'displayName' => $this->availableDeliveryOptions[$selectedOption->DeliveryOption]
-                    ?? $selectedOption->DeliveryOption
+                    ?? $selectedOption->DeliveryOption,
             ]);
         }
     }
@@ -95,7 +94,6 @@ class DeliveryOptionSelectFlux extends Component
      */
     public function render()
     {
-
         $fluxOptions = $this->options->map(function ($option) {
             return [
                 // Cast the ID to a string, which is necessary for HTML select values.

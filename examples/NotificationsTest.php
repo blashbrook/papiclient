@@ -8,7 +8,7 @@ use Livewire\Component;
 
 /**
  * Examples component showing how to integrate PostalCodeSelectFlux
- * Copy this to your actual notifications-test component location
+ * Copy this to your actual notifications-test component location.
  */
 class PostalCodeSelectFluxTest extends Component
 {
@@ -18,10 +18,10 @@ class PostalCodeSelectFluxTest extends Component
     public $userState = '';
     public $userPostalCode = '';
     public $userCounty = '';
-    
+
     // Delivery Option Properties (if you're also using DeliveryOptionSelectFlux)
     public $deliveryOptionIDChanged = null;
-    
+
     // Other notification properties
     public $patronBarcode = '';
     public $notificationMessage = '';
@@ -31,10 +31,10 @@ class PostalCodeSelectFluxTest extends Component
     {
         // Initialize postal code from session
         $this->selectedPostalCode = session('PostalCodeID', null);
-        
+
         // Initialize delivery option from session
         $this->deliveryOptionIDChanged = session('DeliveryOptionID', 8);
-        
+
         // If we have a postal code selection, load the details
         if ($this->selectedPostalCode) {
             $this->loadPostalCodeDetails();
@@ -42,7 +42,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Listen for postal code updates from PostalCodeSelectFlux component
+     * Listen for postal code updates from PostalCodeSelectFlux component.
      */
     #[On('postalCodeUpdated')]
     public function handlePostalCodeUpdate($data)
@@ -52,13 +52,13 @@ class PostalCodeSelectFluxTest extends Component
         $this->userState = $data['state'];
         $this->userPostalCode = $data['postalCode'];
         $this->userCounty = $data['county'] ?? '';
-        
+
         // Log the update for debugging
         logger('Postal code updated', $data);
-        
+
         // Validate form after postal code selection
         $this->validateForm();
-        
+
         // You could also trigger other actions here:
         // - Update service area calculations
         // - Load location-specific notification preferences
@@ -67,28 +67,28 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Listen for delivery option updates (if using DeliveryOptionSelectFlux)
+     * Listen for delivery option updates (if using DeliveryOptionSelectFlux).
      */
     #[On('deliveryOptionUpdated')]
     public function handleDeliveryOptionUpdate($data)
     {
         logger('Delivery option updated', $data);
-        
+
         // Update notification settings based on delivery method
         $this->updateNotificationSettings($data);
-        
+
         // Validate form
         $this->validateForm();
     }
 
     /**
-     * Load postal code details from Database if we have a selection
+     * Load postal code details from Database if we have a selection.
      */
     private function loadPostalCodeDetails()
     {
         if ($this->selectedPostalCode) {
             $postalCodeData = PostalCode::find($this->selectedPostalCode);
-            
+
             if ($postalCodeData) {
                 $this->userCity = $postalCodeData->City;
                 $this->userState = $postalCodeData->State;
@@ -99,7 +99,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Update service area settings based on postal code
+     * Update service area settings based on postal code.
      */
     private function updateServiceAreaSettings($postalData)
     {
@@ -108,13 +108,13 @@ class PostalCodeSelectFluxTest extends Component
             // Colorado-specific settings
             $this->enableColoradoNotifications();
         }
-        
+
         // Update delivery zones
         $this->updateDeliveryZone($postalData);
     }
 
     /**
-     * Update notification settings based on delivery option
+     * Update notification settings based on delivery option.
      */
     private function updateNotificationSettings($deliveryData)
     {
@@ -124,29 +124,29 @@ class PostalCodeSelectFluxTest extends Component
                 $this->notificationMessage = "Notification will be sent to your mailing address in {$this->userCity}, {$this->userState}";
                 break;
             case 2: // Email Address
-                $this->notificationMessage = "Notification will be sent to your email address";
+                $this->notificationMessage = 'Notification will be sent to your email address';
                 break;
             case 3: // Phone
-                $this->notificationMessage = "Notification will be sent via phone call";
+                $this->notificationMessage = 'Notification will be sent via phone call';
                 break;
             case 8: // TXT Messaging
-                $this->notificationMessage = "Notification will be sent via text message";
+                $this->notificationMessage = 'Notification will be sent via text message';
                 break;
         }
     }
 
     /**
-     * Validate the form based on current selections
+     * Validate the form based on current selections.
      */
     private function validateForm()
     {
-        $this->isFormValid = !empty($this->patronBarcode) && 
-                           !empty($this->selectedPostalCode) && 
-                           !empty($this->deliveryOptionIDChanged);
+        $this->isFormValid = ! empty($this->patronBarcode) &&
+                           ! empty($this->selectedPostalCode) &&
+                           ! empty($this->deliveryOptionIDChanged);
     }
 
     /**
-     * Send notification (examples action)
+     * Send notification (examples action).
      */
     public function sendNotification()
     {
@@ -170,32 +170,32 @@ class PostalCodeSelectFluxTest extends Component
 
         // Send notification logic here
         logger('Sending notification', $notificationData);
-        
-        session()->flash('success', 'Notification sent successfully to ' . $this->userCity . ', ' . $this->userState);
+
+        session()->flash('success', 'Notification sent successfully to '.$this->userCity.', '.$this->userState);
     }
 
     /**
-     * Reset form
+     * Reset form.
      */
     public function resetForm()
     {
         $this->reset([
             'selectedPostalCode',
-            'userCity', 
+            'userCity',
             'userState',
             'userPostalCode',
             'userCounty',
             'patronBarcode',
             'notificationMessage',
-            'deliveryOptionIDChanged'
+            'deliveryOptionIDChanged',
         ]);
-        
+
         // Clear sessions
         session()->forget(['PostalCodeID', 'DeliveryOptionID']);
     }
 
     /**
-     * Examples Colorado-specific functionality
+     * Examples Colorado-specific functionality.
      */
     private function enableColoradoNotifications()
     {
@@ -204,7 +204,7 @@ class PostalCodeSelectFluxTest extends Component
     }
 
     /**
-     * Update delivery zone based on postal code
+     * Update delivery zone based on postal code.
      */
     private function updateDeliveryZone($postalData)
     {
@@ -215,7 +215,7 @@ class PostalCodeSelectFluxTest extends Component
         } else {
             $deliveryZone = 'standard';
         }
-        
+
         logger('Updated delivery zone', ['zone' => $deliveryZone, 'postal' => $postalData]);
     }
 
