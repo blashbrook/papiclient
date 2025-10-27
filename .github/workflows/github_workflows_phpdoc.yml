@@ -28,7 +28,7 @@ jobs:
 
       # Optional: Upload docs as a workflow artifact
       - name: Upload documentation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: phpdoc
           path: docs/
