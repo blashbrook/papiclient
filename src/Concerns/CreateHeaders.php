@@ -74,7 +74,7 @@ trait CreateHeaders
      */
     private function getDate(): string
     {
-        return Carbon::now()->format('D, d M Y H:i:s \G\M\T');
+        return Carbon::now('UTC')->format('D, d M Y H:i:s \G\M\T');
     }
 
     /**
