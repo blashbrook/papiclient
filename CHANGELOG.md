@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/blashbrook/papiclient/compare/v2.5.0...v2.5.1) (2026-03-26)
+
+
+### Bug Fixes
+
+* change carbon date to UTC ([ddd810b](https://github.com/blashbrook/papiclient/commit/ddd810bcbc0cca8b0698d7e1d7abf671bb9e6959))
+
 # [2.5.0](https://github.com/blashbrook/papiclient/compare/v2.4.8...v2.5.0) (2025-10-04)
 
 
