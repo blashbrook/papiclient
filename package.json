@@ -1,6 +1,6 @@
 {
     "name": "papiclient",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "description": "HTTP request client for Polaris API.",
     "private": true,
     "repository": {
@@ -19,13 +19,13 @@
         "@semantic-release/changelog": "^6.0.3",
         "@semantic-release/commit-analyzer": "^13.0.0",
         "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^11.0.6",
+        "@semantic-release/github": "^12.0.2",
         "@semantic-release/npm": "^12.0.2",
         "@semantic-release/release-notes-generator": "^14.0.1",
         "semantic-release": "^25.0.2"
     },
     "dependencies": {
-        "marked": "^16.4.1",
+        "marked": "^17.0.0",
         "npm": "^11.6.0"
     },
     "engines": {
