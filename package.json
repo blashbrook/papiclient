@@ -26,7 +26,7 @@
     },
     "dependencies": {
         "marked": "^17.0.0",
-        "npm": "^11.6.0"
+        "npm": "^11.13.0"
     },
     "engines": {
         "node": ">=18.0.0"
