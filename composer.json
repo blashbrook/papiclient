@@ -15,8 +15,8 @@
       "nette/schema": "^v1.3.0",
       "league/commonmark": "^2.4.0",
       "php": "^8.3",
-      "illuminate/database": "^v12.32.5",
-      "illuminate/support": "^v12.32.5"
+      "illuminate/database": "^12.32.5|^13.0",
+      "illuminate/support": "^12.32.5|^13.0"
     },
     "autoload": {
         "files": [
