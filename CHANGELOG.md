@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/blashbrook/papiclient/compare/v2.5.1...v2.5.2) (2026-07-28)
+
+
+### Bug Fixes
+
+* update dependencies in composer.lock ([7c5f35a](https://github.com/blashbrook/papiclient/commit/7c5f35a85fa9eda8f74ba5575c8c355e634589ce))
+
 ## [2.5.1](https://github.com/blashbrook/papiclient/compare/v2.5.0...v2.5.1) (2026-03-26)
 
 
