@@ -1,3 +1,10 @@
+## [2.5.3](https://github.com/blashbrook/papiclient/compare/v2.5.2...v2.5.3) (2026-07-28)
+
+
+### Bug Fixes
+
+* force php version update ([103181c](https://github.com/blashbrook/papiclient/commit/103181c8fa2e705c2ef6f8cce85a2153f18c461f))
+
 ## [2.5.2](https://github.com/blashbrook/papiclient/compare/v2.5.1...v2.5.2) (2026-07-28)
 
 
